@@ -63,10 +63,12 @@ class AppState extends ChangeNotifier {
     _inactivityTimer = null;
   }
 
-  /// Cierra la sesión y elimina el estado del usuario de `flutter_secure_storage`.
+  /// Cierra la sesión y elimina el estado guardado en `flutter_secure_storage`.
   void logout() async {
-    await _usuarioAutenticado!
-        .actualizarEstadoEnLinea(false); // Marca al usuario como fuera de linea
+    if (_usuarioAutenticado != null) {
+      await _usuarioAutenticado!.actualizarEstadoEnLinea(
+          false); // Marca al usuario como fuera de línea
+    }
     _usuarioAutenticado = null; // Limpia el usuario
     await storage.delete(key: 'usuarioId'); // Elimina el ID del usuario
     notifyListeners();
@@ -128,28 +130,36 @@ class AppState extends ChangeNotifier {
     return Future.value();
   }
 
-  /// Carga el usuario autenticado desde `flutter_secure_storage`.
-  /// Si se encuentra, lo asigna a `_usuarioAutenticado` y reinicia el temporizador de inactividad.
-  void _loadUsuarioFromSecureStorage() async {
-    String? usuarioId =
-        await storage.read(key: 'usuarioId'); // Obtiene el ID del usuario
-    if (usuarioId != null) {
-      final usuarios = await getUsuarios(); // Obtiene la lista de usuarios
-      // Busca el usuario con el ID correspondiente
-      for (var usuario in usuarios) {
-        if (usuario.id.toString() == usuarioId) {
-          // Asigna al usuario autenticado
-          _usuarioAutenticado = usuario;
-          // Inicia el temporizador de inactividad
-          startInactivityTimer();
-          notifyListeners();
-          return;
-        }
+/// Carga el usuario autenticado desde `flutter_secure_storage`.
+/// Si se encuentra, lo asigna a `_usuarioAutenticado` y reinicia el temporizador de inactividad.
+void _loadUsuarioFromSecureStorage() async {
+  // Obtiene el ID del usuario desde el almacenamiento seguro
+  String? usuarioId = await storage.read(key: 'usuarioId');
+  
+  // Si se obtiene un ID de usuario válido
+  if (usuarioId != null) {
+    // Obtiene la lista de usuarios
+    final usuarios = await getUsuarios();
+    
+    // Recorre la lista de usuarios
+    for (var usuario in usuarios) {
+      // Compara el ID del usuario con el ID obtenido del almacenamiento seguro y verifica si el usuario está en linea
+      if (usuario.id.toString() == usuarioId && usuario.enLinea) {
+        // Asigna el usuario autenticado a la variable correspondiente
+        _usuarioAutenticado = usuario;
+        // Reinicia el temporizador de inactividad
+        startInactivityTimer();
+        // Notifica a los oyentes sobre el cambio de estado
+        notifyListeners();
+        return;
       }
-    } else {
-      _usuarioAutenticado = null;
     }
+  } else {
+    // Si no se encuentra un ID de usuario, asigna null al usuario autenticado
+    _usuarioAutenticado = null;
   }
+}
+
 }
 
 /// `AppProvider` configura los proveedores de la aplicación.
