@@ -42,6 +42,9 @@ class ProgramaModel {
   // descripción del programa
   final String descripcion;
 
+  // area del programa
+  final String area;
+
   // constructor requiriendo los atributos
   ProgramaModel(
       {required this.id,
@@ -55,7 +58,8 @@ class ProgramaModel {
       required this.duracionTotal,
       required this.tipoPrograma,
       required this.certificacion,
-      required this.descripcion});
+      required this.descripcion,
+      required this.area});
 }
 
 // listado de los programas
@@ -94,7 +98,8 @@ Future<List<ProgramaModel>> getProgramas() async {
           duracionTotal: programadata['duracionTotal'] ?? 0,
           tipoPrograma: programadata['tipoPrograma'] ?? "",
           certificacion: programadata['certificacion'] ?? "",
-          descripcion: programadata['descripcion'] ?? ""));
+          descripcion: programadata['descripcion'] ?? "",
+          area: programadata['area'] ?? ""));
     }
     // Devolver la lista de programas
     return programas;

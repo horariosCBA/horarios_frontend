@@ -55,6 +55,7 @@ Future<List<InscripcionAprendizModel>> getInscripciones() async {
             fechaFin: inscripciondata['ficha']['fechaFin'] ?? "",
             tipoOferta: inscripciondata['ficha']['tipoOferta'] ?? "",
             modalidad: inscripciondata['ficha']['modalidad'] ?? "",
+            lugar: inscripciondata['ficha']['lugar'] ?? "",
             estado: inscripciondata['ficha']['estado'] ?? false,
             programa: ProgramaModel(
               id: inscripciondata['ficha']['programa']['id'] ?? 0,
@@ -77,6 +78,7 @@ Future<List<InscripcionAprendizModel>> getInscripciones() async {
                   inscripciondata['ficha']['programa']['certificacion'] ?? "",
               descripcion:
                   inscripciondata['ficha']['programa']['descripcion'] ?? "",
+              area: inscripciondata['ficha']['programa']['area'] ?? "",
             ),
           )));
     }

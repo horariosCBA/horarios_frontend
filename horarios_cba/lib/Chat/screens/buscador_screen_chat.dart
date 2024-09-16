@@ -77,6 +77,7 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
     contactosAprendices = usuarios
         .where((usuario) =>
             usuario.rol == 'Aprendiz' &&
+            usuario.estado &&
             usuario.id != widget.usuarioAutenticado.id &&
             inscripcionesAutenticado.any((inscripcionAutenticado) =>
                 inscripciones.any((inscripcion) =>
@@ -88,6 +89,7 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
     contactosInstructores = usuarios
         .where((usuario) =>
             usuario.rol == 'Instructor' &&
+            usuario.estado &&
             programaciones.any((programacion) =>
                 programacion.usuario.id == usuario.id &&
                 inscripcionesAutenticado.any((inscripcionAutenticado) =>
@@ -95,8 +97,9 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
         .toList();
 
     // Filtra y obtiene los usuarios que son administradores
-    contactosAdministradores =
-        usuarios.where((usuario) => usuario.rol == 'Administrador').toList();
+    contactosAdministradores = usuarios
+        .where((usuario) => usuario.rol == 'Administrador' && usuario.estado)
+        .toList();
 
     // Elimina duplicados asegurando que cada usuario aparezca solo una vez en cada lista
     if (mounted) {
@@ -137,6 +140,7 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
     contactosAprendices = usuarios
         .where((usuario) =>
             usuario.rol == 'Aprendiz' &&
+            usuario.estado &&
             programaciones.any((programacion) =>
                 programacion.usuario.id == widget.usuarioAutenticado.id &&
                 inscripciones.any((inscripcion) =>
@@ -149,6 +153,7 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
     contactosInstructores = usuarios
         .where((usuario) =>
             usuario.rol == 'Instructor' &&
+            usuario.estado &&
             usuario.id != widget.usuarioAutenticado.id &&
             (programaciones.any((programacion) =>
                     programacion.usuario.id == usuario.id &&
@@ -165,6 +170,7 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
     contactosCoordinadores = usuarios
         .where((usuario) =>
             usuario.rol == 'Coordinador' &&
+            usuario.estado &&
             (asignacionesInstructor.any((asignacion) =>
                     asignacion.usuarioInstructor ==
                         widget.usuarioAutenticado.id &&
@@ -179,8 +185,9 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
         .toList();
 
     // Filtra y obtiene los usuarios que son administradores
-    contactosAdministradores =
-        usuarios.where((usuario) => usuario.rol == 'Administrador').toList();
+    contactosAdministradores = usuarios
+        .where((usuario) => usuario.rol == 'Administrador' && usuario.estado)
+        .toList();
 
     // Elimina duplicados asegurando que cada usuario aparezca solo una vez en cada lista
     if (mounted) {
@@ -209,6 +216,7 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
     contactosInstructores = usuarios
         .where((usuario) =>
             usuario.rol == 'Instructor' &&
+            usuario.estado &&
             (asignacionesInstructor.any((asignacion) =>
                     asignacion.usuarioInstructor == usuario.id &&
                     asignacion.usuarioCoordinador ==
@@ -224,14 +232,16 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
 
     // Filtra y obtiene los usuarios que son coordinadores
     contactosCoordinadores = usuarios
-        .where((usuarios) =>
-            usuarios.rol == 'Coordinador' &&
-            usuarios.id != widget.usuarioAutenticado.id)
+        .where((usuario) =>
+            usuario.rol == 'Coordinador' &&
+            usuario.estado &&
+            usuario.id != widget.usuarioAutenticado.id)
         .toList();
 
     // Filtra y obtiene los usuarios que son administradores
-    contactosAdministradores =
-        usuarios.where((usuario) => usuario.rol == 'Administrador').toList();
+    contactosAdministradores = usuarios
+        .where((usuario) => usuario.rol == 'Administrador' && usuario.estado)
+        .toList();
 
     // Elimina duplicados asegurando que cada usuario aparezca solo una vez en cada lista
     if (mounted) {
@@ -249,18 +259,22 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
     List<UsuarioModel> usuarios = await getUsuarios();
 
     // Filtra y obtiene los usuarios según su rol
-    contactosAprendices =
-        usuarios.where((usuario) => usuario.rol == 'Aprendiz').toList();
+    contactosAprendices = usuarios
+        .where((usuario) => usuario.rol == 'Aprendiz' && usuario.estado)
+        .toList();
 
-    contactosInstructores =
-        usuarios.where((usuario) => usuario.rol == 'Instructor').toList();
+    contactosInstructores = usuarios
+        .where((usuario) => usuario.rol == 'Instructor' && usuario.estado)
+        .toList();
 
-    contactosCoordinadores =
-        usuarios.where((usuario) => usuario.rol == 'Coordinador').toList();
+    contactosCoordinadores = usuarios
+        .where((usuario) => usuario.rol == 'Coordinador' && usuario.estado)
+        .toList();
 
     contactosAdministradores = usuarios
         .where((usuario) =>
             usuario.rol == 'Administrador' &&
+            usuario.estado &&
             usuario.id != widget.usuarioAutenticado.id)
         .toList();
 

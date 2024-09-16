@@ -22,6 +22,10 @@ class MensajeModel {
   final String contenido;
   // tipo del mensaje
   final String tipo;
+  // bandera si el usuario emisor ha eliminado el mensaje
+  final bool eliminarEmisor;
+  // bandera si el usuario receptor ha eliminado el mensaje
+  final bool eliminarReceptor;
 
   // constructor de la clase requiriendo la mayoria de atributos
   MensajeModel(
@@ -32,7 +36,9 @@ class MensajeModel {
       required this.fechaLeido,
       required this.imagen,
       required this.contenido,
-      required this.tipo});
+      required this.tipo,
+      required this.eliminarEmisor,
+      required this.eliminarReceptor});
 
   // factory para convertir el json en una instancia de la clase
   factory MensajeModel.fromJson(Map<String, dynamic> json) {
@@ -45,6 +51,8 @@ class MensajeModel {
       imagen: json['imagen'],
       contenido: json['contenido'],
       tipo: json['tipo'],
+      eliminarEmisor: json['eliminarEmisor'],
+      eliminarReceptor: json['eliminarReceptor'],
     );
   }
 
@@ -59,6 +67,8 @@ class MensajeModel {
       'imagen': imagen,
       'contenido': contenido,
       'tipo': tipo,
+      'eliminarEmisor': eliminarEmisor,
+      'eliminarReceptor': eliminarReceptor,
     };
   }
 }
@@ -96,7 +106,9 @@ Future<List<MensajeModel>> getMensajes() async {
           fechaLeido: mensajedata['fechaLeido'] ?? "",
           imagen: mensajedata['imagen'] ?? false,
           contenido: mensajedata['contenido'] ?? "",
-          tipo: mensajedata['tipo'] ?? ""));
+          tipo: mensajedata['tipo'] ?? "",
+          eliminarEmisor: mensajedata['eliminarEmisor'] ?? false,
+          eliminarReceptor: mensajedata['eliminarReceptor'] ?? false));
     }
 
     // retornar la lista de mensajes

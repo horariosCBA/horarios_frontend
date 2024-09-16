@@ -87,6 +87,7 @@ Future<List<ProgramacionModel>> getProgramaciones() async {
           titulacion: programaciondata['usuario']['titulacion'] ?? "",
           estado: programaciondata['usuario']['estado'] ?? false,
           enLinea: programaciondata['usuario']['enLinea'] ?? false,
+          area: programaciondata['usuario']['area'] ?? "",
           fechaRegistro: programaciondata['usuario']['fechaRegistro'] ?? "",
         ),
         planeacion: PlaneacionModel(
@@ -96,6 +97,10 @@ Future<List<ProgramacionModel>> getProgramaciones() async {
           duracionVirtual:
               programaciondata['planeacion']['duracionVirtual'] ?? 0,
           duracionTotal: programaciondata['planeacion']['duracionTotal'] ?? 0,
+          horasRecomendadas:
+              programaciondata['planeacion']['horasRecomendadas'] ?? 0,
+          diasRecomendados:
+              programaciondata['planeacion']['diasRecomendados'] ?? 0,
           resultadoAprendizaje: ResultadoAprendizajeModel(
             id: programaciondata['planeacion']['resultadoAprendizaje']['id'] ??
                 0,
@@ -164,6 +169,9 @@ Future<List<ProgramacionModel>> getProgramaciones() async {
                 descripcion: programaciondata['planeacion']
                             ['resultadoAprendizaje']['competencia']['programa']
                         ['descripcion'] ??
+                    "",
+                area: programaciondata['planeacion']['resultadoAprendizaje']
+                        ['competencia']['programa']['area'] ??
                     "",
               ),
             ),

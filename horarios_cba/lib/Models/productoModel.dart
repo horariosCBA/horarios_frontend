@@ -55,6 +55,9 @@ Future<List<ProductoModel>> getProductos() async {
               productodata['planeacion']['duracionPresencial'] ?? 0,
           duracionVirtual: productodata['planeacion']['duracionVirtual'] ?? 0,
           duracionTotal: productodata['planeacion']['duracionTotal'] ?? 0,
+          horasRecomendadas:
+              productodata['planeacion']['horasRecomendadas'] ?? 0,
+          diasRecomendados: productodata['planeacion']['diasRecomendados'] ?? 0,
           resultadoAprendizaje: ResultadoAprendizajeModel(
             id: productodata['planeacion']['resultadoAprendizaje']['id'] ?? 0,
             numero: productodata['planeacion']['resultadoAprendizaje']
@@ -119,6 +122,9 @@ Future<List<ProductoModel>> getProductos() async {
                     "",
                 descripcion: productodata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['descripcion'] ??
+                    "",
+                area: productodata['planeacion']['resultadoAprendizaje']
+                        ['competencia']['programa']['area'] ??
                     "",
               ),
             ),

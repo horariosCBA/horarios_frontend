@@ -23,6 +23,11 @@ class _ContactsListState extends State<ContactsList> {
   // variable para controlar el estado de carga
   bool isLoading = true;
 
+  // Controlador para manejar el texto del buscador
+  TextEditingController searchController = TextEditingController();
+  // Lista filtrada de contactos
+  List<UsuarioModel> contactosFiltrados = [];
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +46,10 @@ class _ContactsListState extends State<ContactsList> {
         setState(() {
           mensajes = nuevosMensajes;
           isLoading = false;
+          // Inicializar la lista de contactos filtrados solo si no hay búsqueda activa
+          if (searchController.text.isEmpty) {
+            contactosFiltrados = widget.contactos;
+          }
         });
       }
       // Manejar error si es necesario
@@ -59,6 +68,20 @@ class _ContactsListState extends State<ContactsList> {
       await Future.delayed(const Duration(seconds: 1));
       cargarMensajes();
     }
+  }
+
+  // Método para filtrar contactos según el texto ingresado
+  void filtrarContactos(String query) {
+    List<UsuarioModel> contactosFiltradosTemp =
+        widget.contactos.where((contacto) {
+      String nombreCompleto =
+          "${contacto.nombres} ${contacto.apellidos}".toLowerCase();
+      return nombreCompleto.contains(query.toLowerCase());
+    }).toList();
+
+    setState(() {
+      contactosFiltrados = contactosFiltradosTemp;
+    });
   }
 
   @override
@@ -81,6 +104,7 @@ class _ContactsListState extends State<ContactsList> {
               ),
             ),
             child: TextField(
+              controller: searchController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: background1,
@@ -104,6 +128,15 @@ class _ContactsListState extends State<ContactsList> {
                 ),
                 contentPadding: const EdgeInsets.all(10),
               ),
+              style: const TextStyle(color: Colors.black),
+              // Evento onChanged para actualizar la búsqueda en tiempo real
+              onChanged: (value) {
+                filtrarContactos(value);
+              },
+              // Evento onSubmitted para manejar el envío del texto
+              onSubmitted: (value) {
+                filtrarContactos(value);
+              },
             ),
           ),
           // Lista de contactos
@@ -111,18 +144,20 @@ class _ContactsListState extends State<ContactsList> {
             padding: const EdgeInsets.only(top: 10.0),
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: widget.contactos.length,
+              itemCount: contactosFiltrados.length,
               itemBuilder: (context, index) {
+                // asigna el contacto de la lista filtrada
+                UsuarioModel contacto = contactosFiltrados[index];
                 // Obtener el último mensaje de la conversación entre el usuario autenticado y el contacto
                 MensajeModel? ultimoMensaje = mensajes.lastWhere(
                   (mensaje) =>
                       (mensaje.usuarioReceptor ==
                               widget.usuarioAutenticado.id &&
-                          mensaje.usuarioEmisor ==
-                              widget.contactos[index].id) ||
+                          mensaje.usuarioEmisor == contacto.id &&
+                          !mensaje.eliminarReceptor) ||
                       (mensaje.usuarioEmisor == widget.usuarioAutenticado.id &&
-                          mensaje.usuarioReceptor ==
-                              widget.contactos[index].id),
+                          mensaje.usuarioReceptor == contacto.id &&
+                          !mensaje.eliminarEmisor),
                   orElse: () => MensajeModel(
                     id: 0,
                     usuarioReceptor: 0,
@@ -132,6 +167,8 @@ class _ContactsListState extends State<ContactsList> {
                     fechaLeido: '',
                     imagen: false,
                     tipo: '',
+                    eliminarEmisor: false,
+                    eliminarReceptor: false,
                   ),
                 );
 
@@ -144,7 +181,7 @@ class _ContactsListState extends State<ContactsList> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => MobileChatScreen(
-                              usuario: widget.contactos[index],
+                              usuario: contacto,
                               usuarioAutenticado: widget.usuarioAutenticado,
                             ),
                           ),
@@ -153,7 +190,7 @@ class _ContactsListState extends State<ContactsList> {
                       // Nombre del contacto
                       child: ListTile(
                         title: Text(
-                          "${widget.contactos[index].nombres} ${widget.contactos[index].apellidos}",
+                          "${contacto.nombres} ${contacto.apellidos}",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -186,10 +223,10 @@ class _ContactsListState extends State<ContactsList> {
                         leading: Stack(
                           children: [
                             // Condicional para mostrar la imagen del contacto
-                            if (widget.contactos[index].foto != '')
+                            if (contacto.foto != '')
                               CircleAvatar(
                                 backgroundImage: NetworkImage(
-                                  widget.contactos[index].foto,
+                                  contacto.foto,
                                 ),
                                 radius: 30,
                               )
@@ -199,8 +236,7 @@ class _ContactsListState extends State<ContactsList> {
                                 backgroundColor: primaryColor,
                                 radius: 20,
                                 child: Text(
-                                  widget.contactos[index].nombres[0]
-                                      .toUpperCase(),
+                                  contacto.nombres[0].toUpperCase(),
                                   style: const TextStyle(
                                     fontSize: 20,
                                     color: Colors.white,
@@ -215,7 +251,7 @@ class _ContactsListState extends State<ContactsList> {
                                 width: 10,
                                 height: 10,
                                 decoration: BoxDecoration(
-                                  color: widget.contactos[index].enLinea
+                                  color: contacto.enLinea
                                       ? primaryColor
                                       : Colors.grey,
                                   shape: BoxShape.circle,

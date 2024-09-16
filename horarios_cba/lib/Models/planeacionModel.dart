@@ -9,15 +9,19 @@ import '../source.dart';
 
 // modelo para las planeaciones
 class PlaneacionModel {
-  // id de la planeacion
+  // id de la planeación
   final int id;
-  // duracion presencial de la planeacion
+  // duración presencial de la planeación
   final int duracionPresencial;
-  // duracion virtual de la planeacion
+  // duración virtual de la planeación
   final int duracionVirtual;
-  // duracion total de la planeacion
+  // duración total de la planeación
   final int duracionTotal;
-  // resultado de la planeacion
+  // horas recomendadas de la planeación
+  final int horasRecomendadas;
+  // días recomendados de la planeación
+  final int diasRecomendados;
+  // resultado de la planeación
   final ResultadoAprendizajeModel resultadoAprendizaje;
 
   // constructor requiriendo los atributos
@@ -26,7 +30,9 @@ class PlaneacionModel {
       required this.duracionPresencial,
       required this.duracionVirtual,
       required this.duracionTotal,
-      required this.resultadoAprendizaje});
+      required this.resultadoAprendizaje,
+      required this.horasRecomendadas,
+      required this.diasRecomendados});
 }
 
 // lista de las planeaciones
@@ -58,6 +64,8 @@ Future<List<PlaneacionModel>> getPlaneaciones() async {
         duracionPresencial: planeaciondata['duracionPresencial'] ?? 0,
         duracionVirtual: planeaciondata['duracionVirtual'] ?? 0,
         duracionTotal: planeaciondata['duracionTotal'] ?? 0,
+        horasRecomendadas: planeaciondata['horasRecomendadas'] ?? 0,
+        diasRecomendados: planeaciondata['diasRecomendados'] ?? 0,
         resultadoAprendizaje: ResultadoAprendizajeModel(
           id: planeaciondata['resultadoAprendizaje']['id'] ?? 0,
           numero: planeaciondata['resultadoAprendizaje']['numero'] ?? "",
@@ -114,6 +122,9 @@ Future<List<PlaneacionModel>> getPlaneaciones() async {
                   "",
               descripcion: planeaciondata['resultadoAprendizaje']['competencia']
                       ['programa']['descripcion'] ??
+                  "",
+              area: planeaciondata['resultadoAprendizaje']['competencia']
+                      ['programa']['area'] ??
                   "",
             ),
           ),

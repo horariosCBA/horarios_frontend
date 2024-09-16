@@ -54,6 +54,9 @@ class UsuarioModel {
   // En linea
   final bool enLinea;
 
+  // Area del usuario
+  final String area;
+
   final String fechaRegistro;
 
   /// Crea un nuevo objeto [UsuarioModel] con los parámetros proporcionados.
@@ -74,6 +77,7 @@ class UsuarioModel {
     required this.titulacion,
     required this.estado,
     required this.enLinea,
+    required this.area,
     required this.fechaRegistro,
   });
 
@@ -213,6 +217,7 @@ Future<List<UsuarioModel>> getUsuarios() async {
           titulacion: usuariodata['titulacion'] ?? "",
           estado: usuariodata['estado'] ?? false,
           enLinea: usuariodata['enLinea'] ?? false,
+          area: usuariodata['area'] ?? "",
           fechaRegistro: usuariodata['fechaRegistro'] ?? "",
         ),
       );

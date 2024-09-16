@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/constantsDesign.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 // Clase MyMessageCard, que representa una tarjeta de mensaje recibido.
 class MyMessageCard extends StatefulWidget {
@@ -49,31 +50,29 @@ class _MyMessageCardState extends State<MyMessageCard> {
                   bottom: 20,
                 ),
                 child: widget.imagen // Verifica si el mensaje es una imagen
-                    ? GestureDetector(
-                        onTap: () {
-                          modalAmpliacion(
-                              context, widget.message); // amplia la imagen
-                        },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
-                            widget.message,
-                            fit: BoxFit.fill, // Ajuste de la imagen
-                            width: 200,
-                            height: 200,
-                            errorBuilder: (context, error, stackTrace) {
-                              // Error al cargar la imagen
-                              return Text(
-                                "Error al cargar la imagen.",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey[600],
-                                ),
-                              );
-                            },
-                          ),
+                    ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      // Zoom de la imagen
+                      child: WidgetZoom(
+                        heroAnimationTag: widget.message,
+                        zoomWidget: Image.network(
+                          widget.message,
+                          fit: BoxFit.fill, // Ajuste de la imagen
+                          width: 200,
+                          height: 200,
+                          errorBuilder: (context, error, stackTrace) {
+                            // Error al cargar la imagen
+                            return Text(
+                              "Error al cargar la imagen.",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[600],
+                              ),
+                            );
+                          },
                         ),
-                      )
+                      ),
+                    )
                     // Contenido de la tarjeta si no es una imagen
                     : Text(
                         widget.message,

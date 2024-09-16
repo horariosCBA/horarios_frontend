@@ -56,6 +56,9 @@ Future<List<TematicaModel>> getTematicas() async {
               tematicadata['planeacion']['duracionPresencial'] ?? 0,
           duracionVirtual: tematicadata['planeacion']['duracionVirtual'] ?? 0,
           duracionTotal: tematicadata['planeacion']['duracionTotal'] ?? 0,
+          horasRecomendadas:
+              tematicadata['planeacion']['horasRecomendadas'] ?? 0,
+          diasRecomendados: tematicadata['planeacion']['diasRecomendados'] ?? 0,
           resultadoAprendizaje: ResultadoAprendizajeModel(
             id: tematicadata['planeacion']['resultadoAprendizaje']['id'] ?? 0,
             numero: tematicadata['planeacion']['resultadoAprendizaje']
@@ -120,6 +123,9 @@ Future<List<TematicaModel>> getTematicas() async {
                     "",
                 descripcion: tematicadata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['descripcion'] ??
+                    "",
+                area: tematicadata['planeacion']['resultadoAprendizaje']
+                        ['competencia']['programa']['area'] ??
                     "",
               ),
             ),

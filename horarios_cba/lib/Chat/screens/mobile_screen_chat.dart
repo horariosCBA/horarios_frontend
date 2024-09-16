@@ -47,14 +47,16 @@ class _MobileScreenChatState extends State<MobileScreenChat> {
     // Filtra los usuarios con los que se ha tenido una conversación, excluyendo al usuario autenticado
     List<UsuarioModel> contactosConConversacion = usuarios
         .where((usuario) =>
-            usuario.id !=
-                widget.usuarioAutenticado
-                    .id && // Asegúrate de que el usuario autenticado no aparezca
+            usuario.id != widget.usuarioAutenticado.id &&
+            usuario
+                .estado && // Asegúrate de que el usuario autenticado no aparezca
             mensajes.any((mensaje) =>
                 (mensaje.usuarioReceptor == widget.usuarioAutenticado.id &&
-                    mensaje.usuarioEmisor == usuario.id) ||
+                    mensaje.usuarioEmisor == usuario.id &&
+                    !mensaje.eliminarReceptor) ||
                 (mensaje.usuarioEmisor == widget.usuarioAutenticado.id &&
-                    mensaje.usuarioReceptor == usuario.id)))
+                    mensaje.usuarioReceptor == usuario.id &&
+                    !mensaje.eliminarEmisor)))
         .toList();
 
     // Elimina duplicados asegurando que cada usuario aparezca solo una vez

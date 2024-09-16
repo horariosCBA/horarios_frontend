@@ -13,6 +13,8 @@ import 'package:horarios_cba/Models/mensajeModel.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/source.dart';
+import 'package:image_compression_flutter/image_compression_flutter.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:image/image.dart' as im;
 
@@ -191,13 +193,15 @@ class _WebChatScreenState extends State<WebChatScreen> {
     // Si se ha cerrado el canal
     if (_isChannelClosed) return;
 
-    // Enviar la petición al Websocket para que traiga la conversación entre el usuario emisor y el usuario receptor
+    // Crear el mensaje para cargar la conversación
     final loadMessage = {
       'action': 'load_conversation',
       'usuarioEmisor': widget.usuarioAutenticado.id,
       'usuarioReceptor': widget.usuario.id,
+      'usuarioActual': widget.usuarioAutenticado.id,
     };
 
+    // Enviar el mensaje al WebSocket
     channel!.sink.add(jsonEncode(loadMessage));
   }
 
@@ -213,6 +217,8 @@ class _WebChatScreenState extends State<WebChatScreen> {
       imagen: isImage,
       contenido: _msgController.text,
       tipo: 'text',
+      eliminarEmisor: false,
+      eliminarReceptor: false,
     );
 
     // Anexar el nuevo mensaje
@@ -235,51 +241,15 @@ class _WebChatScreenState extends State<WebChatScreen> {
   }
 
   // Función para borrar la conversación
-  void deleteConversation() async {
-    // Si se ha cerrado el canal
+  void deleteConversation() {
     if (_isChannelClosed) return;
 
-    // Variable bandera para controlar si hay errores al borrar las imágenes
-    bool errorAlEliminarImagen = false;
-
-    // Eliminar imágenes de Firebase Storage si existen
-    for (var mensaje in listMsg) {
-      if (mensaje.imagen &&
-          ((mensaje.usuarioEmisor == widget.usuarioAutenticado.id &&
-                  mensaje.usuarioReceptor == widget.usuario.id) ||
-              (mensaje.usuarioEmisor == widget.usuario.id &&
-                  mensaje.usuarioReceptor == widget.usuarioAutenticado.id))) {
-        try {
-          // Convierte la URL en una referencia de almacenamiento
-          firabase_storage.Reference storageReference = firabase_storage
-              .FirebaseStorage.instance
-              .refFromURL(mensaje.contenido);
-
-          // Borra el archivo
-          await storageReference.delete();
-        } catch (e) {
-          // Cambiar el estado de la bandera si ocurre un error
-          errorAlEliminarImagen = true;
-          break; // Salir del bucle si hay un error
-        }
-      }
-    }
-
-    // Si hubo un error al eliminar alguna imagen, no procedemos a eliminar la conversación ni limpiar la lista de mensajes
-    if (errorAlEliminarImagen) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Error al borrar las imagenes.'),
-        ),
-      );
-      return;
-    }
-
-    // Después de borrar todas las imágenes, procedemos a eliminar la conversación
+    // Enviar la petición al Websocket para borrar la conversación entre el usuario emisor y el usuario receptor en el chat del usuario actual
     final deleteMessage = {
       'action': 'delete_conversation',
       'usuarioEmisor': widget.usuarioAutenticado.id,
       'usuarioReceptor': widget.usuario.id,
+      'usuarioActual': widget.usuarioAutenticado.id,
     };
 
     channel!.sink.add(jsonEncode(deleteMessage));
@@ -305,22 +275,13 @@ class _WebChatScreenState extends State<WebChatScreen> {
     channel!.sink.add(jsonEncode(markAsReadMessage));
   }
 
-  // Método para seleccionar una imagen
-  /// Selecciona un archivo de imagen y lo carga en un Uint8List.
-  ///
-  /// Si la imagen seleccionada no tiene tamaño 800x600, se redimensiona
-  /// a ese tamaño y se reduce la calidad de la imagen a 50.
-  ///
-  /// El parámetro [imagenFrom] indica si se seleccionó la imagen desde el
-  /// botón de "Foto desde dispositivo" o desde la galería del dispositivo.
-  ///
-  /// Si [imagenFrom] es verdadero, se abre la galería del dispositivo para
-  /// que el usuario seleccione la imagen. Si es falso, se abre el selector
-  /// de archivos para que el usuario seleccione la imagen desde el dispositivo.
+  // Función para seleccionar un archivo
   void _selectFile(BuildContext context, bool imagenFrom) async {
     // Abrir el selector de archivos o la galería del dispositivo
-    FilePickerResult? fileResult = await FilePicker.platform
-        .pickFiles(type: FileType.image, withData: true);
+    FilePickerResult? fileResult = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      withData: true,
+    );
 
     if (fileResult != null) {
       setState(() {
@@ -335,22 +296,48 @@ class _WebChatScreenState extends State<WebChatScreen> {
       final image = im.decodeImage(selectedImagenInBytes!);
 
       // Verificar los casos y modificar la imagen según sea necesario
+      im.Image resizedImage;
       if (image!.width > 800 && image.height > 600) {
         // Caso 1: La imagen es mayor en ambos anchos y altos
-        final resizedImage = im.copyResize(image, width: 800, height: 600);
-        selectedImagenInBytes = Uint8List.fromList(im.encodeJpg(resizedImage));
+        resizedImage = im.copyResize(image, width: 800, height: 600);
       } else if (image.width > 800 && image.height <= 600) {
         // Caso 2: El ancho es mayor a 800 y el alto es menor a 600
-        final resizedImage = im.copyResize(image, width: 800);
-        selectedImagenInBytes = Uint8List.fromList(im.encodeJpg(resizedImage));
+        resizedImage = im.copyResize(image, width: 800);
       } else if (image.width <= 800 && image.height > 600) {
         // Caso 3: El ancho es menor que 800 y el alto es mayor a 600
-        final resizedImage = im.copyResize(image, height: 600);
-        selectedImagenInBytes = Uint8List.fromList(im.encodeJpg(resizedImage));
+        resizedImage = im.copyResize(image, height: 600);
       } else {
         // Caso por defecto
-        selectedImagenInBytes = Uint8List.fromList(im.encodeJpg(image));
+        resizedImage = image;
       }
+
+      // Rotar la imagen (por ejemplo, 90 grados)
+      im.Image rotatedImage = im.copyRotate(resizedImage,
+          angle:
+              UniversalPlatform.isIOS || UniversalPlatform.isAndroid ? 90 : 0);
+
+      // Convertir la imagen rotada a bytes
+      final rotatedImageBytes = Uint8List.fromList(im.encodeJpg(rotatedImage));
+
+      // Comprimir la imagen redimensionada
+      final compressedImage = await compressor.compress(
+        ImageFileConfiguration(
+          input: ImageFile(
+            rawBytes: rotatedImageBytes,
+            filePath: selectFile,
+          ),
+          config: const Configuration(
+            outputType: ImageOutputType.webpThenJpg,
+            useJpgPngNativeCompressor: false,
+            quality: 50,
+          ),
+        ),
+      );
+
+      // Actualizar la imagen seleccionada con la imagen comprimida
+      setState(() {
+        selectedImagenInBytes = compressedImage.rawBytes;
+      });
 
       // Si ya esta la imagen seleccionada se abre el visualizador para poderla enviar
       if (selectFile.isNotEmpty) {
@@ -388,7 +375,7 @@ class _WebChatScreenState extends State<WebChatScreen> {
 
       // Definir los metadatos de la imagen, en este caso especificando el tipo de contenido
       final metadata =
-          firabase_storage.SettableMetadata(contentType: 'image/jpeg');
+          firabase_storage.SettableMetadata(contentType: 'image/webp');
 
       // Subir la imagen a Firebase Storage
       uploadTask = ref.putData(selectedImagenInBytes, metadata);
@@ -537,7 +524,9 @@ class _WebChatScreenState extends State<WebChatScreen> {
                     Row(
                       children: [
                         IconButton(
-                          onPressed: deleteConversation,
+                          onPressed: () {
+                            borrarConversacion(context);
+                          },
                           icon: const Icon(Icons.delete, color: Colors.grey),
                         ),
                       ],
@@ -786,6 +775,75 @@ class _WebChatScreenState extends State<WebChatScreen> {
                     uploadFileAndSend(context, imagen, path);
                   }),
                 ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Modal para confirmar la eliminación de una conversación
+  void borrarConversacion(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          // Título del diálogo
+          title: const Center(
+              child: Text(
+            "¿Quiere eliminar esta conversación?",
+            textAlign: TextAlign.center,
+          )),
+          alignment: Alignment.center,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              // Mensaje informativo para el usuario
+              const Text(
+                "Al realizar esta operación no se podra recuperar la conversación.",
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              // Contenedor circular con la imagen del logo de la aplicación
+              ClipOval(
+                child: Container(
+                  width: 100, // Ajusta el tamaño según sea necesario
+                  height: 100, // Ajusta el tamaño según sea necesario
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: primaryColor,
+                  ),
+                  // Muestra la imagen del logo en el contenedor.
+                  child: Image.asset(
+                    "assets/img/logo.png",
+                    fit: BoxFit.cover, // Ajusta la imagen al contenedor
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            ButtonBar(
+              alignment: MainAxisAlignment.center,
+              children: [
+                // Botón para cancelar la operación.
+                Padding(
+                  padding: const EdgeInsets.all(defaultPadding),
+                  child: buildButton("Cancelar", () {
+                    Navigator.pop(context);
+                  }),
+                ),
+                // Botón para eliminar la conversación.
+                Padding(
+                  padding: const EdgeInsets.all(defaultPadding),
+                  child: buildButton("Eliminar", () {
+                    Navigator.pop(context);
+                    deleteConversation();
+                  }),
+                )
               ],
             ),
           ],

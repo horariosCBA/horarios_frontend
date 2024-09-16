@@ -83,6 +83,7 @@ Future<List<ResultadoAprendizajeModel>> getResultados() async {
                 resultadodata['competencia']['programa']['certificacion'] ?? "",
             descripcion:
                 resultadodata['competencia']['programa']['descripcion'] ?? "",
+            area: resultadodata['competencia']['programa']['area'] ?? "",
           ),
         ),
       ));

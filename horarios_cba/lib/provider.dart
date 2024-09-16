@@ -130,36 +130,35 @@ class AppState extends ChangeNotifier {
     return Future.value();
   }
 
-/// Carga el usuario autenticado desde `flutter_secure_storage`.
-/// Si se encuentra, lo asigna a `_usuarioAutenticado` y reinicia el temporizador de inactividad.
-void _loadUsuarioFromSecureStorage() async {
-  // Obtiene el ID del usuario desde el almacenamiento seguro
-  String? usuarioId = await storage.read(key: 'usuarioId');
-  
-  // Si se obtiene un ID de usuario válido
-  if (usuarioId != null) {
-    // Obtiene la lista de usuarios
-    final usuarios = await getUsuarios();
-    
-    // Recorre la lista de usuarios
-    for (var usuario in usuarios) {
-      // Compara el ID del usuario con el ID obtenido del almacenamiento seguro y verifica si el usuario está en linea
-      if (usuario.id.toString() == usuarioId && usuario.enLinea) {
-        // Asigna el usuario autenticado a la variable correspondiente
-        _usuarioAutenticado = usuario;
-        // Reinicia el temporizador de inactividad
-        startInactivityTimer();
-        // Notifica a los oyentes sobre el cambio de estado
-        notifyListeners();
-        return;
-      }
-    }
-  } else {
-    // Si no se encuentra un ID de usuario, asigna null al usuario autenticado
-    _usuarioAutenticado = null;
-  }
-}
+  /// Carga el usuario autenticado desde `flutter_secure_storage`.
+  /// Si se encuentra, lo asigna a `_usuarioAutenticado` y reinicia el temporizador de inactividad.
+  void _loadUsuarioFromSecureStorage() async {
+    // Obtiene el ID del usuario desde el almacenamiento seguro
+    String? usuarioId = await storage.read(key: 'usuarioId');
 
+    // Si se obtiene un ID de usuario válido
+    if (usuarioId != null) {
+      // Obtiene la lista de usuarios
+      final usuarios = await getUsuarios();
+
+      // Recorre la lista de usuarios
+      for (var usuario in usuarios) {
+        // Compara el ID del usuario con el ID obtenido del almacenamiento seguro y verifica si el usuario está en linea
+        if (usuario.id.toString() == usuarioId && usuario.enLinea) {
+          // Asigna el usuario autenticado a la variable correspondiente
+          _usuarioAutenticado = usuario;
+          // Reinicia el temporizador de inactividad
+          startInactivityTimer();
+          // Notifica a los oyentes sobre el cambio de estado
+          notifyListeners();
+          return;
+        }
+      }
+    } else {
+      // Si no se encuentra un ID de usuario, asigna null al usuario autenticado
+      _usuarioAutenticado = null;
+    }
+  }
 }
 
 /// `AppProvider` configura los proveedores de la aplicación.

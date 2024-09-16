@@ -224,34 +224,3 @@ Widget buildButton(String text, VoidCallback onPressed) {
     ),
   );
 }
-
-/// Muestra un diálogo modal con una imagen ampliada.
-///
-/// El parámetro [src] es la URL de la imagen a mostrar.
-void modalAmpliacion(BuildContext context, String src) {
-  // Muestra un diálogo modal con una imagen ampliada.
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        // El contenido del diálogo debe tener un tamaño cero para que el
-        // fondo transparente no afecte al diálogo completo.
-        contentPadding: EdgeInsets.zero,
-        // El color de fondo se establece a transparente para que la imagen
-        // pueda ser visible detrás de otras partes del diálogo.
-        backgroundColor: Colors.transparent,
-        // Crea un contenedor con un borde redondeado para la imagen.
-        content: InteractiveViewer(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            // Muestra la imagen en el diálogo.
-            child: Image.network(
-              src,
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
-      );
-    },
-  );
-}

@@ -64,6 +64,7 @@ Future<List<AsignacionCoordinadorModel>> getAsignacionesCoordinador() async {
           tipoPrograma: asignaciondata['programa']['tipoPrograma'] ?? "",
           certificacion: asignaciondata['programa']['certificacion'] ?? "",
           descripcion: asignaciondata['programa']['descripcion'] ?? "",
+          area: asignaciondata['programa']['area'] ?? "",
         ),
       ));
     }

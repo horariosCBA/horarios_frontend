@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/constantsDesign.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 // Clase SenderMessageCard, que representa una tarjeta de mensaje recibido.
 class SenderMessageCard extends StatefulWidget {
@@ -33,7 +34,7 @@ class _SenderMessageCardState extends State<SenderMessageCard> {
         child: Card(
           elevation: 1,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          color: primaryColor,
+          color: Colors.grey,
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Stack(
             children: [
@@ -46,31 +47,29 @@ class _SenderMessageCardState extends State<SenderMessageCard> {
                 ),
                 // Contenido de la tarjeta
                 child: widget.imagen // Verifica si el mensaje es una imagen
-                    ? GestureDetector(
-                        onTap: () {
-                          modalAmpliacion(
-                              context, widget.message); // amplia la imagen
-                        },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(
-                            widget.message,
-                            fit: BoxFit.fill, // Ajuste de la imagen
-                            width: 200,
-                            height: 200,
-                            errorBuilder: (context, error, stackTrace) {
-                              // Error al cargar la imagen
-                              return const Text(
-                                "Error al cargar la imagen.",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                              );
-                            },
-                          ),
+                    ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      // Zoom de la imagen
+                      child: WidgetZoom(
+                        heroAnimationTag: widget.message,
+                        zoomWidget: Image.network(
+                          widget.message,
+                          fit: BoxFit.fill, // Ajuste de la imagen
+                          width: 200,
+                          height: 200,
+                          errorBuilder: (context, error, stackTrace) {
+                            // Error al cargar la imagen
+                            return const Text(
+                              "Error al cargar la imagen.",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            );
+                          },
                         ),
-                      )
+                      ),
+                    )
                     // Contenido de la tarjeta si no es una imagen
                     : Text(
                         widget.message,

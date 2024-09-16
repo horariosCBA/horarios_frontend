@@ -54,12 +54,14 @@ class _WebLayoutChatState extends State<WebLayoutChat> {
         .where((usuario) =>
             usuario.id !=
                 widget.usuarioAutenticado
-                    .id && // Asegúrate de que el usuario autenticado no aparezca
+                    .id && usuario.estado && // Asegúrate de que el usuario autenticado no aparezca
             mensajes.any((mensaje) =>
                 (mensaje.usuarioReceptor == widget.usuarioAutenticado.id &&
-                    mensaje.usuarioEmisor == usuario.id) ||
+                    mensaje.usuarioEmisor == usuario.id &&
+                    !mensaje.eliminarReceptor) ||
                 (mensaje.usuarioEmisor == widget.usuarioAutenticado.id &&
-                    mensaje.usuarioReceptor == usuario.id)))
+                    mensaje.usuarioReceptor == usuario.id &&
+                    !mensaje.eliminarEmisor)))
         .toList();
 
     // Elimina duplicados asegurando que cada usuario aparezca solo una vez
