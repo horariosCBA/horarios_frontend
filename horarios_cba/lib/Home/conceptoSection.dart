@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:horarios_cba/Home/conceptoCard.dart';
 import 'package:horarios_cba/Home/conceptoList.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/responsive.dart';
 
 // Clase ConceptoSection, que representa la sección de conceptos.
 class ConceptoSection extends StatelessWidget {
@@ -47,20 +46,15 @@ class ConceptoSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: 800,
-            child: GridView.builder(
+            height: 500,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
                 itemCount: conceptoList.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: Responsive.isDesktop(context) ||
-                            Responsive.isTablet(context)
-                        ? 3
-                        : 1, // Cantidad de columnas en función de la resolución
-                    childAspectRatio: Responsive.isDesktop(context) ||
-                            Responsive.isTablet(context)
-                        ? 0.8
-                        : 0.7), // Tamaño de las columnas en función de la resolución
                 itemBuilder: (context, index) =>
-                    ConceptoCard(concepto: conceptoList[index])),
+                    Padding(
+                      padding: const EdgeInsets.only(right: defaultPadding),
+                      child: ConceptoCard(concepto: conceptoList[index]),
+                    )),
           ),
         )
       ],

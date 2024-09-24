@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, unnecessary_null_comparison
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -54,6 +54,9 @@ class UsuarioModel {
   // En linea
   final bool enLinea;
 
+  // Tipo de instructor
+  final String tipoInstructor;
+
   // Area del usuario
   final String area;
 
@@ -77,6 +80,7 @@ class UsuarioModel {
     required this.titulacion,
     required this.estado,
     required this.enLinea,
+    required this.tipoInstructor,
     required this.area,
     required this.fechaRegistro,
   });
@@ -99,54 +103,34 @@ class UsuarioModel {
       throw Exception('Error al actualizar el estado en línea');
     }
   }
-}
 
-/// Clase que representa un modelo de registro de usuario.
-///
-/// Esta clase contiene los atributos necesarios para el registro de un usuario,
-/// como nombres, apellidos, correo electrónico, tipo de documento, número de documento,
-/// y teléfono.
-class UsuarioRegisterModel {
-  /// Nombre del usuario.
-  final String nombres;
+  // Constructor para crear un nuevo objeto [UsuarioModel] a partir de una lista de datos CSV
+  factory UsuarioModel.fromCsv(List<dynamic> row) {
+    // Asegurarse de que la fila tenga al menos 6 columnas; si no, rellenar con campos vacíos
+    while (row.length < 6) {
+      row.add('');
+    }
 
-  /// Apellidos del usuario.
-  final String apellidos;
-
-  /// Correo electrónico del usuario.
-  final String correo;
-
-  /// Tipo de documento del usuario.
-  final String tipoDocumento;
-
-  /// Número de documento del usuario.
-  final String noDocumento;
-
-  /// Teléfono del usuario.
-  final String telefonoCelular;
-
-  /// Crea un nuevo objeto [UsuarioRegisterModel] con los parámetros proporcionados.
-  UsuarioRegisterModel({
-    required this.nombres,
-    required this.apellidos,
-    required this.correo,
-    required this.tipoDocumento,
-    required this.noDocumento,
-    required this.telefonoCelular,
-  });
-
-  /// Factory para crear un [UsuarioRegisterModel] a partir de una lista de datos de CSV.
-  ///
-  /// Si el valor de algún atributo es nulo, se coloca una cadena vacía.
-  /// Utiliza el método [toString] para convertir los valores de los atributos numéricos a cadenas.
-  factory UsuarioRegisterModel.fromCsv(List<dynamic> row) {
-    return UsuarioRegisterModel(
+    return UsuarioModel(
+      id: 0,
       nombres: row.isNotEmpty ? row[0].toString() : '',
       apellidos: row.length > 1 ? row[1].toString() : '',
       telefonoCelular: row.length > 2 ? row[2].toString() : '',
       tipoDocumento: row.length > 3 ? row[3].toString() : '',
-      noDocumento: row.length > 4 ? row[4].toString() : '',
-      correo: row.length > 5 ? row[5].toString() : '',
+      numeroDocumento: row.length > 4 ? row[4].toString() : '',
+      correoElectronico: row.length > 5 ? row[5].toString() : '',
+      telefono: '',
+      rol: '',
+      cargo: '',
+      especialidad: '',
+      foto: '',
+      vocero: false,
+      titulacion: '',
+      estado: false,
+      enLinea: false,
+      tipoInstructor: '',
+      area: '',
+      fechaRegistro: '',
     );
   }
 
@@ -158,8 +142,8 @@ class UsuarioRegisterModel {
         apellidos.isNotEmpty &&
         telefonoCelular.isNotEmpty &&
         tipoDocumento.isNotEmpty &&
-        noDocumento.isNotEmpty &&
-        correo.isNotEmpty;
+        numeroDocumento.isNotEmpty &&
+        correoElectronico.isNotEmpty;
   }
 }
 
@@ -217,6 +201,7 @@ Future<List<UsuarioModel>> getUsuarios() async {
           titulacion: usuariodata['titulacion'] ?? "",
           estado: usuariodata['estado'] ?? false,
           enLinea: usuariodata['enLinea'] ?? false,
+          tipoInstructor: usuariodata['tipoInstructor'] ?? "",
           area: usuariodata['area'] ?? "",
           fechaRegistro: usuariodata['fechaRegistro'] ?? "",
         ),

@@ -9,15 +9,15 @@ import '../source.dart';
 class AsignacionAulaModel {
   // id de la asignacion
   final int id;
-  // id del coordinador
-  final int usuario;
+  // id del programa
+  final int programa;
   // id del aula relacionada a la asignación
   final AulaModel aula;
 
   // constructor requiriendo los atributos
   AsignacionAulaModel({
     required this.id,
-    required this.usuario,
+    required this.programa,
     required this.aula,
   });
 }
@@ -49,7 +49,7 @@ Future<List<AsignacionAulaModel>> getAsignacionesAula() async {
     for (var asignaciondata in decodedData) {
       asignacionesAula.add(AsignacionAulaModel(
         id: asignaciondata['id'] ?? 0,
-        usuario: asignaciondata['usuario'] ?? 0,
+        programa: asignaciondata['programa'] ?? 0,
         aula: AulaModel(
           id: asignaciondata['aula']['id'] ?? 0,
           nombre: asignaciondata['aula']['nombre'] ?? "",

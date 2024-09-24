@@ -87,11 +87,13 @@ Future<List<ProgramacionModel>> getProgramaciones() async {
           titulacion: programaciondata['usuario']['titulacion'] ?? "",
           estado: programaciondata['usuario']['estado'] ?? false,
           enLinea: programaciondata['usuario']['enLinea'] ?? false,
+          tipoInstructor: programaciondata['usuario']['tipoInstructor'] ?? "",
           area: programaciondata['usuario']['area'] ?? "",
           fechaRegistro: programaciondata['usuario']['fechaRegistro'] ?? "",
         ),
         planeacion: PlaneacionModel(
           id: programaciondata['planeacion']['id'] ?? 0,
+          numero: programaciondata['planeacion']['numero'] ?? 0,
           duracionPresencial:
               programaciondata['planeacion']['duracionPresencial'] ?? 0,
           duracionVirtual:

@@ -2,8 +2,8 @@
 
 import 'package:horarios_cba/Home/homePage.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/controllers/MenuAppController.dart';
-import 'package:horarios_cba/dashboard/dashboard/screens/main/main_screen.dart';
+import 'package:horarios_cba/dashboard/controllers/menu_app_controller.dart';
+import 'package:horarios_cba/dashboard/screens/main/main_screen_aprendiz.dart';
 import 'package:horarios_cba/provider.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +55,7 @@ class _ProfileCardState extends State<ProfileCard> {
                         ChangeNotifierProvider(
                             create: (context) => MenuAppController()),
                       ],
-                      child: const MainScreenTodo(),
+                      child: const MainScreenAprendiz(),
                     ),
                   ),
                 );

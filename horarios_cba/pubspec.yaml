@@ -41,8 +41,7 @@ dependencies:
   latlong2: 
   flutter_svg:
   provider: ^6.1.2
-  syncfusion_flutter_datagrid: ^25.2.5
-  syncfusion_flutter_charts: ^25.2.5
+  syncfusion_flutter_datagrid:
   local_auth:
   mask_text_input_formatter:
   dropdown_button2:
@@ -74,6 +73,10 @@ dependencies:
   firebase_storage: ^12.2.0
   image_compression_flutter: ^1.0.4
   widget_zoom: ^0.0.4
+  syncfusion_flutter_calendar: ^26.2.14
+  syncfusion_localizations:
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

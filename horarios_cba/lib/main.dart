@@ -2,9 +2,11 @@
 // Desactiva la advertencia de clases inmutables
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:horarios_cba/Splash/page/SplashScreen.dart';
 import 'package:horarios_cba/firebase_options.dart';
 import 'package:provider/provider.dart'; // Manejo del estado de la aplicación
+import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 import 'constantsDesign.dart'; // Diseño de la interfaz
 import 'package:flutter/material.dart'; // Biblioteca principal de Flutter
 import 'provider.dart'; // Proveedor de estado de la aplicación
@@ -39,14 +41,24 @@ class MyApp extends StatelessWidget {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent, // Propaga gestos a widgets hijos
         // Reinicia el temporizador de inactividad al tocar la pantalla
-        onTap: () => appState.startInactivityTimer(),
+        //onTap: () => appState.startInactivityTimer(),
         // Reinicia el temporizador al deslizar la pantalla
-        onPanDown: (_) => appState.startInactivityTimer(),
+        //onPanDown: (_) => appState.startInactivityTimer(),
         // Reinicia el temporizador al arrastrar la pantalla
-        onPanUpdate: (_) => appState.startInactivityTimer(),
+        //onPanUpdate: (_) => appState.startInactivityTimer(),
         // Reinicia el temporizador al dejar de arrastrar la pantalla
-        onPanEnd: (_) => appState.startInactivityTimer(),
+        //onPanEnd: (_) => appState.startInactivityTimer(),
         child: MaterialApp(
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            SfGlobalLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('es'),
+          ],
+          locale: const Locale('es'),
           title: "Horarios CBA",
           navigatorKey: navigatorKey,
           theme: lightTheme, // Define el tema de la aplicación

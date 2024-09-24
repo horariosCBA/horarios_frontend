@@ -96,12 +96,15 @@ Future<List<Horariomodel>> getHorarios() async {
                 horariodata['programacion']['usuario']['titulacion'] ?? "",
             estado: horariodata['programacion']['usuario']['estado'] ?? false,
             enLinea: horariodata['programacion']['usuario']['enLinea'] ?? false,
+            tipoInstructor:
+                horariodata['programacion']['usuario']['tipoInstructor'] ?? "",
             area: horariodata['programacion']['usuario']['area'] ?? "",
             fechaRegistro:
                 horariodata['programacion']['usuario']['fechaRegistro'] ?? "",
           ),
           planeacion: PlaneacionModel(
             id: horariodata['programacion']['planeacion']['id'] ?? 0,
+            numero: horariodata['programacion']['planeacion']['numero'] ?? 0,
             duracionPresencial: horariodata['programacion']['planeacion']
                     ['duracionPresencial'] ??
                 0,

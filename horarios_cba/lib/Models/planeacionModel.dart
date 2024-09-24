@@ -11,6 +11,8 @@ import '../source.dart';
 class PlaneacionModel {
   // id de la planeación
   final int id;
+  // número de la planeación
+  final int numero;
   // duración presencial de la planeación
   final int duracionPresencial;
   // duración virtual de la planeación
@@ -27,6 +29,7 @@ class PlaneacionModel {
   // constructor requiriendo los atributos
   PlaneacionModel(
       {required this.id,
+      required this.numero,
       required this.duracionPresencial,
       required this.duracionVirtual,
       required this.duracionTotal,
@@ -61,6 +64,7 @@ Future<List<PlaneacionModel>> getPlaneaciones() async {
     for (var planeaciondata in decodedData) {
       planeaciones.add(PlaneacionModel(
         id: planeaciondata['id'] ?? 0,
+        numero: planeaciondata['numero'] ?? 0,
         duracionPresencial: planeaciondata['duracionPresencial'] ?? 0,
         duracionVirtual: planeaciondata['duracionVirtual'] ?? 0,
         duracionTotal: planeaciondata['duracionTotal'] ?? 0,

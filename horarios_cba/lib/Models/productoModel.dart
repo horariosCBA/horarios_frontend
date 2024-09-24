@@ -51,6 +51,7 @@ Future<List<ProductoModel>> getProductos() async {
         descripcion: productodata['descripcion'] ?? "",
         planeacion: PlaneacionModel(
           id: productodata['planeacion']['id'] ?? 0,
+          numero: productodata['planeacion']['numero'] ?? 0,
           duracionPresencial:
               productodata['planeacion']['duracionPresencial'] ?? 0,
           duracionVirtual: productodata['planeacion']['duracionVirtual'] ?? 0,

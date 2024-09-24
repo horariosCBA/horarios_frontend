@@ -37,7 +37,7 @@ class AppState extends ChangeNotifier {
       await usuario
           .actualizarEstadoEnLinea(true); // Marca al usuario como en línea
       // Inicia el temporizador de inactividad al autenticar.
-      startInactivityTimer();
+      //startInactivityTimer();
       await storage.write(key: 'usuarioId', value: usuario.id.toString());
     } else {
       await storage.delete(key: 'usuarioId');
@@ -70,7 +70,7 @@ class AppState extends ChangeNotifier {
           false); // Marca al usuario como fuera de línea
     }
     _usuarioAutenticado = null; // Limpia el usuario
-    await storage.delete(key: 'usuarioId'); // Elimina el ID del usuario
+    await storage.deleteAll(); // Elimina el ID del usuario
     notifyListeners();
   }
 
@@ -148,7 +148,7 @@ class AppState extends ChangeNotifier {
           // Asigna el usuario autenticado a la variable correspondiente
           _usuarioAutenticado = usuario;
           // Reinicia el temporizador de inactividad
-          startInactivityTimer();
+          //startInactivityTimer();
           // Notifica a los oyentes sobre el cambio de estado
           notifyListeners();
           return;

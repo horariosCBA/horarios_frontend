@@ -133,7 +133,7 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
     List<AsignacionInstructorModel> asignacionesAutenticado =
         asignacionesInstructor
             .where((asignacion) =>
-                asignacion.usuarioInstructor == widget.usuarioAutenticado.id)
+                asignacion.usuario.id == widget.usuarioAutenticado.id)
             .toList();
 
     // Filtra y obtiene los usuarios que son aprendices y están asociados a las mismas fichas
@@ -160,10 +160,11 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
                     programacionesAutenticado.any((programacionAutenticado) =>
                         programacionAutenticado.ficha == programacion.ficha)) ||
                 asignacionesInstructor.any((asignacion) =>
-                    asignacion.usuarioInstructor == usuario.id &&
+                    asignacion.usuario.id == usuario.id &&
                     asignacionesAutenticado.any((asignacionAutenticado) =>
-                        asignacionAutenticado.usuarioCoordinador ==
-                        asignacion.usuarioCoordinador))))
+                        asignacionesCoordinador.any((asignacionCoordinador) =>
+                            asignacionAutenticado.programa == asignacionCoordinador.programa.id &&
+                            asignacion.programa == asignacionCoordinador.programa.id)))))
         .toList();
 
     // Filtra y obtiene los usuarios que son coordinadores y están asociados al mismo programa
@@ -172,9 +173,10 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
             usuario.rol == 'Coordinador' &&
             usuario.estado &&
             (asignacionesInstructor.any((asignacion) =>
-                    asignacion.usuarioInstructor ==
-                        widget.usuarioAutenticado.id &&
-                    asignacion.usuarioCoordinador == usuario.id) ||
+                    asignacion.usuario.id == widget.usuarioAutenticado.id &&
+                    asignacionesCoordinador.any((asignacionCoordinador) =>
+                        asignacionCoordinador.programa.id == asignacion.programa &&
+                        asignacionCoordinador.usuario == usuario.id)) ||
                 programaciones.any((programacion) =>
                     programacion.usuario.id == widget.usuarioAutenticado.id &&
                     asignacionesCoordinador.any((asignacion) =>
@@ -218,9 +220,12 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
             usuario.rol == 'Instructor' &&
             usuario.estado &&
             (asignacionesInstructor.any((asignacion) =>
-                    asignacion.usuarioInstructor == usuario.id &&
-                    asignacion.usuarioCoordinador ==
-                        widget.usuarioAutenticado.id) ||
+                    asignacion.usuario.id == usuario.id &&
+                    asignacionesCoordinador.any((asignacionCoordinador) =>
+                        asignacionCoordinador.programa.id ==
+                            asignacion.programa &&
+                        asignacionCoordinador.usuario ==
+                            widget.usuarioAutenticado.id)) ||
                 programaciones.any((programacion) =>
                     programacion.usuario.id == usuario.id &&
                     asignacionesCoordinador.any((asignacion) =>

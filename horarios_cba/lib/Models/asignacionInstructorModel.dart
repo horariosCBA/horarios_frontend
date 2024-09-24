@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:http/http.dart' as http;
 import '../source.dart';
 
@@ -8,16 +9,16 @@ import '../source.dart';
 class AsignacionInstructorModel {
   // id de la asignacion
   final int id;
-  // id del usuario instructor
-  final int usuarioInstructor;
-  // id del usuario coordinador
-  final int usuarioCoordinador;
+  // id del programa
+  final int programa;
+  // id del usuario
+  final UsuarioModel usuario;
 
   // constructor requiriendo todos los atributos
   AsignacionInstructorModel({
     required this.id,
-    required this.usuarioInstructor,
-    required this.usuarioCoordinador,
+    required this.programa,
+    required this.usuario,
   });
 }
 
@@ -47,8 +48,28 @@ Future<List<AsignacionInstructorModel>> getAsignacionesInstructor() async {
     for (var asignacionInstructordata in decodedData) {
       asignacionesInstructor.add(AsignacionInstructorModel(
         id: asignacionInstructordata['id'] ?? 0,
-        usuarioInstructor: asignacionInstructordata['usuarioInstructor'] ?? 0,
-        usuarioCoordinador: asignacionInstructordata['usuarioCoordinador'] ?? 0,
+        programa: asignacionInstructordata['programa'] ?? 0,
+        usuario: UsuarioModel(
+          id: asignacionInstructordata['usuario']['id'] ?? 0,
+          nombres: asignacionInstructordata['usuario']['nombres'] ?? "",
+          apellidos: asignacionInstructordata['usuario']['apellidos'] ?? "",
+          tipoDocumento: asignacionInstructordata['usuario']['tipoDocumento'] ?? "",
+          numeroDocumento: asignacionInstructordata['usuario']['numeroDocumento'] ?? "",
+          correoElectronico: asignacionInstructordata['usuario']['correoElectronico'] ?? "",
+          telefono: asignacionInstructordata['usuario']['telefono'] ?? "",
+          telefonoCelular: asignacionInstructordata['usuario']['telefonoCelular'] ?? "",
+          rol: asignacionInstructordata['usuario']['rol'] ?? "",
+          cargo: asignacionInstructordata['usuario']['cargo'] ?? "",
+          especialidad: asignacionInstructordata['usuario']['especialidad'] ?? "",
+          foto: asignacionInstructordata['usuario']['foto'] ?? "",
+          vocero: asignacionInstructordata['usuario']['vocero'] ?? false,
+          titulacion: asignacionInstructordata['usuario']['titulacion'] ?? "",
+          estado: asignacionInstructordata['usuario']['estado'] ?? false,
+          enLinea: asignacionInstructordata['usuario']['enLinea'] ?? false,
+          tipoInstructor: asignacionInstructordata['usuario']['tipoInstructor'] ?? "",
+          area: asignacionInstructordata['usuario']['area'] ?? "",
+          fechaRegistro: asignacionInstructordata['usuario']['fechaRegistro'] ?? "",
+        ),
       ));
     }
 

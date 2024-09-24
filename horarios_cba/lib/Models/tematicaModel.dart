@@ -52,6 +52,7 @@ Future<List<TematicaModel>> getTematicas() async {
         descripcion: tematicadata['descripcion'] ?? "",
         planeacion: PlaneacionModel(
           id: tematicadata['planeacion']['id'] ?? 0,
+          numero: tematicadata['planeacion']['numero'] ?? 0,
           duracionPresencial:
               tematicadata['planeacion']['duracionPresencial'] ?? 0,
           duracionVirtual: tematicadata['planeacion']['duracionVirtual'] ?? 0,
