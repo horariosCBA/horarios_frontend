@@ -55,7 +55,9 @@ class _ProfileCardState extends State<ProfileCard> {
                         ChangeNotifierProvider(
                             create: (context) => MenuAppController()),
                       ],
-                      child: const MainScreenAprendiz(),
+                      child: MainScreenAprendiz(
+                        usuarioAutenticado: usuarioAutenticado,
+                      ),
                     ),
                   ),
                 );

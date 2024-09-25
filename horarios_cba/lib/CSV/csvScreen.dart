@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/controllers/menu_app_controller.dart';
@@ -16,7 +15,8 @@ import 'package:http/http.dart' as http;
 
 /// Widget que representa la pantalla de carga de usuarios desde un archivo CSV.
 class UploadUsersCSV extends StatefulWidget {
-  const UploadUsersCSV({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const UploadUsersCSV({super.key, required this.usuarioAutenticado});
 
   @override
   State<UploadUsersCSV> createState() => _UploadUsersCSVState();
@@ -444,7 +444,7 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
                 ChangeNotifierProvider(
                     create: (context) => MenuAppController()),
               ],
-              child: const MainScreenAdministrador(),
+              child: MainScreenAdministrador(usuarioAutenticado: widget.usuarioAutenticado,),
             ),
           ),
         );
@@ -763,13 +763,14 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('¡Advertencia!'),
+          title: const Text('¡Advertencia!', textAlign: TextAlign.center),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const Text(
                 "Tenga en cuenta que los usuarios con algún dato faltante no podrán registrarse.",
                 style: TextStyle(fontSize: 17),
+                textAlign: TextAlign.center
               ),
               const SizedBox(
                 height: 10,

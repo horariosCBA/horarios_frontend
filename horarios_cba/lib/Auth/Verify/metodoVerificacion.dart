@@ -307,6 +307,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                                   hintStyle: const TextStyle(
                                                       fontSize: 35,
                                                       color: Colors.black),
+                                                  counterStyle: const TextStyle(
+                                                    color: Colors
+                                                        .white, // Cambia este color al que prefieras
+                                                  ),
                                                 ),
                                                 maxLength: 1,
                                                 keyboardType:
@@ -611,6 +615,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                                                   fontSize: 35,
                                                                   color: Colors
                                                                       .black),
+                                                          counterStyle:
+                                                              const TextStyle(
+                                                            color: Colors
+                                                                .white, // Cambia este color al que prefieras
+                                                          ),
                                                         ),
                                                         maxLength: 1,
                                                         keyboardType:

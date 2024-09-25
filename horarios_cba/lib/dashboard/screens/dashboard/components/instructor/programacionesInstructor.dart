@@ -1,12 +1,15 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/programacion.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class ProgramacionesInstructor extends StatefulWidget {
-  const ProgramacionesInstructor({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const ProgramacionesInstructor({super.key, required this.usuarioAutenticado});
 
   @override
   State<ProgramacionesInstructor> createState() =>
@@ -17,6 +20,8 @@ class _ProgramacionesInstructorState extends State<ProgramacionesInstructor> {
   late ProgramacionesInstructorDataGridSource _dataGridSource;
 
   List<Programacion> programacionInstructor = [];
+
+  List<DataGridRow> registros = [];
 
   @override
   void initState() {
@@ -78,7 +83,17 @@ class _ProgramacionesInstructorState extends State<ProgramacionesInstructor> {
                   allowFiltering: true,
                   // Cambia la firma del callback
                   onSelectionChanged: (List<DataGridRow> addedRows,
-                      List<DataGridRow> removedRows) {},
+                      List<DataGridRow> removedRows) {
+                    setState(() {
+                      // Añadir filas a la lista de registros seleccionados
+                      registros.addAll(addedRows);
+
+                      // Eliminar filas de la lista de registros seleccionados
+                      for (var row in removedRows) {
+                        registros.remove(row);
+                      }
+                    });
+                  },
                   // Columnas de la tabla
                   columns: <GridColumn>[
                     GridColumn(
@@ -172,7 +187,11 @@ class _ProgramacionesInstructorState extends State<ProgramacionesInstructor> {
           Center(
             child: Column(
               children: [
-                buildButton('Imprimir Reporte', () {}),
+                buildButton('Imprimir Reporte', () {
+                  if (registros.isEmpty) {
+                    noHayPDFModal(context);
+                  } else {}
+                }),
               ],
             ),
           ),

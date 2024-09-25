@@ -225,6 +225,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         child: Row(
                           children: [
                             TabBar(
+                              dividerColor: Colors.transparent,
                               controller: tabController,
                               isScrollable: true,
                               labelColor: Colors.white,
@@ -451,6 +452,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             child: Row(
                               children: [
                                 TabBar(
+                                  dividerColor: Colors.transparent,
                                   controller: tabController,
                                   isScrollable: true,
                                   labelColor: Colors.white,

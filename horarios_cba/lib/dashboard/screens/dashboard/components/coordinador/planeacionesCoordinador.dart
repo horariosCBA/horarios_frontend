@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/planeaciones.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/coordinador/planeacionCardCoordinador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/planeacionCardCoordinador.dart';
 import 'package:horarios_cba/responsive.dart';
 
 // Vista que muestra las tarjetas de planeaciones, adaptándose a diferentes dispositivos.

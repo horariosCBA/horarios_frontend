@@ -2,7 +2,7 @@
 // Ignora las advertencias sobre el uso completo de valores hexadecimales y nombres de archivos.
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/widgets.dart';
 
 // Definición de colores constantes utilizados en el tema de la aplicación.
 // Color principal de la aplicación.
@@ -22,6 +22,17 @@ const defaultPadding = 16.0;
 
 // Definición del tema de la aplicación claro.
 ThemeData lightTheme = ThemeData(
+  colorScheme: const ColorScheme(
+    brightness: Brightness.light,
+    primary: primaryColor,
+    onPrimary: background1, // Texto o íconos sobre el color primario.
+    secondary: secondaryColor, // Color secundario (negro).
+    onSecondary: background1, // Texto o íconos sobre el color secundario.
+    error: primaryColor,
+    onError: background1, // Texto o íconos sobre el color de error.
+    surface: background1, // Superficie como tarjetas, fondos de botones.
+    onSurface: Colors.black87, // Texto o íconos sobre la superficie.
+  ),
   brightness: Brightness.light, // Establece el tema como claro.
   primaryColor: primaryColor, // Establece el color principal.
   canvasColor: secondaryColor, // Establece el color del lienzo.
@@ -135,15 +146,6 @@ ThemeData lightTheme = ThemeData(
           color: primaryColor), // Color del borde cuando hay un error.
     ),
   ),
-);
-
-/// Formato para los números con configuración regional específica.
-/// Usa el formato de moneda para el idioma español de Colombia y elimina el símbolo,
-/// establece 2 dígitos decimales.
-final formatter = NumberFormat.currency(
-  locale: 'es_CO',
-  symbol: '',
-  decimalDigits: 2,
 );
 
 /// Asegura que los números tengan al menos dos dígitos.

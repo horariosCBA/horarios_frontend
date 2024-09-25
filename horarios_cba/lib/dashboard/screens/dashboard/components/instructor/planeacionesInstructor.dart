@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/planeaciones.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/instructor/planeacionCardInstructor.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/planeacionCardInstructor.dart';
 
 // Vista que muestra las tarjetas de planeaciones, adaptándose a diferentes dispositivos.
 class PlaneacionesInstructor extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:horarios_cba/Home/homePage.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/controllers/menu_app_controller.dart';
 import 'package:horarios_cba/dashboard/screens/main/main_screen_administrador.dart';
@@ -11,8 +12,10 @@ import 'package:horarios_cba/provider.dart';
 import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
+  final UsuarioModel usuarioAutenticado;
   const SideMenu({
     super.key,
+    required this.usuarioAutenticado,
   });
 
   @override
@@ -47,7 +50,9 @@ class SideMenu extends StatelessWidget {
                               create: (context) => MenuAppController(),
                             ),
                           ],
-                          child: const MainScreenAprendiz(),
+                          child: MainScreenAprendiz(
+                            usuarioAutenticado: usuarioAutenticado,
+                          ),
                         )),
               );
             },
@@ -65,7 +70,9 @@ class SideMenu extends StatelessWidget {
                               create: (context) => MenuAppController(),
                             ),
                           ],
-                          child: const MainScreenInstructor(),
+                          child: MainScreenInstructor(
+                            usuarioAutenticado: usuarioAutenticado,
+                          ),
                         )),
               );
             },
@@ -83,7 +90,9 @@ class SideMenu extends StatelessWidget {
                               create: (context) => MenuAppController(),
                             ),
                           ],
-                          child: const MainScreenCoordinador(),
+                          child: MainScreenCoordinador(
+                            usuarioAutenticado: usuarioAutenticado,
+                          ),
                         )),
               );
             },
@@ -101,7 +110,9 @@ class SideMenu extends StatelessWidget {
                               create: (context) => MenuAppController(),
                             ),
                           ],
-                          child: const MainScreenAdministrador(),
+                          child: MainScreenAdministrador(
+                            usuarioAutenticado: usuarioAutenticado,
+                          ),
                         )),
               );
             },

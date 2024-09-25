@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/dashboard/controllers/menu_app_controller.dart';
 import 'package:horarios_cba/dashboard/screens/dashboard/dashboard_screen_administrador.dart';
 import 'package:horarios_cba/responsive.dart';
@@ -8,28 +8,35 @@ import 'package:provider/provider.dart';
 import 'components/side_menu.dart';
 
 class MainScreenAdministrador extends StatelessWidget {
-  const MainScreenAdministrador({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const MainScreenAdministrador({super.key, required this.usuarioAutenticado});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: context.read<MenuAppController>().scaffoldKey,
-      drawer: const SideMenu(),
+      drawer: SideMenu(
+        usuarioAutenticado: usuarioAutenticado,
+      ),
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // We want this side menu only for large screen
             if (Responsive.isDesktop(context))
-              const Expanded(
+              Expanded(
                 // default flex = 1
                 // and it takes 1/6 part of the screen
-                child: SideMenu(),
+                child: SideMenu(
+                  usuarioAutenticado: usuarioAutenticado,
+                ),
               ),
-            const Expanded(
+            Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: DashboardScreenAdministrador(),
+              child: DashboardScreenAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
             ),
           ],
         ),

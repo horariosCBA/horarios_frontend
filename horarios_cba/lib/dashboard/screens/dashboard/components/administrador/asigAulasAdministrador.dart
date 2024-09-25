@@ -1,13 +1,17 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/asignacion_aulas.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class AsignacionAulasAdministrador extends StatefulWidget {
-  const AsignacionAulasAdministrador({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const AsignacionAulasAdministrador(
+      {super.key, required this.usuarioAutenticado});
 
   @override
   State<AsignacionAulasAdministrador> createState() =>
@@ -19,6 +23,8 @@ class _AsignacionAulasAdministradorState
   late AsignacionAulasAdministradorDataGridSource _dataGridSource;
 
   List<AsignacionAulas> asignacionesAdministrador = [];
+
+  List<DataGridRow> registros = [];
 
   @override
   void initState() {
@@ -80,7 +86,17 @@ class _AsignacionAulasAdministradorState
                   allowFiltering: true,
                   // Cambia la firma del callback
                   onSelectionChanged: (List<DataGridRow> addedRows,
-                      List<DataGridRow> removedRows) {},
+                      List<DataGridRow> removedRows) {
+                    setState(() {
+                      // Añadir filas a la lista de registros seleccionados
+                      registros.addAll(addedRows);
+
+                      // Eliminar filas de la lista de registros seleccionados
+                      for (var row in removedRows) {
+                        registros.remove(row);
+                      }
+                    });
+                  },
                   // Columnas de la tabla
                   columns: <GridColumn>[
                     GridColumn(
@@ -151,7 +167,11 @@ class _AsignacionAulasAdministradorState
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildButton('Imprimir Reporte', () {}),
+                buildButton('Imprimir Reporte', () {
+                  if (registros.isEmpty) {
+                    noHayPDFModal(context);
+                  } else {}
+                }),
                 const SizedBox(
                   width: defaultPadding,
                 ),
@@ -162,7 +182,11 @@ class _AsignacionAulasAdministradorState
             Center(
               child: Column(
                 children: [
-                  buildButton('Imprimir Reporte', () {}),
+                  buildButton('Imprimir Reporte', () {
+                    if (registros.isEmpty) {
+                      noHayPDFModal(context);
+                    } else {}
+                  }),
                   const SizedBox(
                     height: defaultPadding,
                   ),

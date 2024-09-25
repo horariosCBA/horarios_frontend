@@ -2,13 +2,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/fichas.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class FichasAdministrador extends StatefulWidget {
-  const FichasAdministrador({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const FichasAdministrador({super.key, required this.usuarioAutenticado});
 
   @override
   State<FichasAdministrador> createState() => _FichasAdministradorState();
@@ -18,6 +21,8 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
   late FichasAdministradorDataGridSource _dataGridSource;
 
   List<Fichas> fichasAdministrador = [];
+
+  List<DataGridRow> registros = [];
 
   @override
   void initState() {
@@ -79,7 +84,17 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
                   allowFiltering: true,
                   // Cambia la firma del callback
                   onSelectionChanged: (List<DataGridRow> addedRows,
-                      List<DataGridRow> removedRows) {},
+                      List<DataGridRow> removedRows) {
+                    setState(() {
+                      // Añadir filas a la lista de registros seleccionados
+                      registros.addAll(addedRows);
+
+                      // Eliminar filas de la lista de registros seleccionados
+                      for (var row in removedRows) {
+                        registros.remove(row);
+                      }
+                    });
+                  },
                   // Columnas de la tabla
                   columns: <GridColumn>[
                     GridColumn(
@@ -194,7 +209,11 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildButton('Imprimir Reporte', () {}),
+                buildButton('Imprimir Reporte', () {
+                  if (registros.isEmpty) {
+                    noHayPDFModal(context);
+                  } else {}
+                }),
                 const SizedBox(
                   width: defaultPadding,
                 ),
@@ -205,7 +224,11 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
             Center(
               child: Column(
                 children: [
-                  buildButton('Imprimir Reporte', () {}),
+                  buildButton('Imprimir Reporte', () {
+                    if (registros.isEmpty) {
+                      noHayPDFModal(context);
+                    } else {}
+                  }),
                   const SizedBox(
                     height: defaultPadding,
                   ),
@@ -221,7 +244,7 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
 
 class FichasAdministradorDataGridSource extends DataGridSource {
   FichasAdministradorDataGridSource({required List<Fichas> fichas}) {
-    _FichasAdministradorData = fichas.map<DataGridRow>((ficha) {
+    _fichasAdministradorData = fichas.map<DataGridRow>((ficha) {
       return DataGridRow(cells: [
         DataGridCell<String>(columnName: 'Código', value: ficha.codigoFicha),
         DataGridCell<String>(
@@ -256,10 +279,10 @@ class FichasAdministradorDataGridSource extends DataGridSource {
     }).toList();
   }
 
-  List<DataGridRow> _FichasAdministradorData = [];
+  List<DataGridRow> _fichasAdministradorData = [];
 
   @override
-  List<DataGridRow> get rows => _FichasAdministradorData;
+  List<DataGridRow> get rows => _fichasAdministradorData;
 
   @override
   DataGridRowAdapter buildRow(DataGridRow row) {

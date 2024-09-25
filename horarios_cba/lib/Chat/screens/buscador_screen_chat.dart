@@ -425,6 +425,7 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
             unselectedLabelColor: Colors.grey,
             labelStyle: const TextStyle(fontWeight: FontWeight.bold),
             tabs: tabs, // Pestañas
+            dividerColor: Colors.transparent,
           ),
         ),
         // Cuerpo de las vistas de la barra de pestañas obtenidas de la función [getTabViews]

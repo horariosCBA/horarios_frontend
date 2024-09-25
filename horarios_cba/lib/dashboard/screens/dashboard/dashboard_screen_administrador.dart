@@ -1,23 +1,24 @@
-
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/aprendicesAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/asigAulasAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/aulasAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/competenciasAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/coordinadoresAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/fichasAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/instructoresAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/programasAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/resultadosAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/trimestresAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/usuariosAdministrador.dart';
-
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/aprendicesAdministrador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/asigAulasAdministrador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/aulasAdministrador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/competenciasAdministrador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/coordinadoresAdministrador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/fichasAdministrador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/instructoresAdministrador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/programasAdministrador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/resultadosAdministrador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/trimestresAdministrador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/usuariosAdministrador.dart';
 
 import 'components/header.dart';
 
 class DashboardScreenAdministrador extends StatelessWidget {
-  const DashboardScreenAdministrador({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const DashboardScreenAdministrador(
+      {super.key, required this.usuarioAutenticado});
 
   @override
   Widget build(BuildContext context) {
@@ -56,29 +57,47 @@ class DashboardScreenAdministrador extends StatelessWidget {
               const SizedBox(
                 height: defaultPadding,
               ),
-              const ResultadosAdministrador(),
+              ResultadosAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
               const SizedBox(height: defaultPadding),
-              const TrimestresAdministrador(),
+              TrimestresAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
               const SizedBox(height: defaultPadding),
-              const AsignacionAulasAdministrador(),
+              AsignacionAulasAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
               const SizedBox(height: defaultPadding),
-              const AprendicesAdministrador(),
+              AprendicesAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
               const SizedBox(height: defaultPadding),
-              const InstructoresAdministrador(),
+              InstructoresAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
               const SizedBox(height: defaultPadding),
-              const FichasAdministrador(),
+              FichasAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
               const SizedBox(
                 height: defaultPadding,
               ),
-              const CoordinadoresAdministrador(),
+              CoordinadoresAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
               const SizedBox(
                 height: defaultPadding,
               ),
-              const CompetenciasAdministrador(),
+              CompetenciasAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
               const SizedBox(
                 height: defaultPadding,
               ),
-              const ProgramasAdministrador(),
+              ProgramasAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
               const SizedBox(
                 height: defaultPadding,
               ),
@@ -86,7 +105,9 @@ class DashboardScreenAdministrador extends StatelessWidget {
               const SizedBox(
                 height: defaultPadding,
               ),
-              const UsuariosAdministrador(),
+              UsuariosAdministrador(
+                usuarioAutenticado: usuarioAutenticado,
+              ),
               const SizedBox(
                 height: defaultPadding,
               ),

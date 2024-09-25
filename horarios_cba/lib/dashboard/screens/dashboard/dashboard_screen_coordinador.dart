@@ -1,20 +1,21 @@
-
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/desplegableFichas.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/coordinador/asigAulasCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/coordinador/calendarioCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/coordinador/fichasCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/coordinador/instructoresCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/coordinador/planeacionesCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/coordinador/programacionesCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/coordinador/programasCoordinador.dart';
-
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/asigAulasCoordinador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/calendarioCoordinador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/fichasCoordinador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/instructoresCoordinador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/planeacionesCoordinador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/programacionesCoordinador.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/programasCoordinador.dart';
 
 import 'components/header.dart';
 
 class DashboardScreenCoordinador extends StatefulWidget {
-  const DashboardScreenCoordinador({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const DashboardScreenCoordinador(
+      {super.key, required this.usuarioAutenticado});
 
   @override
   State<DashboardScreenCoordinador> createState() =>
@@ -143,17 +144,27 @@ class _DashboardScreenCoordinadorState
                         const SizedBox(height: defaultPadding),
                         const CalendarioCoordinador(),
                         const SizedBox(height: defaultPadding),
-                        const ProgramacionesCoordinador(),
+                        ProgramacionesCoordinador(
+                          usuarioAutenticado: widget.usuarioAutenticado,
+                        ),
                         const SizedBox(height: defaultPadding),
                         const PlaneacionesCoordinador(),
                         const SizedBox(height: defaultPadding),
-                        const FichasCoordinador(),
+                        FichasCoordinador(
+                          usuarioAutenticado: widget.usuarioAutenticado,
+                        ),
                         const SizedBox(height: defaultPadding),
-                        const InstructoresCoordinador(),
+                        InstructoresCoordinador(
+                          usuarioAutenticado: widget.usuarioAutenticado,
+                        ),
                         const SizedBox(height: defaultPadding),
-                        const AsignacionAulasCoordinador(),
+                        AsignacionAulasCoordinador(
+                          usuarioAutenticado: widget.usuarioAutenticado,
+                        ),
                         const SizedBox(height: defaultPadding),
-                        const ProgramasCoordinador(),
+                        ProgramasCoordinador(
+                          usuarioAutenticado: widget.usuarioAutenticado,
+                        ),
                         const SizedBox(height: defaultPadding),
                       ])),
                 ],

@@ -520,6 +520,10 @@ class _VerificationScreenRegisterState
                                                     fontSize: 35,
                                                     color: Colors.black,
                                                   ),
+                                                  counterStyle: const TextStyle(
+                                                    color: Colors
+                                                        .white, // Cambia este color al que prefieras
+                                                  ),
                                                 ),
                                                 maxLength: 1,
                                                 keyboardType:
@@ -829,6 +833,11 @@ class _VerificationScreenRegisterState
                                                               const TextStyle(
                                                             fontSize: 35,
                                                             color: Colors.black,
+                                                          ),
+                                                          counterStyle:
+                                                              const TextStyle(
+                                                            color: Colors
+                                                                .white, // Cambia este color al que prefieras
                                                           ),
                                                         ),
                                                         maxLength: 1,

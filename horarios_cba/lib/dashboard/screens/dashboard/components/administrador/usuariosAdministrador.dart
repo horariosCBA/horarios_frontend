@@ -1,6 +1,10 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/CSV/csvScreen.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/usuarios.dart';
 import 'package:horarios_cba/responsive.dart';
@@ -8,7 +12,8 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 class UsuariosAdministrador extends StatefulWidget {
-  const UsuariosAdministrador({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const UsuariosAdministrador({super.key, required this.usuarioAutenticado});
 
   @override
   State<UsuariosAdministrador> createState() => _UsuariosAdministradorState();
@@ -18,6 +23,8 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
   late UsuariosAdministradorDataGridSource _dataGridSource;
 
   List<Usuarios> usuariosAdministrador = [];
+
+  List<DataGridRow> registros = [];
 
   @override
   void initState() {
@@ -79,7 +86,17 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
                   allowFiltering: true,
                   // Cambia la firma del callback
                   onSelectionChanged: (List<DataGridRow> addedRows,
-                      List<DataGridRow> removedRows) {},
+                      List<DataGridRow> removedRows) {
+                    setState(() {
+                      // Añadir filas a la lista de registros seleccionados
+                      registros.addAll(addedRows);
+
+                      // Eliminar filas de la lista de registros seleccionados
+                      for (var row in removedRows) {
+                        registros.remove(row);
+                      }
+                    });
+                  },
                   // Columnas de la tabla
                   columns: <GridColumn>[
                     GridColumn(
@@ -195,7 +212,11 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
             Center(
               child: Column(
                 children: [
-                  buildButton('Imprimir Reporte', () {}),
+                  buildButton('Imprimir Reporte', () {
+                    if (registros.isEmpty) {
+                      noHayPDFModal(context);
+                    } else {}
+                  }),
                 ],
               ),
             )
@@ -203,7 +224,11 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildButton('Imprimir Reporte', () {}),
+                buildButton('Imprimir Reporte', () {
+                  if (registros.isEmpty) {
+                    noHayPDFModal(context);
+                  } else {}
+                }),
                 const SizedBox(
                   width: defaultPadding,
                 ),
@@ -211,7 +236,9 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const UploadUsersCSV()));
+                          builder: (context) => UploadUsersCSV(
+                                usuarioAutenticado: widget.usuarioAutenticado,
+                              )));
                 }),
               ],
             )
@@ -219,7 +246,11 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
             Center(
               child: Column(
                 children: [
-                  buildButton('Imprimir Reporte', () {}),
+                  buildButton('Imprimir Reporte', () {
+                    if (registros.isEmpty) {
+                      noHayPDFModal(context);
+                    } else {}
+                  }),
                   const SizedBox(
                     height: defaultPadding,
                   ),
@@ -227,7 +258,9 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const UploadUsersCSV()));
+                            builder: (context) => UploadUsersCSV(
+                                  usuarioAutenticado: widget.usuarioAutenticado,
+                                )));
                   }),
                 ],
               ),
@@ -302,7 +335,7 @@ class UsuariosAdministradorDataGridSource extends DataGridSource {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: CircleAvatar(
-                  backgroundColor: primaryColor,
+                  backgroundColor: _getColor(),
                   radius: 18,
                   child: Text(
                     row.getCells()[0].value[0].toUpperCase(),
@@ -334,4 +367,13 @@ class UsuariosAdministradorDataGridSource extends DataGridSource {
         ),
     ]);
   }
+}
+
+Color _getColor() {
+  final random = Random();
+  final hue = random.nextDouble() * 360;
+  final saturation = random.nextDouble() * (0.5 - 0.2) + 0.2;
+  final value = random.nextDouble() * (0.9 - 0.5) + 0.5;
+
+  return HSVColor.fromAHSV(1.0, hue, saturation, value).toColor();
 }

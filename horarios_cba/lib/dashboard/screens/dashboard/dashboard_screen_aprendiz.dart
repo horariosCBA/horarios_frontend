@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/desplegableFichas.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/aprendiz/calendarioAprendiz.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/aprendiz/fichasAprendiz.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/aprendiz/programacionesAprendiz.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Aprendiz/calendarioAprendiz.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Aprendiz/fichasAprendiz.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Aprendiz/programacionesAprendiz.dart';
 import 'components/header.dart';
 
 class DashboardScreenAprendiz extends StatefulWidget {
-  const DashboardScreenAprendiz({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const DashboardScreenAprendiz({super.key, required this.usuarioAutenticado});
 
   @override
   State<DashboardScreenAprendiz> createState() =>
@@ -135,9 +137,9 @@ class _DashboardScreenAprendizState extends State<DashboardScreenAprendiz> {
                         const SizedBox(height: defaultPadding),
                         const CalendarioAprendiz(),
                         const SizedBox(height: defaultPadding),
-                        const ProgramacionesAprendiz(),
+                        ProgramacionesAprendiz(usuarioAutenticado: widget.usuarioAutenticado,),
                         const SizedBox(height: defaultPadding),
-                        const FichasAprendiz(),
+                        FichasAprendiz(usuarioAutenticado: widget.usuarioAutenticado,),
                         const SizedBox(height: defaultPadding),
                       ])),
                 ],

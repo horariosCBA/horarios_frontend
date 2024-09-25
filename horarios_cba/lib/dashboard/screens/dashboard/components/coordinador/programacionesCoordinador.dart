@@ -1,13 +1,17 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/programacion.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class ProgramacionesCoordinador extends StatefulWidget {
-  const ProgramacionesCoordinador({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const ProgramacionesCoordinador(
+      {super.key, required this.usuarioAutenticado});
 
   @override
   State<ProgramacionesCoordinador> createState() =>
@@ -18,6 +22,8 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
   late ProgramacionesCoordinadorDataGridSource _dataGridSource;
 
   List<Programacion> programacion = [];
+
+  List<DataGridRow> registros = [];
 
   @override
   void initState() {
@@ -79,7 +85,17 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
                   allowFiltering: true,
                   // Cambia la firma del callback
                   onSelectionChanged: (List<DataGridRow> addedRows,
-                      List<DataGridRow> removedRows) {},
+                      List<DataGridRow> removedRows) {
+                    setState(() {
+                      // Añadir filas a la lista de registros seleccionados
+                      registros.addAll(addedRows);
+
+                      // Eliminar filas de la lista de registros seleccionados
+                      for (var row in removedRows) {
+                        registros.remove(row);
+                      }
+                    });
+                  },
                   // Columnas de la tabla
                   columns: <GridColumn>[
                     GridColumn(
@@ -186,7 +202,11 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildButton('Imprimir Reporte', () {}),
+                buildButton('Imprimir Reporte', () {
+                  if (registros.isEmpty) {
+                    noHayPDFModal(context);
+                  } else {}
+                }),
                 const SizedBox(
                   width: defaultPadding,
                 ),
@@ -197,7 +217,11 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
             Center(
               child: Column(
                 children: [
-                  buildButton('Imprimir Reporte', () {}),
+                  buildButton('Imprimir Reporte', () {
+                    if (registros.isEmpty) {
+                      noHayPDFModal(context);
+                    } else {}
+                  }),
                   const SizedBox(
                     height: defaultPadding,
                   ),

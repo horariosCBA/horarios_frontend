@@ -1,18 +1,19 @@
-
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/desplegableFichas.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/instructor/aprendicesInstructor.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/instructor/calendarioInstructor.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/instructor/fichasInstructor.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/instructor/planeacionesInstructor.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/instructor/programacionesInstructor.dart';
-
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/aprendicesInstructor.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/calendarioInstructor.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/fichasInstructor.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/planeacionesInstructor.dart';
+import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/programacionesInstructor.dart';
 
 import 'components/header.dart';
 
 class DashboardScreenInstructor extends StatefulWidget {
-  const DashboardScreenInstructor({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const DashboardScreenInstructor(
+      {super.key, required this.usuarioAutenticado});
 
   @override
   State<DashboardScreenInstructor> createState() =>
@@ -140,13 +141,19 @@ class _DashboardScreenInstructorState extends State<DashboardScreenInstructor> {
                         const SizedBox(height: defaultPadding),
                         const CalendarioInstructor(),
                         const SizedBox(height: defaultPadding),
-                        const ProgramacionesInstructor(),
+                        ProgramacionesInstructor(
+                          usuarioAutenticado: widget.usuarioAutenticado,
+                        ),
                         const SizedBox(height: defaultPadding),
                         const PlaneacionesInstructor(),
                         const SizedBox(height: defaultPadding),
-                        const AprendicesInstructor(),
+                        AprendicesInstructor(
+                          usuarioAutenticado: widget.usuarioAutenticado,
+                        ),
                         const SizedBox(height: defaultPadding),
-                        const FichasInstructor(),
+                        FichasInstructor(
+                          usuarioAutenticado: widget.usuarioAutenticado,
+                        ),
                         const SizedBox(height: defaultPadding),
                       ])),
                 ],

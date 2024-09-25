@@ -1,12 +1,15 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/dashboard/listas/fichas.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class FichasAprendiz extends StatefulWidget {
-  const FichasAprendiz({super.key});
+  final UsuarioModel usuarioAutenticado;
+  const FichasAprendiz({super.key, required this.usuarioAutenticado});
 
   @override
   State<FichasAprendiz> createState() => _FichasAprendizState();
@@ -16,6 +19,8 @@ class _FichasAprendizState extends State<FichasAprendiz> {
   late FichasAprendizDataGridSource _dataGridSource;
 
   List<Fichas> fichas = [];
+
+  List<DataGridRow> registros = [];
 
   @override
   void initState() {
@@ -76,7 +81,17 @@ class _FichasAprendizState extends State<FichasAprendiz> {
                   allowFiltering: true,
                   // Cambia la firma del callback
                   onSelectionChanged: (List<DataGridRow> addedRows,
-                      List<DataGridRow> removedRows) {},
+                      List<DataGridRow> removedRows) {
+                    setState(() {
+                      // Añadir filas a la lista de registros seleccionados
+                      registros.addAll(addedRows);
+
+                      // Eliminar filas de la lista de registros seleccionados
+                      for (var row in removedRows) {
+                        registros.remove(row);
+                      }
+                    });
+                  },
                   // Columnas de la tabla
                   columns: <GridColumn>[
                     GridColumn(
@@ -178,7 +193,11 @@ class _FichasAprendizState extends State<FichasAprendiz> {
           Center(
             child: Column(
               children: [
-                buildButton('Imprimir Reporte', () {}),
+                buildButton('Imprimir Reporte', () {
+                  if (registros.isEmpty) {
+                    noHayPDFModal(context);
+                  } else {}
+                }),
               ],
             ),
           ),
