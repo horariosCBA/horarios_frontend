@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Dashboard/Listas/desplegableFichas.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Aprendiz/calendarioAprendiz.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Aprendiz/fichasAprendiz.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Aprendiz/programacionesAprendiz.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/desplegableFichas.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Aprendiz/calendarioAprendiz.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Aprendiz/fichasAprendiz.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Aprendiz/programacionesAprendiz.dart';
-import 'components/header.dart';
+import 'Components/header.dart';
 
 class DashboardScreenAprendiz extends StatefulWidget {
   final UsuarioModel usuarioAutenticado;

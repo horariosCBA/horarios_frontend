@@ -3,7 +3,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:horarios_cba/Splash/page/SplashScreen.dart';
+import 'package:horarios_cba/Splash/Page/SplashScreen.dart';
 import 'package:horarios_cba/firebase_options.dart';
 import 'package:provider/provider.dart'; // Manejo del estado de la aplicación
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';

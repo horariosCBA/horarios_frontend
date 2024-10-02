@@ -7,12 +7,13 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firabase_storage;
 import 'package:flutter/material.dart';
-import 'package:horarios_cba/Chat/widgets/my_message_card.dart';
-import 'package:horarios_cba/Chat/widgets/sender_message_card.dart';
+import 'package:horarios_cba/Chat/WidgetsChat/my_message_card.dart';
+import 'package:horarios_cba/Chat/WidgetsChat/sender_message_card.dart';
 import 'package:horarios_cba/Models/mensajeModel.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/source.dart';
+
 import 'package:image_compression_flutter/image_compression_flutter.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -519,7 +520,7 @@ class _MobileChatScreenState extends State<MobileChatScreen> {
               ),
               image: DecorationImage(
                 image: AssetImage(
-                  "assets/img/fondoChat.jpg",
+                  "assets/img/fondoChat.webp",
                 ),
                 fit: BoxFit.cover,
               ),
@@ -743,7 +744,7 @@ class _MobileChatScreenState extends State<MobileChatScreen> {
             ],
           ),
           actions: <Widget>[
-            ButtonBar(
+            OverflowBar(
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.
@@ -818,7 +819,7 @@ class _MobileChatScreenState extends State<MobileChatScreen> {
             ],
           ),
           actions: <Widget>[
-            ButtonBar(
+            OverflowBar(
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.

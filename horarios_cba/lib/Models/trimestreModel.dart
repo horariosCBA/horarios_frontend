@@ -21,7 +21,7 @@ class Trimestremodel {
   final String fechaFin;
 
   // estado del trimestre
-  final bool estado;
+  final String estado;
 
   // ficha relacionada al trimestre
   final FichaModel ficha;
@@ -66,7 +66,7 @@ Future<List<Trimestremodel>> getTrimestres() async {
             numero: trimestredata['numero'] ?? "",
             fechaInicio: trimestredata['fechaInicio'] ?? "",
             fechaFin: trimestredata['fechaFin'] ?? "",
-            estado: trimestredata['estado'] ?? false,
+            estado: trimestredata['estado'] ?? "",
             ficha: FichaModel(
                 id: trimestredata['ficha']['id'] ?? 0,
                 codigo: trimestredata['ficha']['codigo'] ?? "",

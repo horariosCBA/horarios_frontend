@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Dashboard/Listas/desplegableFichas.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/asigAulasCoordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/calendarioCoordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/fichasCoordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/instructoresCoordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/planeacionesCoordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/programacionesCoordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/programasCoordinador.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/desplegableFichas.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/asigAulasCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/calendarioCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/fichasCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/instructoresCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/planeacionesCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/programacionesCoordinador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Coordinador/programasCoordinador.dart';
 
-import 'components/header.dart';
+import 'Components/header.dart';
 
 class DashboardScreenCoordinador extends StatefulWidget {
   final UsuarioModel usuarioAutenticado;

@@ -1,10 +1,11 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Dashboard/Listas/aprendiz.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/InstructorPDF/pdfAprendicesInstructor.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/aprendiz.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class AprendicesInstructor extends StatefulWidget {
@@ -28,8 +29,9 @@ class _AprendicesInstructorState extends State<AprendicesInstructor> {
 
     aprendicesInstructor = listaAprendiz;
 
-    _dataGridSource =
-        AprendicesInstructorDataGridSource(aprendices: aprendicesInstructor);
+    _dataGridSource = AprendicesInstructorDataGridSource(
+      aprendices: aprendicesInstructor,
+    );
   }
 
   @override
@@ -195,7 +197,14 @@ class _AprendicesInstructorState extends State<AprendicesInstructor> {
                 buildButton('Imprimir Reporte', () {
                   if (registros.isEmpty) {
                     noHayPDFModal(context);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PdfAprendicesInstructorScreen(
+                                usuario: widget.usuarioAutenticado,
+                                registros: registros)));
+                  }
                 }),
               ],
             ),

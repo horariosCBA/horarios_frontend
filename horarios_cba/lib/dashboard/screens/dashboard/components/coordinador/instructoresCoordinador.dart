@@ -1,10 +1,11 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Dashboard/Listas/instructores.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/CoordinadorPDF/pdfInstructoresCoordinador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/instructores.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -192,7 +193,15 @@ class _InstructoresCoordinadorState extends State<InstructoresCoordinador> {
                 buildButton('Imprimir Reporte', () {
                   if (registros.isEmpty) {
                     noHayPDFModal(context);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PdfInstructoresCoordinadorScreen(
+                                    usuario: widget.usuarioAutenticado,
+                                    registros: registros)));
+                  }
                 }),
                 const SizedBox(
                   width: defaultPadding,
@@ -207,7 +216,15 @@ class _InstructoresCoordinadorState extends State<InstructoresCoordinador> {
                   buildButton('Imprimir Reporte', () {
                     if (registros.isEmpty) {
                       noHayPDFModal(context);
-                    } else {}
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PdfInstructoresCoordinadorScreen(
+                                      usuario: widget.usuarioAutenticado,
+                                      registros: registros)));
+                    }
                   }),
                   const SizedBox(
                     height: defaultPadding,

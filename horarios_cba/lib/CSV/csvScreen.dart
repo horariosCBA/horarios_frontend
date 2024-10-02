@@ -3,12 +3,13 @@
 import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Dashboard/Controllers/menu_app_controller.dart';
+import 'package:horarios_cba/Dashboard/Screens/Main/main_screen_administrador.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/controllers/menu_app_controller.dart';
-import 'package:horarios_cba/dashboard/screens/main/main_screen_administrador.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:horarios_cba/source.dart';
+
 import 'package:provider/provider.dart';
 import 'package:csv/csv.dart';
 import 'package:http/http.dart' as http;
@@ -480,7 +481,7 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
         children: [
           // Fondo con imagen
           Image.asset(
-            "assets/img/fondoCSV.jpg",
+            "assets/img/fondoCSV.webp",
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
@@ -792,7 +793,7 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
             ],
           ),
           actions: <Widget>[
-            ButtonBar(
+            OverflowBar(
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón de cancelar

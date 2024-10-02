@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/Home/homePage.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import '../data/list.dart';
+import '../Data/list.dart';
 
 // Clase SplashScreen, que representa la pantalla de presentación.
 class SplashScreen extends StatefulWidget {

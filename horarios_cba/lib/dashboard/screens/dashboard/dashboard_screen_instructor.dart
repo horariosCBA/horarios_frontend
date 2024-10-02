@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Dashboard/Listas/desplegableFichas.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Instructor/aprendicesInstructor.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Instructor/calendarioInstructor.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Instructor/fichasInstructor.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Instructor/planeacionesInstructor.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Instructor/programacionesInstructor.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/desplegableFichas.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/aprendicesInstructor.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/calendarioInstructor.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/fichasInstructor.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/planeacionesInstructor.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Instructor/programacionesInstructor.dart';
 
-import 'components/header.dart';
+import 'Components/header.dart';
 
 class DashboardScreenInstructor extends StatefulWidget {
   final UsuarioModel usuarioAutenticado;

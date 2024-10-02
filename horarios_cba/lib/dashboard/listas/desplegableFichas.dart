@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class Desplegablefichas {
   int id;
   String codigo;

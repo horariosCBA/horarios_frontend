@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:horarios_cba/Chat/widgets/contacts_list.dart';
+import 'package:horarios_cba/Chat/WidgetsChat/contacts_list.dart';
 import 'package:horarios_cba/Models/asignacionCoordinadorModel.dart';
 import 'package:horarios_cba/Models/asignacionInstructorModel.dart';
 import 'package:horarios_cba/Models/inscripcionAprendizModel.dart';
 import 'package:horarios_cba/Models/programacionModel.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
+
 
 // Buscador de contactos.
 class BuscadorScreenChat extends StatefulWidget {

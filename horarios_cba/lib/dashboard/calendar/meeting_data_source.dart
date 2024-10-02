@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'package:horarios_cba/dashboard/calendar/meeting.dart';
+
+import 'package:horarios_cba/Dashboard/Calendar/meeting.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class MeetingDataSource extends CalendarDataSource {

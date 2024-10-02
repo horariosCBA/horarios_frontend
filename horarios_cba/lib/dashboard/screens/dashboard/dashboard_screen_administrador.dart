@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/aprendicesAdministrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/asigAulasAdministrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/aulasAdministrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/competenciasAdministrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/coordinadoresAdministrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/fichasAdministrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/instructoresAdministrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/programasAdministrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/resultadosAdministrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/trimestresAdministrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/usuariosAdministrador.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/aprendicesAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/asigAulasAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/aulasAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/competenciasAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/coordinadoresAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/fichasAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/instructoresAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/programasAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/resultadosAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/trimestresAdministrador.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/Administrador/usuariosAdministrador.dart';
 
-import 'components/header.dart';
+
+import 'Components/header.dart';
 
 class DashboardScreenAdministrador extends StatelessWidget {
   final UsuarioModel usuarioAutenticado;

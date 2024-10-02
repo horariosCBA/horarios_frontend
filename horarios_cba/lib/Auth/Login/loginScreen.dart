@@ -3,18 +3,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:horarios_cba/Auth/Verify/metodoVerificacion.dart';
-import 'package:horarios_cba/Auth/Verify/randomCode.dart';
+import 'package:horarios_cba/Auth/Source/randomCode.dart';
+import 'package:horarios_cba/Auth/VerificacionLogin/metodoVerificacion.dart';
 import 'package:horarios_cba/Home/homePage.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/provider.dart';
+
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-import '../Register/registerScreen.dart';
-import '../source/verification.dart';
+import '../Registro/registerScreen.dart';
+import '../Source/verification.dart';
 
 /// Esta clase representa un widget de estado que muestra la pantalla de inicio de sesión.
 ///
@@ -654,7 +655,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
             ],
           ),
           actions: <Widget>[
-            ButtonBar(
+            OverflowBar(
               alignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -716,7 +717,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
             ],
           ),
           actions: <Widget>[
-            ButtonBar(
+            OverflowBar(
               alignment: MainAxisAlignment.center,
               children: [
                 Padding(

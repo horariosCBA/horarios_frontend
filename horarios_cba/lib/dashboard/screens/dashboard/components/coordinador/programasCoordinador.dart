@@ -1,10 +1,12 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Dashboard/Listas/programa.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/CoordinadorPDF/pdfProgramasCoordinador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
+import 'package:horarios_cba/Programa/programaView.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/programa.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class ProgramasCoordinador extends StatefulWidget {
@@ -28,8 +30,8 @@ class _ProgramasCoordinadorState extends State<ProgramasCoordinador> {
 
     programaCoordinador = listaProgramas;
 
-    _dataGridSource =
-        ProgramasCoordinadorDataGridSource(programas: programaCoordinador);
+    _dataGridSource = ProgramasCoordinadorDataGridSource(
+        programas: programaCoordinador, context: context);
   }
 
   @override
@@ -174,7 +176,14 @@ class _ProgramasCoordinadorState extends State<ProgramasCoordinador> {
                 buildButton('Imprimir Reporte', () {
                   if (registros.isEmpty) {
                     noHayPDFModal(context);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PdfProgramasCoordinadorScreen(
+                                usuario: widget.usuarioAutenticado,
+                                registros: registros)));
+                  }
                 }),
               ],
             ),
@@ -186,7 +195,8 @@ class _ProgramasCoordinadorState extends State<ProgramasCoordinador> {
 }
 
 class ProgramasCoordinadorDataGridSource extends DataGridSource {
-  ProgramasCoordinadorDataGridSource({required List<Programa> programas}) {
+  ProgramasCoordinadorDataGridSource(
+      {required List<Programa> programas, required BuildContext context}) {
     _programaCoordinadorData = programas.map<DataGridRow>((programa) {
       return DataGridRow(cells: [
         DataGridCell<String>(columnName: 'Nombre', value: programa.nombre),
@@ -206,7 +216,12 @@ class ProgramasCoordinadorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Ver',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProgramaView()));
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Ver"),

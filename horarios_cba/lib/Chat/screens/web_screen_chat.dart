@@ -1,11 +1,12 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
-import 'package:horarios_cba/Chat/screens/web_chat_screen.dart';
-import 'package:horarios_cba/Chat/widgets/contacts_list_web.dart';
+import 'package:horarios_cba/Chat/Screens/web_chat_screen.dart';
+import 'package:horarios_cba/Chat/WidgetsChat/contacts_list_web.dart';
 import 'package:horarios_cba/Models/mensajeModel.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
+
 
 // Screen del chat para la web
 class WebLayoutChat extends StatefulWidget {

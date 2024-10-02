@@ -1,10 +1,12 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Dashboard/Listas/fichas.dart';
+import 'package:horarios_cba/Ficha/fichaView.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/CoordinadorPDF/pdfFichasCoordinador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/fichas.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class FichasCoordinador extends StatefulWidget {
@@ -28,8 +30,8 @@ class _FichasCoordinadorState extends State<FichasCoordinador> {
 
     fichasCoordinador = listaFichas;
 
-    _dataGridSource =
-        FichasCoordinadorDataGridSource(fichas: fichasCoordinador);
+    _dataGridSource = FichasCoordinadorDataGridSource(
+        fichas: fichasCoordinador, context: context);
   }
 
   @override
@@ -197,7 +199,14 @@ class _FichasCoordinadorState extends State<FichasCoordinador> {
                 buildButton('Imprimir Reporte', () {
                   if (registros.isEmpty) {
                     noHayPDFModal(context);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PdfFichasCoordinadorScreen(
+                                usuario: widget.usuarioAutenticado,
+                                registros: registros)));
+                  }
                 }),
               ],
             ),
@@ -209,7 +218,8 @@ class _FichasCoordinadorState extends State<FichasCoordinador> {
 }
 
 class FichasCoordinadorDataGridSource extends DataGridSource {
-  FichasCoordinadorDataGridSource({required List<Fichas> fichas}) {
+  FichasCoordinadorDataGridSource(
+      {required List<Fichas> fichas, required BuildContext context}) {
     _fichasCoordinadorData = fichas.map<DataGridRow>((ficha) {
       return DataGridRow(cells: [
         DataGridCell<String>(columnName: 'Código', value: ficha.codigoFicha),
@@ -228,7 +238,10 @@ class FichasCoordinadorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Ver',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const FichaView()));
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Ver"),

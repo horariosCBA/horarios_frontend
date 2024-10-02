@@ -109,7 +109,7 @@ class AppState extends ChangeNotifier {
           ],
         ),
         actions: <Widget>[
-          ButtonBar(
+          OverflowBar(
             alignment: MainAxisAlignment.center,
             children: [
               // Botón para aceptar el mensaje

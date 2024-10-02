@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:dialog_flowtter/dialog_flowtter.dart';
-import 'package:horarios_cba/Chatbot/Messages.dart';
+import 'package:horarios_cba/Chatbot/messages.dart';
 import 'package:horarios_cba/constantsDesign.dart';
+
 
 // Clase ChatBot, que representa el widget de chatbot.
 class ChatBot extends StatefulWidget {
@@ -128,7 +129,7 @@ class _ChatBotState extends State<ChatBot> {
       // Mensaje vacío, no se hace nada
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Mensaje vacío, por favor escriba algo'),
+          content: Text('No se puede enviar un mensaje vacio.'),
         ),
       );
     } else {

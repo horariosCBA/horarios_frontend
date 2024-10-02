@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Dashboard/Calendar/meeting.dart';
+import 'package:horarios_cba/Dashboard/Calendar/meeting_data_source.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/calendar/meeting.dart';
-import 'package:horarios_cba/dashboard/calendar/meeting_data_source.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class CalendarioAprendiz extends StatefulWidget {

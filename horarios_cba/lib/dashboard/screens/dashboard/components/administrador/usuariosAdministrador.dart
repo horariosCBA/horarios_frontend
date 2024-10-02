@@ -3,10 +3,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/CSV/csvScreen.dart';
+import 'package:horarios_cba/Dashboard/Listas/usuarios.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/DesplegablesUsuarios/cambioEstado.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/DesplegablesUsuarios/cambioRol.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/AdministradorPDF/pdfUsuariosAdministrador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/usuarios.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:universal_platform/universal_platform.dart';
@@ -33,7 +36,7 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
     usuariosAdministrador = listaUsuarios;
 
     _dataGridSource =
-        UsuariosAdministradorDataGridSource(usuarios: usuariosAdministrador);
+        UsuariosAdministradorDataGridSource(usuarios: usuariosAdministrador, context: context);
   }
 
   @override
@@ -215,7 +218,15 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
                   buildButton('Imprimir Reporte', () {
                     if (registros.isEmpty) {
                       noHayPDFModal(context);
-                    } else {}
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PdfUsuariosAdministradorScreen(
+                                      usuario: widget.usuarioAutenticado,
+                                      registros: registros)));
+                    }
                   }),
                 ],
               ),
@@ -227,7 +238,15 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
                 buildButton('Imprimir Reporte', () {
                   if (registros.isEmpty) {
                     noHayPDFModal(context);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PdfUsuariosAdministradorScreen(
+                                    usuario: widget.usuarioAutenticado,
+                                    registros: registros)));
+                  }
                 }),
                 const SizedBox(
                   width: defaultPadding,
@@ -249,7 +268,15 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
                   buildButton('Imprimir Reporte', () {
                     if (registros.isEmpty) {
                       noHayPDFModal(context);
-                    } else {}
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PdfUsuariosAdministradorScreen(
+                                      usuario: widget.usuarioAutenticado,
+                                      registros: registros)));
+                    }
                   }),
                   const SizedBox(
                     height: defaultPadding,
@@ -272,7 +299,7 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
 }
 
 class UsuariosAdministradorDataGridSource extends DataGridSource {
-  UsuariosAdministradorDataGridSource({required List<Usuarios> usuarios}) {
+  UsuariosAdministradorDataGridSource({required List<Usuarios> usuarios, required BuildContext context}) {
     _usuariosAdministradorData = usuarios.map<DataGridRow>((usuario) {
       return DataGridRow(cells: [
         DataGridCell<String>(
@@ -292,7 +319,14 @@ class UsuariosAdministradorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Cambiar Rol',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const CambioRol();
+                  },
+                );
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Cambiar Rol"),
@@ -300,7 +334,14 @@ class UsuariosAdministradorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Cambiar Estado',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const CambioEstado();
+                  },
+                );
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Cambiar Estado"),

@@ -3,8 +3,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Dashboard/Listas/planeaciones.dart';
+import 'package:horarios_cba/Planeacion/planeacionView.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/planeaciones.dart';
 
 class PlaneacionCardCoordinador extends StatefulWidget {
   final Planeaciones planeacion;
@@ -14,7 +15,8 @@ class PlaneacionCardCoordinador extends StatefulWidget {
   });
 
   @override
-  State<PlaneacionCardCoordinador> createState() => _PlaneacionCardCoordinadorState();
+  State<PlaneacionCardCoordinador> createState() =>
+      _PlaneacionCardCoordinadorState();
 }
 
 class _PlaneacionCardCoordinadorState extends State<PlaneacionCardCoordinador> {
@@ -243,6 +245,11 @@ class _PlaneacionCardCoordinadorState extends State<PlaneacionCardCoordinador> {
                                 color: primaryColor), // Icono de ver más
                             onPressed: () {
                               // Acción al presionar el botón de ver más
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PlaneacionView()));
                             },
                           ),
                         ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:horarios_cba/Chat/screens/buscador_screen_chat.dart';
-import 'package:horarios_cba/Chat/widgets/contacts_list.dart';
+import 'package:horarios_cba/Chat/Screens/buscador_screen_chat.dart';
+import 'package:horarios_cba/Chat/WidgetsChat/contacts_list.dart';
 import 'package:horarios_cba/Models/mensajeModel.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
+
 
 // Screen del chat para movil
 class MobileScreenChat extends StatefulWidget {

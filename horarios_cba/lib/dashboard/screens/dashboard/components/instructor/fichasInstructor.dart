@@ -1,10 +1,12 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Dashboard/Listas/fichas.dart';
+import 'package:horarios_cba/Ficha/fichaView.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/InstructorPDF/pdfFichasInstructor.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/fichas.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class FichasInstructor extends StatefulWidget {
@@ -28,7 +30,8 @@ class _FichasInstructorState extends State<FichasInstructor> {
 
     fichasInstructor = listaFichas;
 
-    _dataGridSource = FichasInstructorDataGridSource(fichas: fichasInstructor);
+    _dataGridSource = FichasInstructorDataGridSource(
+        fichas: fichasInstructor, context: context);
   }
 
   @override
@@ -196,7 +199,14 @@ class _FichasInstructorState extends State<FichasInstructor> {
                 buildButton('Imprimir Reporte', () {
                   if (registros.isEmpty) {
                     noHayPDFModal(context);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PdfFichasInstructorScreen(
+                                usuario: widget.usuarioAutenticado,
+                                registros: registros)));
+                  }
                 }),
               ],
             ),
@@ -208,7 +218,8 @@ class _FichasInstructorState extends State<FichasInstructor> {
 }
 
 class FichasInstructorDataGridSource extends DataGridSource {
-  FichasInstructorDataGridSource({required List<Fichas> fichas}) {
+  FichasInstructorDataGridSource(
+      {required List<Fichas> fichas, required BuildContext context}) {
     _fichasInstructorData = fichas.map<DataGridRow>((ficha) {
       return DataGridRow(cells: [
         DataGridCell<String>(columnName: 'Codigo', value: ficha.codigoFicha),
@@ -227,7 +238,10 @@ class FichasInstructorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Ver',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const FichaView()));
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Ver"),

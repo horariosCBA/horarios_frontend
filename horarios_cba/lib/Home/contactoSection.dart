@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/responsive.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 // Clase ContactoSection, que representa la sección de contacto.

@@ -52,7 +52,7 @@ void noHayPDFModal(BuildContext context) {
         ),
         // Botones de acción dentro del diálogo
         actions: <Widget>[
-          ButtonBar(
+          OverflowBar(
             alignment: MainAxisAlignment.center,
             children: [
               Padding(

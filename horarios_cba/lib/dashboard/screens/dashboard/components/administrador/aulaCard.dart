@@ -1,8 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Dashboard/Listas/aulas.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/aulas.dart';
+
 
 class AulaCard extends StatefulWidget {
   final Aulas aula;
@@ -16,11 +17,11 @@ class AulaCard extends StatefulWidget {
 class _AulaCardState extends State<AulaCard> {
   // Lista de imágenes que se repetirán cíclicamente
   final List<String> imagenesAulas = [
-    "assets/img/fondoAula1.jpg",
-    "assets/img/fondoAula2.jpg",
-    "assets/img/fondoAula3.jpg",
-    "assets/img/fondoAula4.jpg",
-    "assets/img/fondoAula5.jpg"
+    "assets/img/fondoAula1.webp",
+    "assets/img/fondoAula2.webp",
+    "assets/img/fondoAula3.webp",
+    "assets/img/fondoAula4.webp",
+    "assets/img/fondoAula5.webp",
   ];
 
   @override

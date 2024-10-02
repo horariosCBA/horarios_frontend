@@ -1,10 +1,12 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Dashboard/Listas/programacion.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/InstructorPDF/pdfProgramacionesInstructor.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
+import 'package:horarios_cba/Programacion/programacionView.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/programacion.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class ProgramacionesInstructor extends StatefulWidget {
@@ -30,7 +32,7 @@ class _ProgramacionesInstructorState extends State<ProgramacionesInstructor> {
     programacionInstructor = listaProgramacion;
 
     _dataGridSource = ProgramacionesInstructorDataGridSource(
-        programaciones: programacionInstructor);
+        programaciones: programacionInstructor, context: context);
   }
 
   @override
@@ -190,7 +192,15 @@ class _ProgramacionesInstructorState extends State<ProgramacionesInstructor> {
                 buildButton('Imprimir Reporte', () {
                   if (registros.isEmpty) {
                     noHayPDFModal(context);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PdfProgramacionesInstructorScreen(
+                                    usuario: widget.usuarioAutenticado,
+                                    registros: registros)));
+                  }
                 }),
               ],
             ),
@@ -203,7 +213,8 @@ class _ProgramacionesInstructorState extends State<ProgramacionesInstructor> {
 
 class ProgramacionesInstructorDataGridSource extends DataGridSource {
   ProgramacionesInstructorDataGridSource(
-      {required List<Programacion> programaciones}) {
+      {required List<Programacion> programaciones,
+      required BuildContext context}) {
     _programacionData = programaciones.map<DataGridRow>((programacion) {
       return DataGridRow(cells: [
         DataGridCell<int>(
@@ -227,7 +238,12 @@ class ProgramacionesInstructorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Ver',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProgramacionView()));
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Ver"),

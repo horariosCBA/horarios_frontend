@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 
+
 // Widget que muestra la lista de mensajes en una interfaz de usuario de chat
 class MessagesScreen extends StatefulWidget {
   final List messages; // Lista de mensajes

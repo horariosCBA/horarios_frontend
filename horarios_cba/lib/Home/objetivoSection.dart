@@ -93,7 +93,7 @@ class ObjetivoSection extends StatelessWidget {
                               ),
                               child: ClipOval(
                                 child: Image.asset(
-                                  "assets/img/sena1.jpg",
+                                  "assets/img/sena1.webp",
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -185,7 +185,7 @@ class ObjetivoSection extends StatelessWidget {
                               ),
                               child: ClipOval(
                                 child: Image.asset(
-                                  "assets/img/sena1.jpg",
+                                  "assets/img/sena1.webp",
                                   fit: BoxFit.cover,
                                 ),
                               ),

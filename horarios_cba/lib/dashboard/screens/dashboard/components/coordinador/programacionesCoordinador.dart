@@ -1,10 +1,12 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Dashboard/Listas/programacion.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/CoordinadorPDF/pdfProgramacionesCoordinador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
+import 'package:horarios_cba/Programacion/programacionView.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/programacion.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -31,8 +33,8 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
 
     programacion = listaProgramacion;
 
-    _dataGridSource =
-        ProgramacionesCoordinadorDataGridSource(programaciones: programacion);
+    _dataGridSource = ProgramacionesCoordinadorDataGridSource(
+        programaciones: programacion, context: context);
   }
 
   @override
@@ -205,7 +207,15 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
                 buildButton('Imprimir Reporte', () {
                   if (registros.isEmpty) {
                     noHayPDFModal(context);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PdfProgramacionesCoordinadorScreen(
+                                    usuario: widget.usuarioAutenticado,
+                                    registros: registros)));
+                  }
                 }),
                 const SizedBox(
                   width: defaultPadding,
@@ -220,7 +230,15 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
                   buildButton('Imprimir Reporte', () {
                     if (registros.isEmpty) {
                       noHayPDFModal(context);
-                    } else {}
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PdfProgramacionesCoordinadorScreen(
+                                      usuario: widget.usuarioAutenticado,
+                                      registros: registros)));
+                    }
                   }),
                   const SizedBox(
                     height: defaultPadding,
@@ -237,7 +255,8 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
 
 class ProgramacionesCoordinadorDataGridSource extends DataGridSource {
   ProgramacionesCoordinadorDataGridSource(
-      {required List<Programacion> programaciones}) {
+      {required List<Programacion> programaciones,
+      required BuildContext context}) {
     _programacionData = programaciones.map<DataGridRow>((programacion) {
       return DataGridRow(cells: [
         DataGridCell<int>(
@@ -261,7 +280,12 @@ class ProgramacionesCoordinadorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Ver',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProgramacionView()));
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Ver"),

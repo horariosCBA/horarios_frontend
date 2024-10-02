@@ -1,10 +1,12 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Competencia/competenciaView.dart';
+import 'package:horarios_cba/Dashboard/Listas/competencias.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/AdministradorPDF/pdfCompetenciasAdministrador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/competencias.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -32,7 +34,7 @@ class _CompetenciasAdministradorState extends State<CompetenciasAdministrador> {
     competenciasAdministrador = listaCompetencia;
 
     _dataGridSource = CompetenciasAdministradorDataGridSource(
-        competencias: competenciasAdministrador);
+        competencias: competenciasAdministrador, context: context);
   }
 
   @override
@@ -179,7 +181,15 @@ class _CompetenciasAdministradorState extends State<CompetenciasAdministrador> {
                 buildButton('Imprimir Reporte', () {
                   if (registros.isEmpty) {
                     noHayPDFModal(context);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PdfCompetenciasAdministradorScreen(
+                                    usuario: widget.usuarioAutenticado,
+                                    registros: registros)));
+                  }
                 }),
                 const SizedBox(
                   width: defaultPadding,
@@ -194,7 +204,15 @@ class _CompetenciasAdministradorState extends State<CompetenciasAdministrador> {
                   buildButton('Imprimir Reporte', () {
                     if (registros.isEmpty) {
                       noHayPDFModal(context);
-                    } else {}
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PdfCompetenciasAdministradorScreen(
+                                      usuario: widget.usuarioAutenticado,
+                                      registros: registros)));
+                    }
                   }),
                   const SizedBox(
                     height: defaultPadding,
@@ -211,7 +229,8 @@ class _CompetenciasAdministradorState extends State<CompetenciasAdministrador> {
 
 class CompetenciasAdministradorDataGridSource extends DataGridSource {
   CompetenciasAdministradorDataGridSource(
-      {required List<Competencias> competencias}) {
+      {required List<Competencias> competencias,
+      required BuildContext context}) {
     _competenciasAdministradorData =
         competencias.map<DataGridRow>((competencia) {
       return DataGridRow(cells: [
@@ -225,7 +244,12 @@ class CompetenciasAdministradorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Ver',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CompetenciaView()));
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Ver"),

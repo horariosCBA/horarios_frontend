@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, file_names
 
 import 'dart:async';
+
 import 'package:horarios_cba/Chatbot/chatBot.dart';
 import 'package:horarios_cba/Home/chatBoton.dart';
 import 'package:horarios_cba/Home/conceptoSection.dart';
@@ -50,10 +51,10 @@ class _HomePageState extends State<HomePage>
   ///
   /// Esta lista contiene las URLs de las imágenes que se utilizarán para el fondo de pantalla.
   final List<String> imageUrls = [
-    'assets/img/fondo1.jpg',
-    'assets/img/fondo2.jpg',
-    'assets/img/fondo3.jpg',
-    'assets/img/fondo4.jpg',
+    'assets/img/fondo1.webp',
+    'assets/img/fondo2.webp',
+    'assets/img/fondo3.webp',
+    'assets/img/fondo4.webp',
   ];
 
   /// Índice de la imagen actual.

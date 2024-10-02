@@ -2,10 +2,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Dashboard/Listas/fichas.dart';
+import 'package:horarios_cba/Ficha/fichaView.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
+import 'package:horarios_cba/PDF/AdministradorPDF/pdfFichasAdministraador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/fichas.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -30,8 +32,8 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
 
     fichasAdministrador = listaFichas;
 
-    _dataGridSource =
-        FichasAdministradorDataGridSource(fichas: fichasAdministrador);
+    _dataGridSource = FichasAdministradorDataGridSource(
+        fichas: fichasAdministrador, context: context);
   }
 
   @override
@@ -212,7 +214,14 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
                 buildButton('Imprimir Reporte', () {
                   if (registros.isEmpty) {
                     noHayPDFModal(context);
-                  } else {}
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PdfFichasAdministradorScreen(
+                                usuario: widget.usuarioAutenticado,
+                                registros: registros)));
+                  }
                 }),
                 const SizedBox(
                   width: defaultPadding,
@@ -227,7 +236,15 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
                   buildButton('Imprimir Reporte', () {
                     if (registros.isEmpty) {
                       noHayPDFModal(context);
-                    } else {}
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PdfFichasAdministradorScreen(
+                                      usuario: widget.usuarioAutenticado,
+                                      registros: registros)));
+                    }
                   }),
                   const SizedBox(
                     height: defaultPadding,
@@ -243,7 +260,8 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
 }
 
 class FichasAdministradorDataGridSource extends DataGridSource {
-  FichasAdministradorDataGridSource({required List<Fichas> fichas}) {
+  FichasAdministradorDataGridSource(
+      {required List<Fichas> fichas, required BuildContext context}) {
     _fichasAdministradorData = fichas.map<DataGridRow>((ficha) {
       return DataGridRow(cells: [
         DataGridCell<String>(columnName: 'Código', value: ficha.codigoFicha),
@@ -262,7 +280,10 @@ class FichasAdministradorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Ver',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const FichaView()));
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Ver"),

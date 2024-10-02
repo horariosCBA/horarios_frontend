@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Chatbot/chatBot.dart';
+import 'package:horarios_cba/Dashboard/Controllers/menu_app_controller.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/dashboard_screen_instructor.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
-import 'package:horarios_cba/dashboard/controllers/menu_app_controller.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/dashboard_screen_instructor.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:provider/provider.dart';
 
-import 'components/side_menu.dart';
+import 'Components/side_menu.dart';
 
 class MainScreenInstructor extends StatelessWidget {
   final UsuarioModel usuarioAutenticado;
@@ -40,6 +41,15 @@ class MainScreenInstructor extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ChatBot()),
+          );
+        },
+        child: const Icon(Icons.support_agent),
       ),
     );
   }

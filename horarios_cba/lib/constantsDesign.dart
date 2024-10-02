@@ -2,7 +2,6 @@
 // Ignora las advertencias sobre el uso completo de valores hexadecimales y nombres de archivos.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 // Definición de colores constantes utilizados en el tema de la aplicación.
 // Color principal de la aplicación.

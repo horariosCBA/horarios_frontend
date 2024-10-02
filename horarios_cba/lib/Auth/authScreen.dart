@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 
+
 import 'Login/loginScreen.dart';
 
 // La clase de la página de inicio de sesión.
@@ -107,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen>
               decoration:
                   const BoxDecoration(image: DecorationImage(image: AssetImage(
                       //imagen ? '../images/imagen4.jpg' : '../images/imagen5.jpg'
-                      'assets/img/login.jpg'), fit: BoxFit.cover)),
+                      'assets/img/login.webp'), fit: BoxFit.cover)),
               child: Stack(
                 children: [
                   Container(
@@ -174,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen>
                 image: DecorationImage(
                   image: AssetImage(
                       //imagen ? '../images/imagen8.jpg' : '../images/imagen7.jpg'
-                      'assets/img/login.jpg'),
+                      'assets/img/login.webp'),
                   fit: BoxFit.cover,
                 ),
               ),

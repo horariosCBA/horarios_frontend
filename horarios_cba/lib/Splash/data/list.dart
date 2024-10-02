@@ -41,7 +41,7 @@ List<Components> listaComponents = [
               fit: BoxFit.cover,
             )
           : null,
-      imagen2: 'assets/img/splash1.jpg',
+      imagen2: 'assets/img/splash1.webp',
       background: primaryColor),
   Components(
       titulo: "Acceso a Tecnología y Equipamiento de Vanguardia",
@@ -56,7 +56,7 @@ List<Components> listaComponents = [
               )
             : null,
       ),
-      imagen2: 'assets/img/splash2.jpg',
+      imagen2: 'assets/img/splash2.webp',
       background: Colors.white),
   Components(
       titulo: "Conexiones con el Mundo Laboral",
@@ -66,7 +66,7 @@ List<Components> listaComponents = [
           ? LottieBuilder.asset("assets/animation/animation3.json",
               fit: BoxFit.cover)
           : null,
-      imagen2: 'assets/img/splash3.jpg',
+      imagen2: 'assets/img/splash3.webp',
       background: primaryColor),
   Components(
       titulo:
@@ -82,7 +82,7 @@ List<Components> listaComponents = [
               )
             : null,
       ),
-      imagen2: 'assets/img/splash4.jpg',
+      imagen2: 'assets/img/splash4.webp',
       background: Colors.white),
   Components(
       titulo: "Certificación Reconocida y Valorada",
@@ -92,6 +92,6 @@ List<Components> listaComponents = [
           ? LottieBuilder.asset("assets/animation/animation3.json",
               fit: BoxFit.cover)
           : null,
-      imagen2: 'assets/img/splash5.jpg',
+      imagen2: 'assets/img/splash5.webp',
       background: primaryColor),
 ];

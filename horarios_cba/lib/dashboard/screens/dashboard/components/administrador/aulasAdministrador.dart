@@ -1,10 +1,11 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Dashboard/Listas/aulas.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/aulaCard.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/listas/aulas.dart';
-import 'package:horarios_cba/dashboard/screens/dashboard/components/administrador/AulaCard.dart';
 import 'package:horarios_cba/responsive.dart';
+
 
 // Vista que muestra las tarjetas de aulas, adaptándose a diferentes dispositivos.
 class AulasAdministrador extends StatelessWidget {

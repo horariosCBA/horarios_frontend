@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/Auth/authScreen.dart';
-import 'package:horarios_cba/Chat/responsive/responsive_chat.dart';
-import 'package:horarios_cba/Chat/screens/mobile_screen_chat.dart';
-import 'package:horarios_cba/Chat/screens/web_screen_chat.dart';
+import 'package:horarios_cba/Chat/Responsive/responsive_chat.dart';
+import 'package:horarios_cba/Chat/Screens/mobile_screen_chat.dart';
+import 'package:horarios_cba/Chat/Screens/web_screen_chat.dart';
 import 'package:horarios_cba/Home/homePage.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/provider.dart';
@@ -111,7 +111,7 @@ class ChatBoton extends StatelessWidget {
             ],
           ),
           actions: <Widget>[
-            ButtonBar(
+            OverflowBar(
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.
@@ -183,7 +183,7 @@ class ChatBoton extends StatelessWidget {
             ],
           ),
           actions: <Widget>[
-            ButtonBar(
+            OverflowBar(
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.

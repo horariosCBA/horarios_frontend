@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:horarios_cba/Dashboard/Controllers/menu_app_controller.dart';
+import 'package:horarios_cba/Dashboard/Screens/Main/main_screen_administrador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Main/main_screen_aprendiz.dart';
+import 'package:horarios_cba/Dashboard/Screens/Main/main_screen_coordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Main/main_screen_instructor.dart';
 import 'package:horarios_cba/Home/homePage.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/dashboard/controllers/menu_app_controller.dart';
-import 'package:horarios_cba/dashboard/screens/main/main_screen_administrador.dart';
-import 'package:horarios_cba/dashboard/screens/main/main_screen_aprendiz.dart';
-import 'package:horarios_cba/dashboard/screens/main/main_screen_coordinador.dart';
-import 'package:horarios_cba/dashboard/screens/main/main_screen_instructor.dart';
 import 'package:horarios_cba/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -165,7 +165,7 @@ void logout(BuildContext context) {
           ],
         ),
         actions: <Widget>[
-          ButtonBar(
+          OverflowBar(
             alignment: MainAxisAlignment.center,
             children: [
               // Botón para cancelar la operación.
