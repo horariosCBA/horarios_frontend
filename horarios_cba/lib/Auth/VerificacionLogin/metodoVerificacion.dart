@@ -801,6 +801,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -876,6 +877,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 Padding(

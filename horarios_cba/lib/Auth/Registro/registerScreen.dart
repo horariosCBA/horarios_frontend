@@ -430,6 +430,7 @@ class _RegisterState extends State<Register>
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 Padding(

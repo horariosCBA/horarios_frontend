@@ -753,6 +753,7 @@ class _WebChatScreenState extends State<WebChatScreen> {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.
@@ -828,6 +829,7 @@ class _WebChatScreenState extends State<WebChatScreen> {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.

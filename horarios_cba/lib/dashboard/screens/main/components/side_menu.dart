@@ -166,6 +166,7 @@ void logout(BuildContext context) {
         ),
         actions: <Widget>[
           OverflowBar(
+            overflowAlignment: OverflowBarAlignment.center,
             alignment: MainAxisAlignment.center,
             children: [
               // Botón para cancelar la operación.

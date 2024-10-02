@@ -259,7 +259,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 50),
                           const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -480,14 +479,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       controller: tabController,
                       children: [
                         // Vista para iniciar sesión
-                        SingleChildScrollView(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 50),
+                        Center(
+                          child: SingleChildScrollView(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(height: 50),
                                 const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -656,6 +653,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -718,6 +716,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -734,6 +733,4 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       },
     );
   }
-
-
 }

@@ -206,6 +206,7 @@ class _ProfileCardState extends State<ProfileCard> {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.

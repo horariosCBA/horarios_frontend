@@ -133,6 +133,7 @@ class _CambioEstadoState extends State<CambioEstado> {
       ),
       actions: <Widget>[
         OverflowBar(
+          overflowAlignment: OverflowBarAlignment.center,
           alignment: MainAxisAlignment.center,
           children: [
             // Botón de cancelar

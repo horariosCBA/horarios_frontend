@@ -112,6 +112,7 @@ class ChatBoton extends StatelessWidget {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.
@@ -184,6 +185,7 @@ class ChatBoton extends StatelessWidget {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.

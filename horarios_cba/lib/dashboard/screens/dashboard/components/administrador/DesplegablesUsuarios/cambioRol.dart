@@ -140,6 +140,7 @@ class _CambioRolState extends State<CambioRol> {
       ),
       actions: <Widget>[
         OverflowBar(
+          overflowAlignment: OverflowBarAlignment.center,
           alignment: MainAxisAlignment.center,
           children: [
             // Botón de cancelar

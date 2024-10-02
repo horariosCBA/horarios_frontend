@@ -794,6 +794,7 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón de cancelar

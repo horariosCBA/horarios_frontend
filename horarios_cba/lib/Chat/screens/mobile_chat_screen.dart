@@ -745,6 +745,7 @@ class _MobileChatScreenState extends State<MobileChatScreen> {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.
@@ -820,6 +821,7 @@ class _MobileChatScreenState extends State<MobileChatScreen> {
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 // Botón para cancelar la operación.

@@ -1009,6 +1009,7 @@ class _VerificationScreenRegisterState
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -1085,6 +1086,7 @@ class _VerificationScreenRegisterState
           ),
           actions: <Widget>[
             OverflowBar(
+              overflowAlignment: OverflowBarAlignment.center,
               alignment: MainAxisAlignment.center,
               children: [
                 Padding(
