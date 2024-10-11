@@ -124,7 +124,7 @@ class _PdfInstructoresCoordinadorScreenState
       final cellsWithIndex = item.getCells().asMap().entries;
 
       return cellsWithIndex.where((entry) {
-        return entry.key < cellsWithIndex.length - 1;
+        return entry.key < cellsWithIndex.length - 0;
       }).map((entry) {
         //final index = entry.key;
         final cell = entry.value;

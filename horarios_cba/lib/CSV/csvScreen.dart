@@ -368,14 +368,10 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
     });
   }
 
+  // Función para subir los usuarios en masa a la base de datos
   Future addUser(List<UsuarioModel> usuarios) async {
     // Muestra un mensaje de que la operación está en progreso
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-            'Esperando respuesta del servidor. Esto puede tardar varios minutos. Por favor, no cierre esta ventana.'),
-      ),
-    );
+    modalCargando();
 
     // Itera sobre la lista de usuarios a agregar
     for (var usuario in usuarios) {
@@ -436,8 +432,9 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
       );
 
       if (mounted) {
+        Navigator.pop(context);
         // Si el widget está montado, navega a la pantalla principal del administrador
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => MultiProvider(
@@ -445,7 +442,9 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
                 ChangeNotifierProvider(
                     create: (context) => MenuAppController()),
               ],
-              child: MainScreenAdministrador(usuarioAutenticado: widget.usuarioAutenticado,),
+              child: MainScreenAdministrador(
+                usuarioAutenticado: widget.usuarioAutenticado,
+              ),
             ),
           ),
         );
@@ -769,10 +768,9 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const Text(
-                "Tenga en cuenta que los usuarios con algún dato faltante no podrán registrarse.",
-                style: TextStyle(fontSize: 17),
-                textAlign: TextAlign.center
-              ),
+                  "Tenga en cuenta que los usuarios con algún dato faltante no podrán registrarse.",
+                  style: TextStyle(fontSize: 17),
+                  textAlign: TextAlign.center),
               const SizedBox(
                 height: 10,
               ),
@@ -815,6 +813,45 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
               ],
             ),
           ],
+        );
+      },
+    );
+  }
+
+  // Muestra un modal de cargando cuando se esten subiendo los usuarios a la base de datos
+  void modalCargando() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('¡Cargando!', textAlign: TextAlign.center),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Text(
+                  'Esperando respuesta del servidor. Esto puede tardar varios minutos. Por favor, no cierre esta ventana.',
+                  style: TextStyle(fontSize: 17),
+                  textAlign: TextAlign.center),
+              const SizedBox(
+                height: 10,
+              ),
+              ClipOval(
+                child: Container(
+                  width: 100, // Ajusta el tamaño según sea necesario
+                  height: 100, // Ajusta el tamaño según sea necesario
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: primaryColor,
+                  ),
+                  child: Image.asset(
+                    "assets/img/logo.png",
+                    fit: BoxFit.cover, // Ajusta la imagen al contenedor
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );

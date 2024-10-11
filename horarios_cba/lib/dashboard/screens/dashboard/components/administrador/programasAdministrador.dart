@@ -5,6 +5,8 @@ import 'package:horarios_cba/Dashboard/Listas/programa.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/PDF/AdministradorPDF/pdfProgramasAdministrador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
+import 'package:horarios_cba/Programa/Crear/programaFormularioCrear.dart';
+import 'package:horarios_cba/Programa/Editar/programaFormularioEditar.dart';
 import 'package:horarios_cba/Programa/programaView.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/responsive.dart';
@@ -73,6 +75,7 @@ class _ProgramasAdministradorState extends State<ProgramasAdministrador> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -203,7 +206,14 @@ class _ProgramasAdministradorState extends State<ProgramasAdministrador> {
                 const SizedBox(
                   width: defaultPadding,
                 ),
-                buildButton('Añadir', () {}),
+                buildButton('Añadir', () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProgramaFormularioCrear(),
+                    ),
+                  );
+                }),
               ],
             ),
           if (Responsive.isMobile(context))
@@ -226,7 +236,14 @@ class _ProgramasAdministradorState extends State<ProgramasAdministrador> {
                   const SizedBox(
                     height: defaultPadding,
                   ),
-                  buildButton('Añadir', () {}),
+                  buildButton('Añadir', () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProgramaFormularioCrear(),
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -271,7 +288,14 @@ class ProgramasAdministradorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Editar',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProgramaFormularioEditar(),
+                    ),
+                  );
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Editar"),

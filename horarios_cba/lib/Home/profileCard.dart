@@ -1,8 +1,10 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names, unnecessary_null_comparison
 
-
 import 'package:horarios_cba/Dashboard/Controllers/menu_app_controller.dart';
+import 'package:horarios_cba/Dashboard/Screens/Main/main_screen_administrador.dart';
 import 'package:horarios_cba/Dashboard/Screens/Main/main_screen_aprendiz.dart';
+import 'package:horarios_cba/Dashboard/Screens/Main/main_screen_coordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Main/main_screen_instructor.dart';
 import 'package:horarios_cba/Home/homePage.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/provider.dart';
@@ -47,21 +49,88 @@ class _ProfileCardState extends State<ProfileCard> {
                   usuarioAutenticado.rol == null) {
                 logoutRol(context);
               } else {
+                /*
                 // Navegar al dashboard si el usuario tiene un rol
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MultiProvider(
-                      providers: [
-                        ChangeNotifierProvider(
-                            create: (context) => MenuAppController()),
-                      ],
-                      child: MainScreenAprendiz(
-                        usuarioAutenticado: usuarioAutenticado,
+                // Si el usuario es un aprendiz, navega al panel del aprendiz
+                if (usuarioAutenticado.rol == "Aprendiz") {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MultiProvider(
+                        providers: [
+                          ChangeNotifierProvider(
+                              create: (context) => MenuAppController()),
+                        ],
+                        child: MainScreenAprendiz(
+                          usuarioAutenticado: usuarioAutenticado,
+                        ),
                       ),
                     ),
-                  ),
-                );
+                  );
+                // Si el usuario es un instructor, navega al panel del instructor
+                } else if (usuarioAutenticado.rol == "Instructor") {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MultiProvider(
+                        providers: [
+                          ChangeNotifierProvider(
+                              create: (context) => MenuAppController()),
+                        ],
+                        child: MainScreenInstructor(
+                          usuarioAutenticado: usuarioAutenticado,
+                        ),
+                      ),
+                    ),
+                  );
+                // Si el usuario es un coordinador, navega al panel del coordinador
+                } else if (usuarioAutenticado.rol == "Coordinador") {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MultiProvider(
+                        providers: [
+                          ChangeNotifierProvider(
+                              create: (context) => MenuAppController()),
+                        ],
+                        child: MainScreenCoordinador(
+                          usuarioAutenticado: usuarioAutenticado,
+                        ),
+                      ),
+                    ),
+                  );
+                // Si el usuario es un administrador, navega al panel del administrador
+                } else if (usuarioAutenticado.rol == "Administrador") {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MultiProvider(
+                        providers: [
+                          ChangeNotifierProvider(
+                              create: (context) => MenuAppController()),
+                        ],
+                        child: MainScreenAdministrador(
+                          usuarioAutenticado: usuarioAutenticado,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+                */
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MultiProvider(
+                        providers: [
+                          ChangeNotifierProvider(
+                              create: (context) => MenuAppController()),
+                        ],
+                        child: MainScreenAprendiz(
+                          usuarioAutenticado: usuarioAutenticado,
+                        ),
+                      ),
+                    ),
+                  );
               }
             } else {
               // Navegar a la pantalla de inicio de sesión si no hay usuario autenticado.

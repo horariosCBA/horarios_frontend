@@ -53,22 +53,29 @@ Future<List<AsignacionInstructorModel>> getAsignacionesInstructor() async {
           id: asignacionInstructordata['usuario']['id'] ?? 0,
           nombres: asignacionInstructordata['usuario']['nombres'] ?? "",
           apellidos: asignacionInstructordata['usuario']['apellidos'] ?? "",
-          tipoDocumento: asignacionInstructordata['usuario']['tipoDocumento'] ?? "",
-          numeroDocumento: asignacionInstructordata['usuario']['numeroDocumento'] ?? "",
-          correoElectronico: asignacionInstructordata['usuario']['correoElectronico'] ?? "",
+          tipoDocumento:
+              asignacionInstructordata['usuario']['tipoDocumento'] ?? "",
+          numeroDocumento:
+              asignacionInstructordata['usuario']['numeroDocumento'] ?? "",
+          correoElectronico:
+              asignacionInstructordata['usuario']['correoElectronico'] ?? "",
           telefono: asignacionInstructordata['usuario']['telefono'] ?? "",
-          telefonoCelular: asignacionInstructordata['usuario']['telefonoCelular'] ?? "",
+          telefonoCelular:
+              asignacionInstructordata['usuario']['telefonoCelular'] ?? "",
           rol: asignacionInstructordata['usuario']['rol'] ?? "",
           cargo: asignacionInstructordata['usuario']['cargo'] ?? "",
-          especialidad: asignacionInstructordata['usuario']['especialidad'] ?? "",
+          especialidad:
+              asignacionInstructordata['usuario']['especialidad'] ?? "",
           foto: asignacionInstructordata['usuario']['foto'] ?? "",
           vocero: asignacionInstructordata['usuario']['vocero'] ?? false,
           titulacion: asignacionInstructordata['usuario']['titulacion'] ?? "",
           estado: asignacionInstructordata['usuario']['estado'] ?? false,
           enLinea: asignacionInstructordata['usuario']['enLinea'] ?? false,
-          tipoInstructor: asignacionInstructordata['usuario']['tipoInstructor'] ?? "",
+          tipoInstructor:
+              asignacionInstructordata['usuario']['tipoInstructor'] ?? "",
           area: asignacionInstructordata['usuario']['area'] ?? "",
-          fechaRegistro: asignacionInstructordata['usuario']['fechaRegistro'] ?? "",
+          fechaRegistro:
+              asignacionInstructordata['usuario']['fechaRegistro'] ?? "",
         ),
       ));
     }

@@ -53,8 +53,6 @@ Future<List<LiderFichaModel>> getLideres() async {
             descripcion: inscripciondata['ficha']['descripcion'] ?? "",
             fechaInicio: inscripciondata['ficha']['fechaInicio'] ?? "",
             fechaFin: inscripciondata['ficha']['fechaFin'] ?? "",
-            tipoOferta: inscripciondata['ficha']['tipoOferta'] ?? "",
-            modalidad: inscripciondata['ficha']['modalidad'] ?? "",
             lugar: inscripciondata['ficha']['lugar'] ?? "",
             estado: inscripciondata['ficha']['estado'] ?? false,
             programa: ProgramaModel(
@@ -78,6 +76,10 @@ Future<List<LiderFichaModel>> getLideres() async {
                   inscripciondata['ficha']['programa']['certificacion'] ?? "",
               descripcion:
                   inscripciondata['ficha']['programa']['descripcion'] ?? "",
+              tipoOferta:
+                  inscripciondata['ficha']['programa']['tipoOferta'] ?? "",
+              modalidad:
+                  inscripciondata['ficha']['programa']['modalidad'] ?? "",
               area: inscripciondata['ficha']['programa']['area'] ?? "",
             ),
           )));

@@ -1,6 +1,7 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/AsignacionCoordinador/asignacionCoordinadorFormulario.dart';
 import 'package:horarios_cba/Dashboard/Listas/asignacion_programas.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/PDF/AdministradorPDF/pdfCoordinadoresAdministrador.dart';
@@ -75,6 +76,7 @@ class _CoordinadoresAdministradorState
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -225,7 +227,13 @@ class _CoordinadoresAdministradorState
                 const SizedBox(
                   width: defaultPadding,
                 ),
-                buildButton('Añadir', () {}),
+                buildButton('Añadir', () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const AsignacionCoordinadorFormulario()));
+                }),
               ],
             ),
           if (Responsive.isMobile(context))
@@ -248,7 +256,13 @@ class _CoordinadoresAdministradorState
                   const SizedBox(
                     height: defaultPadding,
                   ),
-                  buildButton('Añadir', () {}),
+                  buildButton('Añadir', () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const AsignacionCoordinadorFormulario()));
+                  }),
                 ],
               ),
             ),

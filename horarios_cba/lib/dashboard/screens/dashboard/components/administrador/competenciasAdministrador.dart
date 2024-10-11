@@ -1,6 +1,8 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/Competencia/Crear/competenciaFormularioCrear.dart';
+import 'package:horarios_cba/Competencia/Editar/competenciaFormularioEditar.dart';
 import 'package:horarios_cba/Competencia/competenciaView.dart';
 import 'package:horarios_cba/Dashboard/Listas/competencias.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
@@ -75,6 +77,7 @@ class _CompetenciasAdministradorState extends State<CompetenciasAdministrador> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -194,7 +197,14 @@ class _CompetenciasAdministradorState extends State<CompetenciasAdministrador> {
                 const SizedBox(
                   width: defaultPadding,
                 ),
-                buildButton('Añadir', () {}),
+                buildButton('Añadir', () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CompetenciaFormularioCrear(),
+                    ),
+                  );
+                }),
               ],
             ),
           if (Responsive.isMobile(context))
@@ -217,7 +227,15 @@ class _CompetenciasAdministradorState extends State<CompetenciasAdministrador> {
                   const SizedBox(
                     height: defaultPadding,
                   ),
-                  buildButton('Añadir', () {}),
+                  buildButton('Añadir', () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const CompetenciaFormularioCrear(),
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -257,7 +275,14 @@ class CompetenciasAdministradorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Editar',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CompetenciaFormularioEditar(),
+                    ),
+                  );
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Editar"),

@@ -119,6 +119,7 @@ class _PdfFichasAdministradorScreenState
       'Lider',
       'Programa',
       'Tipo Programa',
+      'Tipo Oferta',
       'Coordinador',
     ];
     final tableData = registros.map((item) {

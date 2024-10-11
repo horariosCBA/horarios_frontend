@@ -84,9 +84,13 @@ class _RegisterState extends State<Register>
 
   /// Mascara para el número de teléfono.
   ///
-  /// Es utilizado para formatear el número de teléfono ingresado por el usuario.
-  var inputtelefono = MaskTextInputFormatter(
+  /// Es utilizado para formatear el número de teléfono celular ingresado por el usuario.
+  var inputtelefonoCelular = MaskTextInputFormatter(
       mask: "### ### ####", filter: {"#": RegExp(r'[0-9]')});
+
+  /// Formateador para el campo de número de documento.
+  var inputDocumento = MaskTextInputFormatter(
+      mask: "############", filter: {"#": RegExp(r'[0-9]')});
 
   String? documento;
 
@@ -548,7 +552,6 @@ class _RegisterState extends State<Register>
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               hintText: 'Nombres Completos',
-                              hintStyle: const TextStyle(color: Colors.black),
                               fillColor: Colors.grey[200],
                               filled: true,
                             ),
@@ -593,7 +596,6 @@ class _RegisterState extends State<Register>
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               hintText: 'Apellidos Completos',
-                              hintStyle: const TextStyle(color: Colors.black),
                               fillColor: Colors.grey[200],
                               filled: true,
                             ),
@@ -616,7 +618,7 @@ class _RegisterState extends State<Register>
                         child: Padding(
                           padding: const EdgeInsets.only(left: 2.0, right: 2.0),
                           child: TextFormField(
-                            inputFormatters: [inputtelefono],
+                            inputFormatters: [inputtelefonoCelular],
                             keyboardType: TextInputType.number,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -640,7 +642,6 @@ class _RegisterState extends State<Register>
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               hintText: 'Teléfono Celular (+57)',
-                              hintStyle: const TextStyle(color: Colors.black),
                               fillColor: Colors.grey[200],
                               filled: true,
                             ),
@@ -841,6 +842,7 @@ class _RegisterState extends State<Register>
                         child: Padding(
                           padding: const EdgeInsets.only(left: 2.0, right: 2.0),
                           child: TextFormField(
+                            inputFormatters: [inputDocumento],
                             keyboardType: TextInputType.number,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -865,7 +867,6 @@ class _RegisterState extends State<Register>
                               ),
                               hintText:
                                   'N° Documento (NIT sin guion y dígito de verificación)',
-                              hintStyle: const TextStyle(color: Colors.black),
                               fillColor: Colors.grey[200],
                               filled: true,
                             ),
@@ -910,7 +911,6 @@ class _RegisterState extends State<Register>
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               hintText: 'Correo Electrónico',
-                              hintStyle: const TextStyle(color: Colors.black),
                               fillColor: Colors.grey[200],
                               filled: true,
                             ),

@@ -1,11 +1,11 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Aula/Crear/aulaFormularioCrear.dart';
 import 'package:horarios_cba/Dashboard/Listas/aulas.dart';
 import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrador/aulaCard.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/responsive.dart';
-
 
 // Vista que muestra las tarjetas de aulas, adaptándose a diferentes dispositivos.
 class AulasAdministrador extends StatelessWidget {
@@ -51,7 +51,13 @@ class AulasAdministrador extends StatelessWidget {
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const AulaFormularioCrear()));
+                    },
                     borderRadius: BorderRadius.circular(10),
                     child: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
@@ -99,7 +105,12 @@ class AulasAdministrador extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AulaFormularioCrear()));
+                  },
                   borderRadius: BorderRadius.circular(10),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),

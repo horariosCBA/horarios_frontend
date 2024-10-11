@@ -21,7 +21,7 @@ class ProgramacionModel {
   final int ficha;
 
   // dias asignados
-  final int diasAsignados;
+  final double diasAsignados;
 
   // usuario relacionado a la programación
   final UsuarioModel usuario;
@@ -94,15 +94,15 @@ Future<List<ProgramacionModel>> getProgramaciones() async {
         planeacion: PlaneacionModel(
           id: programaciondata['planeacion']['id'] ?? 0,
           numero: programaciondata['planeacion']['numero'] ?? 0,
-          duracionPresencial:
-              programaciondata['planeacion']['duracionPresencial'] ?? 0,
-          duracionVirtual:
-              programaciondata['planeacion']['duracionVirtual'] ?? 0,
+          trabajoDirecto: programaciondata['planeacion']['trabajoDirecto'] ?? 0,
+          trabajoAutonomo:
+              programaciondata['planeacion']['trabajoAutonomo'] ?? 0,
           duracionTotal: programaciondata['planeacion']['duracionTotal'] ?? 0,
           horasRecomendadas:
               programaciondata['planeacion']['horasRecomendadas'] ?? 0,
           diasRecomendados:
               programaciondata['planeacion']['diasRecomendados'] ?? 0,
+          creditos: programaciondata['planeacion']['creditos'] ?? 0,
           resultadoAprendizaje: ResultadoAprendizajeModel(
             id: programaciondata['planeacion']['resultadoAprendizaje']['id'] ??
                 0,
@@ -171,6 +171,14 @@ Future<List<ProgramacionModel>> getProgramaciones() async {
                 descripcion: programaciondata['planeacion']
                             ['resultadoAprendizaje']['competencia']['programa']
                         ['descripcion'] ??
+                    "",
+                tipoOferta: programaciondata['planeacion']
+                            ['resultadoAprendizaje']['competencia']['programa']
+                        ['tipoOferta'] ??
+                    "",
+                modalidad: programaciondata['planeacion']
+                            ['resultadoAprendizaje']['competencia']['programa']
+                        ['modalidad'] ??
                     "",
                 area: programaciondata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['area'] ??

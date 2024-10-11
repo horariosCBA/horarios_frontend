@@ -117,6 +117,7 @@ class _PdfProgramacionesAprendicesScreenState
       'Ficha',
       'Trimestre',
       'Programa',
+      'Tipo Oferta',
       'Competencia',
       'Días Asignados',
     ];

@@ -73,6 +73,7 @@ class _ProgramacionesInstructorState extends State<ProgramacionesInstructor> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -148,6 +149,15 @@ class _ProgramacionesInstructorState extends State<ProgramacionesInstructor> {
                         padding: const EdgeInsets.all(8.0),
                         alignment: Alignment.center,
                         child: const Text('Programa'),
+                      ),
+                    ),
+                    GridColumn(
+                      width: 140,
+                      columnName: 'Tipo Oferta',
+                      label: Container(
+                        padding: const EdgeInsets.all(8.0),
+                        alignment: Alignment.center,
+                        child: const Text('Tipo Oferta'),
                       ),
                     ),
                     GridColumn(
@@ -230,6 +240,8 @@ class ProgramacionesInstructorDataGridSource extends DataGridSource {
             columnName: 'Trimestre', value: programacion.nombreTrimestre),
         DataGridCell<String>(
             columnName: 'Programa', value: programacion.nombrePrograma),
+        DataGridCell<String>(
+            columnName: 'Tipo Oferta', value: programacion.tipoOferta),
         DataGridCell<String>(
             columnName: 'Competencia', value: programacion.nombreCompetencia),
         DataGridCell<String>(

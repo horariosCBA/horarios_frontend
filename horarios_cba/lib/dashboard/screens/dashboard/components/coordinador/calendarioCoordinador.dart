@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/Dashboard/Calendar/meeting.dart';
 import 'package:horarios_cba/Dashboard/Calendar/meeting_data_source.dart';
+import 'package:horarios_cba/Horario/Crear/horarioFormularioCrear.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -67,7 +68,13 @@ class _CalendarioCoordinadorState extends State<CalendarioCoordinador> {
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const HorarioFormularioCrear()));
+                    },
                     borderRadius: BorderRadius.circular(10),
                     child: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
@@ -115,7 +122,13 @@ class _CalendarioCoordinadorState extends State<CalendarioCoordinador> {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const HorarioFormularioCrear()));
+                  },
                   borderRadius: BorderRadius.circular(10),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),

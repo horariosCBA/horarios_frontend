@@ -112,7 +112,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                             child: Column(
                               children: [
                                 Text(
-                                  "Nombre: Análisis y desarrollo de software",
+                                  "Nombre: Análisis y desarrollo de software.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -125,7 +125,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Código: 0003. ",
+                                  "Código: 0003.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -138,7 +138,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Versión: 1",
+                                  "Versión: 1.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -151,7 +151,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Fecha inicio: 22/01/2024 ",
+                                  "Fecha Inicio: 22/01/2024.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -164,7 +164,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Fecha fin: 22/021/2025 ",
+                                  "Fecha Fin: 22/021/2025.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -177,7 +177,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Duración lectiva: 3 Trimestres",
+                                  "Duración Lectiva: 1000 Horas.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -190,7 +190,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Duración productiva: 6 Meses ",
+                                  "Duración Productiva: 1000 Horas.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -203,7 +203,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Duración total: 5000 Horas",
+                                  "Duración Total: 5000 Horas.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -216,7 +216,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Tipo: Técnico",
+                                  "Tipo: Técnico.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -229,7 +229,33 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Certificación: tecnológo",
+                                  "Certificación: tecnológo.",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        color: Colors.white,
+                                      ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(
+                                  height: defaultPadding,
+                                ),
+                                Text(
+                                  "Tipo de oferta: Oferta.",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                        color: Colors.white,
+                                      ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(
+                                  height: defaultPadding,
+                                ),
+                                Text(
+                                  "Modalidad: Mixta.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -268,7 +294,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Área: Tecnología",
+                                  "Área: Tecnología.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!
@@ -281,7 +307,7 @@ class _ProgramaViewState extends State<ProgramaView> {
                                   height: defaultPadding,
                                 ),
                                 Text(
-                                  "Nombre de coordinador: Juan Jose Roa Villa",
+                                  "Coordinador: Juan Jose Roa Villa.",
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge!

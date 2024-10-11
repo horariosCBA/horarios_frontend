@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/Dashboard/Listas/planeaciones.dart';
 import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/planeacionCardCoordinador.dart';
+import 'package:horarios_cba/Planeacion/Crear/planeacionFormularioCrear.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/responsive.dart';
 
@@ -50,7 +51,15 @@ class PlaneacionesCoordinador extends StatelessWidget {
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const PlaneacionFormularioCrear(),
+                        ),
+                      );
+                    },
                     borderRadius: BorderRadius.circular(10),
                     child: const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
@@ -98,7 +107,14 @@ class PlaneacionesCoordinador extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PlaneacionFormularioCrear(),
+                      ),
+                    );
+                  },
                   borderRadius: BorderRadius.circular(10),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),

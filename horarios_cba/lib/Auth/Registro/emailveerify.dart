@@ -519,7 +519,6 @@ class _VerificationScreenRegisterState
                                                   hintText: '*',
                                                   hintStyle: const TextStyle(
                                                     fontSize: 35,
-                                                    color: Colors.black,
                                                   ),
                                                   counterStyle: const TextStyle(
                                                     color: Colors
@@ -833,7 +832,6 @@ class _VerificationScreenRegisterState
                                                           hintStyle:
                                                               const TextStyle(
                                                             fontSize: 35,
-                                                            color: Colors.black,
                                                           ),
                                                           counterStyle:
                                                               const TextStyle(

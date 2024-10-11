@@ -15,6 +15,8 @@ class Fichas {
 
   final String tipoPrograma;
 
+  final String tipoOferta;
+
   final String liderFicha;
 
   Fichas({
@@ -26,6 +28,7 @@ class Fichas {
     required this.estado,
     required this.modalidad,
     required this.tipoPrograma,
+    required this.tipoOferta,
     required this.liderFicha,
   });
 }
@@ -40,6 +43,7 @@ List<Fichas> listaFichas = [
       estado: "activo",
       modalidad: "presencial",
       tipoPrograma: "Tecnico",
+      tipoOferta: "Oferta",
       liderFicha: "liliana Sabogal"),
   Fichas(
       nombreCoordinador: "Oscar Osorio",
@@ -50,6 +54,7 @@ List<Fichas> listaFichas = [
       estado: "finalizado",
       modalidad: "virtual",
       tipoPrograma: "Tecnico",
+      tipoOferta: "Oferta",
       liderFicha: "Juliana Pardo"),
   Fichas(
       nombreCoordinador: "Rodrigo Lievano",
@@ -60,6 +65,7 @@ List<Fichas> listaFichas = [
       estado: "activo",
       modalidad: "presencial",
       tipoPrograma: "Tecnologo",
+      tipoOferta: "Oferta",
       liderFicha: "Fernando Bermudez"),
   Fichas(
       nombreCoordinador: "Rodrigo Lievano",
@@ -70,6 +76,7 @@ List<Fichas> listaFichas = [
       estado: "finzalizado",
       modalidad: "presencial",
       tipoPrograma: "Tecnico",
+      tipoOferta: "Oferta",
       liderFicha: "Ana lopez"),
   Fichas(
       nombreCoordinador: "Rodrigo Lievano",
@@ -80,6 +87,7 @@ List<Fichas> listaFichas = [
       estado: "activo",
       modalidad: "virtual",
       tipoPrograma: "Tecnico",
+      tipoOferta: "Oferta",
       liderFicha: "Santiago Villa"),
   Fichas(
       nombreCoordinador: "Rodrigo Lievano",
@@ -90,6 +98,7 @@ List<Fichas> listaFichas = [
       estado: "finalizado",
       modalidad: "presencial",
       tipoPrograma: "Tecnologo",
+      tipoOferta: "Oferta",
       liderFicha: "Camila Ocampo"),
   Fichas(
       nombreCoordinador: "Rodrigo Lievano",
@@ -100,6 +109,7 @@ List<Fichas> listaFichas = [
       estado: "activo",
       modalidad: "presencial",
       tipoPrograma: "Tecnico",
+      tipoOferta: "Oferta",
       liderFicha: "Pedro Iregui"),
   Fichas(
       nombreCoordinador: "Rodrigo Lievano",
@@ -110,6 +120,7 @@ List<Fichas> listaFichas = [
       estado: "activo",
       modalidad: "virtual",
       tipoPrograma: "Tecnico",
+      tipoOferta: "Oferta",
       liderFicha: "Kevin Villa"),
   Fichas(
       nombreCoordinador: "Rodrigo Lievano",
@@ -120,5 +131,6 @@ List<Fichas> listaFichas = [
       estado: "finalizado",
       modalidad: "presencial",
       tipoPrograma: "Tecnolo",
+      tipoOferta: "Oferta",
       liderFicha: "Danna Poveda"),
 ];

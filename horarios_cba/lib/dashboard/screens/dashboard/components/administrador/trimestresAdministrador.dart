@@ -5,6 +5,8 @@ import 'package:horarios_cba/Dashboard/Listas/trimestres.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/PDF/AdministradorPDF/pdfTrimestresAdministrador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
+import 'package:horarios_cba/Trimestre/Crear/trimestreFormularioCrear.dart';
+import 'package:horarios_cba/Trimestre/Editar/trimestreFormularioEditar.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -32,7 +34,7 @@ class _TrimestresAdministradorState extends State<TrimestresAdministrador> {
     trimestresAdministrador = listaTrimestres;
 
     _dataGridSource = TrimestresAdministradorDataGridSource(
-        trimestres: trimestresAdministrador);
+        trimestres: trimestresAdministrador, context: context);
   }
 
   @override
@@ -73,6 +75,7 @@ class _TrimestresAdministradorState extends State<TrimestresAdministrador> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -182,7 +185,14 @@ class _TrimestresAdministradorState extends State<TrimestresAdministrador> {
                 const SizedBox(
                   width: defaultPadding,
                 ),
-                buildButton('Añadir', () {}),
+                buildButton('Añadir', () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TrimestreFormularioCrear(),
+                    ),
+                  );
+                }),
               ],
             ),
           if (Responsive.isMobile(context))
@@ -205,7 +215,14 @@ class _TrimestresAdministradorState extends State<TrimestresAdministrador> {
                   const SizedBox(
                     height: defaultPadding,
                   ),
-                  buildButton('Añadir', () {}),
+                  buildButton('Añadir', () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TrimestreFormularioCrear(),
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -217,7 +234,7 @@ class _TrimestresAdministradorState extends State<TrimestresAdministrador> {
 
 class TrimestresAdministradorDataGridSource extends DataGridSource {
   TrimestresAdministradorDataGridSource(
-      {required List<Trimestres> trimestres}) {
+      {required List<Trimestres> trimestres, required BuildContext context}) {
     _trimestresAdministradorData = trimestres.map<DataGridRow>((trimestre) {
       return DataGridRow(cells: [
         DataGridCell<String>(
@@ -232,7 +249,14 @@ class TrimestresAdministradorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Editar',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TrimestreFormularioEditar(),
+                    ),
+                  );
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Editar"),

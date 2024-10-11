@@ -112,7 +112,7 @@ class _FichaViewState extends State<FichaView> {
                           child: Column(
                             children: [
                               Text(
-                                "Ficha: 1048523",
+                                "Ficha: 1048523.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -125,7 +125,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Descripción: Pendiente",
+                                "Tipo de oferta: Pendiente.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -138,7 +138,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "NTipo de oferta: Pendiente",
+                                "Fecha Inicio: 22/01/2023.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -151,7 +151,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Fecha de inicio: 22/01/2023",
+                                "Fecha Final: 22/01/2025.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -164,7 +164,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Fecha de final: 22/01/2025",
+                                "Modalidad: Prensencial.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -177,7 +177,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Modalidad: Prensencial",
+                                "Lugar: CBA.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -190,7 +190,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Lugar: CBA. ",
+                                "Estado: Pendiente.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -203,7 +203,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Estado: Pendiente",
+                                "Lider: Leonardo Rojas.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -216,7 +216,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Lider: Leonardo Rojas",
+                                "Programa: Cocina.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -229,7 +229,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Programa: Cocina",
+                                "Tipo Programa: Técnico.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -242,7 +242,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Tipo programa: Técnico",
+                                "Duración Lectiva: 1000 Horas.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -255,7 +255,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Duración lectiva: 6 Trimestres",
+                                "Duración Productiva: 6000 Horas.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -268,7 +268,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Duración productiva: 6 Meses)",
+                                "Duración total del programa: 5000 Horas.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -281,7 +281,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Duración total del programa: 5000 Horas",
+                                "Descripción:",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -294,7 +294,7 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Área: Pendiente",
+                                "Pendiente",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!
@@ -307,7 +307,20 @@ class _FichaViewState extends State<FichaView> {
                                 height: defaultPadding,
                               ),
                               Text(
-                                "Nombre del coordinador: Kevin Damian Loaiza Rojas",
+                                "Área: Pendiente.",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(
+                                height: defaultPadding,
+                              ),
+                              Text(
+                                "Coordinador: Kevin Damian Loaiza Rojas.",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge!

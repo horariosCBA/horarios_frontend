@@ -1,14 +1,21 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/Dashboard/Listas/desplegableFichas.dart';
 import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/asigAulasCoordinador.dart';
 import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/calendarioCoordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/competenciasCoordinador.dart';
 import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/fichasCoordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/horariosCoordinador.dart';
 import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/instructoresCoordinador.dart';
 import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/planeacionesCoordinador.dart';
 import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/programacionesCoordinador.dart';
 import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/programasCoordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/resultadosCoordinador.dart';
+import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Coordinador/trimestresCoordinador.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'Components/header.dart';
 
@@ -24,7 +31,40 @@ class DashboardScreenCoordinador extends StatefulWidget {
 
 class _DashboardScreenCoordinadorState
     extends State<DashboardScreenCoordinador> {
-  int? _fichaInicial = fichasDesplegables.first.id;
+  TextEditingController _textFichaController = TextEditingController();
+  List<Desplegablefichas> fichasFiltradas = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Inicializa la lista filtrada con todas las fichas al principio.
+    fichasFiltradas = fichasDesplegables;
+  }
+
+  void _filtrarFichas(String query) {
+    if (query.isNotEmpty) {
+      setState(() {
+        fichasFiltradas = fichasDesplegables
+            .where((ficha) =>
+                ficha.codigo.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      });
+    } else {
+      setState(() {
+        fichasFiltradas = fichasDesplegables;
+      });
+    }
+  }
+
+  // Mascara para los campos numéricos
+  var formatoNumero =
+      MaskTextInputFormatter(mask: '#######', filter: {"#": RegExp(r'[0-9]')});
+
+  @override
+  void dispose() {
+    super.dispose();
+    _textFichaController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,71 +109,135 @@ class _DashboardScreenCoordinadorState
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                child: Column(
                                   children: [
-                                    Expanded(
-                                      child: Text(
-                                        'Elija una ficha',
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge!
-                                            .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8.0),
-                                    Expanded(
-                                      child: DropdownButton<int>(
-                                        dropdownColor: background1,
-                                        isExpanded: true,
-                                        style: const TextStyle(
-                                          fontSize: 13,
-                                          color: primaryColor,
-                                          fontWeight: FontWeight.bold,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Elija una ficha',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
                                         ),
-                                        value: _fichaInicial,
-                                        items: fichasDesplegables
-                                            .map((Desplegablefichas item) {
-                                          return DropdownMenuItem<int>(
-                                            value: item.id,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  item.codigo,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: primaryColor,
+                                        const SizedBox(width: 8.0),
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              TextField(
+                                                inputFormatters: [
+                                                  formatoNumero
+                                                ],
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                controller:
+                                                    _textFichaController,
+                                                decoration: InputDecoration(
+                                                  enabledBorder:
+                                                      const OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Colors.grey,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10)),
+                                                  ),
+                                                  hintText:
+                                                      'Buscar código de ficha...',
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 12.0,
+                                                          horizontal: 16.0),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15.0),
                                                   ),
                                                 ),
-                                                Text(
-                                                  item.programa,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                    fontSize: 11,
-                                                    color: primaryColor,
+                                                onChanged: (value) {
+                                                  _filtrarFichas(value);
+                                                },
+                                                style: const TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              const SizedBox(height: 8.0),
+                                              // Mostramos la lista filtrada si hay resultados
+                                              if (fichasFiltradas.isNotEmpty)
+                                                Container(
+                                                  height:
+                                                      150, // Limitamos el tamaño de la lista desplegable
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15.0),
+                                                    boxShadow: const [
+                                                      BoxShadow(
+                                                        color: Colors.black12,
+                                                        blurRadius: 10,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: ListView.builder(
+                                                    shrinkWrap: true,
+                                                    itemCount:
+                                                        fichasFiltradas.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      final ficha =
+                                                          fichasFiltradas[
+                                                              index];
+                                                      return ListTile(
+                                                        title: Text(
+                                                          ficha.codigo,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        subtitle: Text(
+                                                          ficha.programa,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 11,
+                                                            color:
+                                                                Colors.black54,
+                                                          ),
+                                                        ),
+                                                        onTap: () {
+                                                          setState(() {
+                                                            _textFichaController
+                                                                    .text =
+                                                                ficha.codigo;
+                                                            // Oculta el desplegable después de seleccionar
+                                                            fichasFiltradas =
+                                                                [];
+                                                          });
+                                                        },
+                                                      );
+                                                    },
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          );
-                                        }).toList(),
-                                        onChanged: (int? value) {
-                                          setState(() {
-                                            _fichaInicial =
-                                                value; // Actualiza el valor seleccionado.
-                                          });
-                                        },
-                                      ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -144,22 +248,84 @@ class _DashboardScreenCoordinadorState
                         const SizedBox(height: defaultPadding),
                         const CalendarioCoordinador(),
                         const SizedBox(height: defaultPadding),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
+                        ),
+                        const SizedBox(height: defaultPadding),
+                        HorariosCoordinador(
+                            usuarioAutenticado: widget.usuarioAutenticado),
+                        const SizedBox(height: defaultPadding),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
+                        ),
+                        const SizedBox(height: defaultPadding),
                         ProgramacionesCoordinador(
                           usuarioAutenticado: widget.usuarioAutenticado,
                         ),
                         const SizedBox(height: defaultPadding),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
+                        ),
+                        const SizedBox(height: defaultPadding),
                         const PlaneacionesCoordinador(),
+                        const SizedBox(height: defaultPadding),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
+                        ),
+                        const SizedBox(height: defaultPadding),
+                        TrimestresCoordinador(
+                            usuarioAutenticado: widget.usuarioAutenticado),
+                        const SizedBox(height: defaultPadding),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
+                        ),
                         const SizedBox(height: defaultPadding),
                         FichasCoordinador(
                           usuarioAutenticado: widget.usuarioAutenticado,
+                        ),
+                        const SizedBox(height: defaultPadding),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
                         ),
                         const SizedBox(height: defaultPadding),
                         InstructoresCoordinador(
                           usuarioAutenticado: widget.usuarioAutenticado,
                         ),
                         const SizedBox(height: defaultPadding),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
+                        ),
+                        const SizedBox(height: defaultPadding),
+                        ResultadosCoordinador(
+                            usuarioAutenticado: widget.usuarioAutenticado),
+                        const SizedBox(height: defaultPadding),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
+                        ),
+                        const SizedBox(height: defaultPadding),
+                        CompetenciasCoordinador(
+                            usuarioAutenticado: widget.usuarioAutenticado),
+                        const SizedBox(height: defaultPadding),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
+                        ),
+                        const SizedBox(height: defaultPadding),
                         AsignacionAulasCoordinador(
                           usuarioAutenticado: widget.usuarioAutenticado,
+                        ),
+                        const SizedBox(height: defaultPadding),
+                        const Divider(
+                          color: Colors.grey,
+                          height: 1,
                         ),
                         const SizedBox(height: defaultPadding),
                         ProgramasCoordinador(

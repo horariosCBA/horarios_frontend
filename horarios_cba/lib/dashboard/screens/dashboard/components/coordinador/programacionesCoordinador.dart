@@ -5,6 +5,8 @@ import 'package:horarios_cba/Dashboard/Listas/programacion.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/PDF/CoordinadorPDF/pdfProgramacionesCoordinador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
+import 'package:horarios_cba/Programacion/Crear/programacionFormularioCrear.dart';
+import 'package:horarios_cba/Programacion/Editar/programacionFormularioEditar.dart';
 import 'package:horarios_cba/Programacion/programacionView.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/responsive.dart';
@@ -75,6 +77,7 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -153,6 +156,15 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
                       ),
                     ),
                     GridColumn(
+                      width: 140,
+                      columnName: 'Tipo Oferta',
+                      label: Container(
+                        padding: const EdgeInsets.all(8.0),
+                        alignment: Alignment.center,
+                        child: const Text('Tipo Oferta'),
+                      ),
+                    ),
+                    GridColumn(
                       columnName: 'Competencia',
                       label: Container(
                         padding: const EdgeInsets.all(8.0),
@@ -220,7 +232,14 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
                 const SizedBox(
                   width: defaultPadding,
                 ),
-                buildButton('Añadir', () {}),
+                buildButton('Añadir', () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProgramacionFormularioCrear(),
+                    ),
+                  );
+                }),
               ],
             ),
           if (Responsive.isMobile(context))
@@ -243,7 +262,14 @@ class _ProgramacionesCoordinadorState extends State<ProgramacionesCoordinador> {
                   const SizedBox(
                     height: defaultPadding,
                   ),
-                  buildButton('Añadir', () {}),
+                  buildButton('Añadir', () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProgramacionFormularioCrear(),
+                    ),
+                  );
+                  }),
                 ],
               ),
             ),
@@ -273,6 +299,8 @@ class ProgramacionesCoordinadorDataGridSource extends DataGridSource {
         DataGridCell<String>(
             columnName: 'Programa', value: programacion.nombrePrograma),
         DataGridCell<String>(
+            columnName: 'Tipo Oferta', value: programacion.tipoOferta),
+        DataGridCell<String>(
             columnName: 'Competencia', value: programacion.nombreCompetencia),
         DataGridCell<String>(
             columnName: 'Días Asignados',
@@ -293,7 +321,12 @@ class ProgramacionesCoordinadorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Editar',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProgramacionFormularioEditar()));
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Editar"),

@@ -106,7 +106,7 @@ class _CompetenciaViewState extends State<CompetenciaView> {
                         height: defaultPadding,
                       ),
                       Text(
-                        "Norma: 00415",
+                        "Norma: 00415.",
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               color: Colors.white,
                             ),
@@ -116,7 +116,7 @@ class _CompetenciaViewState extends State<CompetenciaView> {
                         height: defaultPadding,
                       ),
                       Text(
-                        "Código: 0003. ",
+                        "Código: 0003.",
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               color: Colors.white,
                             ),
@@ -126,7 +126,7 @@ class _CompetenciaViewState extends State<CompetenciaView> {
                         height: defaultPadding,
                       ),
                       Text(
-                        "Nombre: Salud y seguridad en el trabajo",
+                        "Nombre: Salud y seguridad en el trabajo.",
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               color: Colors.white,
                             ),
@@ -136,7 +136,7 @@ class _CompetenciaViewState extends State<CompetenciaView> {
                         height: defaultPadding,
                       ),
                       Text(
-                        "Duración:  5000 Horas ",
+                        "Duración: 5000 Horas.",
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               color: Colors.white,
                             ),
@@ -146,7 +146,7 @@ class _CompetenciaViewState extends State<CompetenciaView> {
                         height: defaultPadding,
                       ),
                       Text(
-                        "Nombre del programa: Análisis y desarrollo de software ",
+                        "Programa: Análisis y desarrollo de software.",
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               color: Colors.white,
                             ),
@@ -156,7 +156,7 @@ class _CompetenciaViewState extends State<CompetenciaView> {
                         height: defaultPadding,
                       ),
                       Text(
-                        "Área : Tecnológia",
+                        "Área : Tecnológia.",
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               color: Colors.white,
                             ),

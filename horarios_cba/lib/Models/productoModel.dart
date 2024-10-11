@@ -52,13 +52,13 @@ Future<List<ProductoModel>> getProductos() async {
         planeacion: PlaneacionModel(
           id: productodata['planeacion']['id'] ?? 0,
           numero: productodata['planeacion']['numero'] ?? 0,
-          duracionPresencial:
-              productodata['planeacion']['duracionPresencial'] ?? 0,
-          duracionVirtual: productodata['planeacion']['duracionVirtual'] ?? 0,
+          trabajoDirecto: productodata['planeacion']['trabajoDirecto'] ?? 0,
+          trabajoAutonomo: productodata['planeacion']['trabajoAutonomo'] ?? 0,
           duracionTotal: productodata['planeacion']['duracionTotal'] ?? 0,
           horasRecomendadas:
               productodata['planeacion']['horasRecomendadas'] ?? 0,
           diasRecomendados: productodata['planeacion']['diasRecomendados'] ?? 0,
+          creditos: productodata['planeacion']['creditos'] ?? 0,
           resultadoAprendizaje: ResultadoAprendizajeModel(
             id: productodata['planeacion']['resultadoAprendizaje']['id'] ?? 0,
             numero: productodata['planeacion']['resultadoAprendizaje']
@@ -123,6 +123,12 @@ Future<List<ProductoModel>> getProductos() async {
                     "",
                 descripcion: productodata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['descripcion'] ??
+                    "",
+                tipoOferta: productodata['planeacion']['resultadoAprendizaje']
+                        ['competencia']['programa']['tipoOferta'] ??
+                    "",
+                modalidad: productodata['planeacion']['resultadoAprendizaje']
+                        ['competencia']['programa']['modalidad'] ??
                     "",
                 area: productodata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['area'] ??

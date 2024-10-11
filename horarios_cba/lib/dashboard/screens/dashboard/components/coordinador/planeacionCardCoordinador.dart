@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:horarios_cba/Dashboard/Listas/planeaciones.dart';
+import 'package:horarios_cba/Planeacion/Editar/planeacionFormularioEditar.dart';
 import 'package:horarios_cba/Planeacion/planeacionView.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 
@@ -84,6 +85,48 @@ class _PlaneacionCardCoordinadorState extends State<PlaneacionCardCoordinador> {
                         child: Column(
                           children: [
                             Text(
+                              "Programa:",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: Colors.white,
+                                    fontFamily: 'Calibri-Bold',
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: defaultPadding,
+                            ),
+                            Text(
+                              widget.planeacion.nombrePrograma,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: Colors.white,
+                                    fontFamily: 'Calibri-Bold',
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: defaultPadding,
+                            ),
+                            Text(
+                              "Tipo de oferta: ${widget.planeacion.tipoOferta}.",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: Colors.white,
+                                    fontFamily: 'Calibri-Bold',
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: defaultPadding,
+                            ),
+                            Text(
                               "Competencia:",
                               style: Theme.of(context)
                                   .textTheme
@@ -140,7 +183,7 @@ class _PlaneacionCardCoordinadorState extends State<PlaneacionCardCoordinador> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Duración Presencial: ${widget.planeacion.duracionPrensencial} Horas",
+                              "Trabajo Directo: ${widget.planeacion.duracionPrensencial} Horas.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -154,7 +197,7 @@ class _PlaneacionCardCoordinadorState extends State<PlaneacionCardCoordinador> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Duración Virtual: ${widget.planeacion.duracionVirtual} Horas",
+                              "Trabajo Autónomo: ${widget.planeacion.duracionVirtual} Horas.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -168,7 +211,7 @@ class _PlaneacionCardCoordinadorState extends State<PlaneacionCardCoordinador> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Duración Total: ${widget.planeacion.duracionTotal} Horas",
+                              "Duración Total: ${widget.planeacion.duracionTotal} Horas.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -182,7 +225,7 @@ class _PlaneacionCardCoordinadorState extends State<PlaneacionCardCoordinador> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Horas Recomendadas: ${widget.planeacion.horasRecomendadas} Horas",
+                              "Horas Recomendadas: ${widget.planeacion.horasRecomendadas} Horas.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -196,7 +239,7 @@ class _PlaneacionCardCoordinadorState extends State<PlaneacionCardCoordinador> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Días Recomendados: ${widget.planeacion.diasRecomendados} Días",
+                              "Días Recomendados: ${widget.planeacion.diasRecomendados} Días.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -205,6 +248,23 @@ class _PlaneacionCardCoordinadorState extends State<PlaneacionCardCoordinador> {
                                     fontFamily: 'Calibri-Bold',
                                   ),
                               textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: defaultPadding,
+                            ),
+                            Text(
+                              "Créditos: ${widget.planeacion.creditos} Créditos.",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: Colors.white,
+                                    fontFamily: 'Calibri-Bold',
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: defaultPadding,
                             ),
                           ],
                         ),
@@ -283,6 +343,12 @@ class _PlaneacionCardCoordinadorState extends State<PlaneacionCardCoordinador> {
                                 color: primaryColor), // Icono de edición
                             onPressed: () {
                               // Acción al presionar el botón de editar
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PlaneacionFormularioEditar()),
+                              );
                             },
                           ),
                         ),

@@ -1,6 +1,9 @@
 class Planeaciones {
-
   final int numero;
+
+  final String nombrePrograma;
+
+  final String tipoOferta;
 
   final String nombreCompetencia;
 
@@ -16,8 +19,12 @@ class Planeaciones {
 
   final int diasRecomendados;
 
+  final int creditos;
+
   Planeaciones({
     required this.numero,
+    required this.nombrePrograma,
+    required this.tipoOferta,
     required this.nombreCompetencia,
     required this.resultadoAprendizaje,
     required this.duracionPrensencial,
@@ -25,21 +32,27 @@ class Planeaciones {
     required this.duracionTotal,
     required this.horasRecomendadas,
     required this.diasRecomendados,
+    required this.creditos,
   });
 }
 
 List<Planeaciones> listaPlaneaciones = [
   Planeaciones(
       numero: 1001,
+      nombrePrograma: "CIENCIAS DE LA INFORMACIÓN",
+      tipoOferta: "Oferta",
       nombreCompetencia: "MODELADO",
       resultadoAprendizaje: "MODELADO ARTEFACTOS SOFTWAARE",
       duracionPrensencial: 6,
       duracionVirtual: 0,
       duracionTotal: 3600,
       horasRecomendadas: 8,
-      diasRecomendados: 5),
+      diasRecomendados: 5,
+      creditos: 1),
   Planeaciones(
       numero: 1002,
+      nombrePrograma: "CIENCIAS DE LA INFORMACIÓN",
+      tipoOferta: "Oferta",
       nombreCompetencia:
           "CONOCIMIENTOS DE LAS CIENCIAS NATURALES DE ACUERDO CON SITUACIONES DEL CONTEXTO PRODUCTIVO Y SOCIAL.",
       resultadoAprendizaje:
@@ -48,9 +61,12 @@ List<Planeaciones> listaPlaneaciones = [
       duracionVirtual: 3,
       duracionTotal: 3600,
       horasRecomendadas: 8,
-      diasRecomendados: 5),
+      diasRecomendados: 5,
+      creditos: 1),
   Planeaciones(
       numero: 1003,
+      nombrePrograma: "CIENCIAS DE LA INFORMACIÓN",
+      tipoOferta: "Oferta",
       nombreCompetencia:
           "PRÁCTICAS DE PROTECCIÓN AMBIENTAL, SEGURIDAD Y SALUD EN EL TRABAJO DE ACUERDO CON LAS POLÍTICAS ORGANIZACIONALES Y LA NORMATIVIDAD VIGENTE.",
       resultadoAprendizaje:
@@ -59,9 +75,12 @@ List<Planeaciones> listaPlaneaciones = [
       duracionVirtual: 0,
       duracionTotal: 3600,
       horasRecomendadas: 8,
-      diasRecomendados: 5),
+      diasRecomendados: 5,
+      creditos: 1),
   Planeaciones(
       numero: 1004,
+      nombrePrograma: "CIENCIAS DE LA INFORMACIÓN",
+      tipoOferta: "Oferta",
       nombreCompetencia:
           "DESARROLLAR LA SOLUCIÓN DE SOFTWARE DE ACUERDO CON EL DISEÑO Y METODOLOGÍAS DE DESARROLLO",
       resultadoAprendizaje:
@@ -70,9 +89,12 @@ List<Planeaciones> listaPlaneaciones = [
       duracionVirtual: 3,
       duracionTotal: 3600,
       horasRecomendadas: 8,
-      diasRecomendados: 5),
+      diasRecomendados: 5,
+      creditos: 1),
   Planeaciones(
       numero: 1005,
+      nombrePrograma: "CIENCIAS DE LA INFORMACIÓN",
+      tipoOferta: "Oferta",
       nombreCompetencia:
           "DESARROLLAR PROCESOS DE COMUNICACIÓN EFICACES Y EFECTIVOS, TENIENDO EN CUENTA SITUACIONES DE ORDEN SOCIAL, PERSONAL Y PRODUCTIVO.",
       resultadoAprendizaje:
@@ -81,9 +103,12 @@ List<Planeaciones> listaPlaneaciones = [
       duracionVirtual: 0,
       duracionTotal: 3600,
       horasRecomendadas: 8,
-      diasRecomendados: 5),
+      diasRecomendados: 5,
+      creditos: 1),
   Planeaciones(
       numero: 1006,
+      nombrePrograma: "CIENCIAS DE LA INFORMACIÓN",
+      tipoOferta: "Oferta",
       nombreCompetencia:
           "GENERAR HÁBITOS SALUDABLES DE VIDA MEDIANTE LA APLICACIÓN DE PROGRAMAS DE ACTIVIDAD FÍSICA EN LOS CONTEXTOS PRODUCTIVOS Y SOCIALES.",
       resultadoAprendizaje:
@@ -92,9 +117,12 @@ List<Planeaciones> listaPlaneaciones = [
       duracionVirtual: 3,
       duracionTotal: 3600,
       horasRecomendadas: 8,
-      diasRecomendados: 5),
+      diasRecomendados: 5,
+      creditos: 1),
   Planeaciones(
       numero: 1007,
+      nombrePrograma: "CIENCIAS DE LA INFORMACIÓN",
+      tipoOferta: "Oferta",
       nombreCompetencia:
           "INTERACTUAR EN LENGUA INGLESA DE FORMA ORAL Y ESCRITA DENTRO DE CONTEXTOS SOCIALES Y LABORALES SEGÚN LOS CRITERIOS ESTABLECIDOS POR EL MARCO COMÚN EUROPEO DE REFERENCIA PARA LAS LENGUAS",
       resultadoAprendizaje:
@@ -103,9 +131,12 @@ List<Planeaciones> listaPlaneaciones = [
       duracionVirtual: 0,
       duracionTotal: 3600,
       horasRecomendadas: 8,
-      diasRecomendados: 5),
+      diasRecomendados: 5,
+      creditos: 1),
   Planeaciones(
       numero: 1008,
+      nombrePrograma: "CIENCIAS DE LA INFORMACIÓN",
+      tipoOferta: "Oferta",
       nombreCompetencia:
           "INTERACTUAR EN LENGUA INGLESA DE FORMA ORAL Y ESCRITA DENTRO DE CONTEXTOS SOCIALES Y LABORALES SEGÚN LOS CRITERIOS ESTABLECIDOS POR EL MARCO COMÚN EUROPEO DE REFERENCIA PARA LAS LENGUAS.",
       resultadoAprendizaje:
@@ -114,5 +145,6 @@ List<Planeaciones> listaPlaneaciones = [
       duracionVirtual: 3,
       duracionTotal: 3600,
       horasRecomendadas: 8,
-      diasRecomendados: 5),
+      diasRecomendados: 5,
+      creditos: 1),
 ];

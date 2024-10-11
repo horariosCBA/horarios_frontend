@@ -72,6 +72,7 @@ class _FichasInstructorState extends State<FichasInstructor> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -167,6 +168,15 @@ class _FichasInstructorState extends State<FichasInstructor> {
                       ),
                     ),
                     GridColumn(
+                      width: 140,
+                      columnName: 'Tipo Oferta',
+                      label: Container(
+                        padding: const EdgeInsets.all(8.0),
+                        alignment: Alignment.center,
+                        child: const Text('Tipo Oferta'),
+                      ),
+                    ),
+                    GridColumn(
                       columnName: 'Coordinador',
                       label: Container(
                         padding: const EdgeInsets.all(8.0),
@@ -233,6 +243,8 @@ class FichasInstructorDataGridSource extends DataGridSource {
         DataGridCell<String>(columnName: 'Programa', value: ficha.programa),
         DataGridCell<String>(
             columnName: 'Tipo Programa', value: ficha.tipoPrograma),
+        DataGridCell<String>(
+            columnName: 'Tipo Oferta', value: ficha.tipoOferta),
         DataGridCell<String>(
             columnName: 'Coordinador', value: ficha.nombreCoordinador),
         DataGridCell<Widget>(

@@ -13,7 +13,6 @@ import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrado
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 
-
 import 'Components/header.dart';
 
 class DashboardScreenAdministrador extends StatelessWidget {
@@ -62,24 +61,54 @@ class DashboardScreenAdministrador extends StatelessWidget {
                 usuarioAutenticado: usuarioAutenticado,
               ),
               const SizedBox(height: defaultPadding),
+              const Divider(
+                color: Colors.grey,
+                height: 1,
+              ),
+              const SizedBox(height: defaultPadding),
               TrimestresAdministrador(
                 usuarioAutenticado: usuarioAutenticado,
+              ),
+              const SizedBox(height: defaultPadding),
+              const Divider(
+                color: Colors.grey,
+                height: 1,
               ),
               const SizedBox(height: defaultPadding),
               AsignacionAulasAdministrador(
                 usuarioAutenticado: usuarioAutenticado,
               ),
               const SizedBox(height: defaultPadding),
+              const Divider(
+                color: Colors.grey,
+                height: 1,
+              ),
+              const SizedBox(height: defaultPadding),
               AprendicesAdministrador(
                 usuarioAutenticado: usuarioAutenticado,
+              ),
+              const SizedBox(height: defaultPadding),
+              const Divider(
+                color: Colors.grey,
+                height: 1,
               ),
               const SizedBox(height: defaultPadding),
               InstructoresAdministrador(
                 usuarioAutenticado: usuarioAutenticado,
               ),
               const SizedBox(height: defaultPadding),
+              const Divider(
+                color: Colors.grey,
+                height: 1,
+              ),
+              const SizedBox(height: defaultPadding),
               FichasAdministrador(
                 usuarioAutenticado: usuarioAutenticado,
+              ),
+              const SizedBox(height: defaultPadding),
+              const Divider(
+                color: Colors.grey,
+                height: 1,
               ),
               const SizedBox(
                 height: defaultPadding,
@@ -87,11 +116,21 @@ class DashboardScreenAdministrador extends StatelessWidget {
               CoordinadoresAdministrador(
                 usuarioAutenticado: usuarioAutenticado,
               ),
+              const SizedBox(height: defaultPadding),
+              const Divider(
+                color: Colors.grey,
+                height: 1,
+              ),
               const SizedBox(
                 height: defaultPadding,
               ),
               CompetenciasAdministrador(
                 usuarioAutenticado: usuarioAutenticado,
+              ),
+              const SizedBox(height: defaultPadding),
+              const Divider(
+                color: Colors.grey,
+                height: 1,
               ),
               const SizedBox(
                 height: defaultPadding,
@@ -99,19 +138,27 @@ class DashboardScreenAdministrador extends StatelessWidget {
               ProgramasAdministrador(
                 usuarioAutenticado: usuarioAutenticado,
               ),
+              const SizedBox(height: defaultPadding),
+              const Divider(
+                color: Colors.grey,
+                height: 1,
+              ),
               const SizedBox(
                 height: defaultPadding,
               ),
               const AulasAdministrador(),
+              const SizedBox(height: defaultPadding),
+              const Divider(
+                color: Colors.grey,
+                height: 1,
+              ),
               const SizedBox(
                 height: defaultPadding,
               ),
               UsuariosAdministrador(
                 usuarioAutenticado: usuarioAutenticado,
               ),
-              const SizedBox(
-                height: defaultPadding,
-              ),
+              const SizedBox(height: defaultPadding),
             ],
           ),
         ),

@@ -9,6 +9,7 @@ import 'package:horarios_cba/Dashboard/Screens/Dashboard/Components/Administrado
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/PDF/AdministradorPDF/pdfUsuariosAdministrador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
+import 'package:horarios_cba/Usuario/Editar/usuarioFormularioEditar.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -35,8 +36,8 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
 
     usuariosAdministrador = listaUsuarios;
 
-    _dataGridSource =
-        UsuariosAdministradorDataGridSource(usuarios: usuariosAdministrador, context: context);
+    _dataGridSource = UsuariosAdministradorDataGridSource(
+        usuarios: usuariosAdministrador, context: context);
   }
 
   @override
@@ -77,6 +78,7 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -299,7 +301,8 @@ class _UsuariosAdministradorState extends State<UsuariosAdministrador> {
 }
 
 class UsuariosAdministradorDataGridSource extends DataGridSource {
-  UsuariosAdministradorDataGridSource({required List<Usuarios> usuarios, required BuildContext context}) {
+  UsuariosAdministradorDataGridSource(
+      {required List<Usuarios> usuarios, required BuildContext context}) {
     _usuariosAdministradorData = usuarios.map<DataGridRow>((usuario) {
       return DataGridRow(cells: [
         DataGridCell<String>(
@@ -349,7 +352,12 @@ class UsuariosAdministradorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Editar',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UsuarioFormularioEditar()));
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Editar"),

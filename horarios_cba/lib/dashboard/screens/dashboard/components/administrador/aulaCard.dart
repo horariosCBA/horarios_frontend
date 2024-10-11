@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:horarios_cba/Aula/Editar/aulaFormularioEditar.dart';
 import 'package:horarios_cba/Dashboard/Listas/aulas.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-
 
 class AulaCard extends StatefulWidget {
   final Aulas aula;
@@ -155,6 +155,11 @@ class _AulaCardState extends State<AulaCard> {
                               color: primaryColor), // Icono de edición
                           onPressed: () {
                             // Acción al presionar el botón de editar
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AulaFormularioEditar()));
                           },
                         ),
                       ),

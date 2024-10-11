@@ -132,6 +132,7 @@ ThemeData lightTheme = ThemeData(
     cursorColor: primaryColor, // Color del cursor de texto.
   ),
   inputDecorationTheme: const InputDecorationTheme(
+    hintStyle: TextStyle(color: Colors.grey),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(
           color: primaryColor), // Color del borde cuando no está enfocado.
@@ -168,6 +169,18 @@ String formatHora(String fechaString) {
     DateTime fecha =
         DateTime.parse(fechaString); // Parsea la fecha desde una cadena.
     return '${twoDigits(fecha.hour)}:${twoDigits(fecha.minute)}'; // Formatea la fecha devolviendo solo la hora.
+  } catch (e) {
+    // Si la fecha no es válida, devuelve una cadena vacía.
+    return '';
+  }
+}
+
+/// Formatea las fechas, asegurando un formato consistente.
+String formatFecha(String fechaString) {
+  try {
+    DateTime fecha =
+        DateTime.parse(fechaString); // Parsea la fecha desde una cadena.
+    return '${twoDigits(fecha.day)}-${twoDigits(fecha.month)}-${fecha.year}'; // Formatea la fecha devolviendo solo la fecha.
   } catch (e) {
     // Si la fecha no es válida, devuelve una cadena vacía.
     return '';

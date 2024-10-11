@@ -53,13 +53,13 @@ Future<List<TematicaModel>> getTematicas() async {
         planeacion: PlaneacionModel(
           id: tematicadata['planeacion']['id'] ?? 0,
           numero: tematicadata['planeacion']['numero'] ?? 0,
-          duracionPresencial:
-              tematicadata['planeacion']['duracionPresencial'] ?? 0,
-          duracionVirtual: tematicadata['planeacion']['duracionVirtual'] ?? 0,
+          trabajoDirecto: tematicadata['planeacion']['trabajoDirecto'] ?? 0,
+          trabajoAutonomo: tematicadata['planeacion']['trabajoAutonomo'] ?? 0,
           duracionTotal: tematicadata['planeacion']['duracionTotal'] ?? 0,
           horasRecomendadas:
               tematicadata['planeacion']['horasRecomendadas'] ?? 0,
           diasRecomendados: tematicadata['planeacion']['diasRecomendados'] ?? 0,
+          creditos: tematicadata['planeacion']['creditos'] ?? 0,
           resultadoAprendizaje: ResultadoAprendizajeModel(
             id: tematicadata['planeacion']['resultadoAprendizaje']['id'] ?? 0,
             numero: tematicadata['planeacion']['resultadoAprendizaje']
@@ -124,6 +124,12 @@ Future<List<TematicaModel>> getTematicas() async {
                     "",
                 descripcion: tematicadata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['descripcion'] ??
+                    "",
+                tipoOferta: tematicadata['planeacion']['resultadoAprendizaje']
+                        ['competencia']['programa']['tipoOferta'] ??
+                    "",
+                modalidad: tematicadata['planeacion']['resultadoAprendizaje']
+                        ['competencia']['programa']['modalidad'] ??
                     "",
                 area: tematicadata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['area'] ??

@@ -110,7 +110,7 @@ class _PdfFichasCoordinadorScreenState
         (await rootBundle.load('assets/img/logo2.png')).buffer.asUint8List());
 
     final tableHeaders = [
-      'Código ',
+      'Código',
       'Fecha Inicio',
       'Fecha Final',
       'Modalidad',
@@ -118,6 +118,7 @@ class _PdfFichasCoordinadorScreenState
       'Lider',
       'Programa',
       'Tipo Programa',
+      'Tipo Oferta',
       'Coordinador',
     ];
     final tableData = registros.map((item) {

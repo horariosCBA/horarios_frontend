@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:horarios_cba/Dashboard/Listas/fichas.dart';
+import 'package:horarios_cba/Ficha/Crear/fichaFormularioCrear.dart';
+import 'package:horarios_cba/Ficha/Editar/fichaFormularioEditar.dart';
 import 'package:horarios_cba/Ficha/fichaView.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/PDF/AdministradorPDF/pdfFichasAdministraador.dart';
@@ -74,6 +76,7 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -169,6 +172,15 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
                       ),
                     ),
                     GridColumn(
+                      width: 140,
+                      columnName: 'Tipo Oferta',
+                      label: Container(
+                        padding: const EdgeInsets.all(8.0),
+                        alignment: Alignment.center,
+                        child: const Text('Tipo Oferta'),
+                      ),
+                    ),
+                    GridColumn(
                       columnName: 'Coordinador',
                       label: Container(
                         padding: const EdgeInsets.all(8.0),
@@ -226,7 +238,13 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
                 const SizedBox(
                   width: defaultPadding,
                 ),
-                buildButton('Añadir', () {}),
+                buildButton('Añadir', () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const FichaFormularioCrear()),
+                  );
+                }),
               ],
             ),
           if (Responsive.isMobile(context))
@@ -249,7 +267,13 @@ class _FichasAdministradorState extends State<FichasAdministrador> {
                   const SizedBox(
                     height: defaultPadding,
                   ),
-                  buildButton('Añadir', () {}),
+                  buildButton('Añadir', () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FichaFormularioCrear()),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -276,6 +300,8 @@ class FichasAdministradorDataGridSource extends DataGridSource {
         DataGridCell<String>(
             columnName: 'Tipo Programa', value: ficha.tipoPrograma),
         DataGridCell<String>(
+            columnName: 'Tipo Oferta', value: ficha.tipoOferta),
+        DataGridCell<String>(
             columnName: 'Coordinador', value: ficha.nombreCoordinador),
         DataGridCell<Widget>(
             columnName: 'Ver',
@@ -291,7 +317,12 @@ class FichasAdministradorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Editar',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const FichaFormularioEditar()),
+                  );
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Editar"),

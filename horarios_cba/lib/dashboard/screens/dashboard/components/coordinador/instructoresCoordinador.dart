@@ -6,7 +6,6 @@ import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/PDF/CoordinadorPDF/pdfInstructoresCoordinador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
 import 'package:horarios_cba/constantsDesign.dart';
-import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class InstructoresCoordinador extends StatefulWidget {
@@ -73,6 +72,7 @@ class _InstructoresCoordinadorState extends State<InstructoresCoordinador> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -166,17 +166,6 @@ class _InstructoresCoordinadorState extends State<InstructoresCoordinador> {
                         child: const Text('Especialidad'),
                       ),
                     ),
-                    GridColumn(
-                      allowSorting: false,
-                      allowFiltering: false,
-                      width: 130,
-                      columnName: 'Eliminar',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text(''),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -185,31 +174,7 @@ class _InstructoresCoordinadorState extends State<InstructoresCoordinador> {
           const SizedBox(
             height: defaultPadding,
           ),
-          // Botón de imprimir y añadir
-          if (!Responsive.isMobile(context))
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildButton('Imprimir Reporte', () {
-                  if (registros.isEmpty) {
-                    noHayPDFModal(context);
-                  } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                PdfInstructoresCoordinadorScreen(
-                                    usuario: widget.usuarioAutenticado,
-                                    registros: registros)));
-                  }
-                }),
-                const SizedBox(
-                  width: defaultPadding,
-                ),
-                buildButton('Añadir', () {}),
-              ],
-            ),
-          if (Responsive.isMobile(context))
+          // Botón de imprimir
             Center(
               child: Column(
                 children: [
@@ -226,10 +191,6 @@ class _InstructoresCoordinadorState extends State<InstructoresCoordinador> {
                                       registros: registros)));
                     }
                   }),
-                  const SizedBox(
-                    height: defaultPadding,
-                  ),
-                  buildButton('Añadir', () {}),
                 ],
               ),
             ),
@@ -260,14 +221,7 @@ class InstructoresCoordinadorDataGridSource extends DataGridSource {
         DataGridCell<String>(columnName: 'Cargo', value: instructor.cargo),
         DataGridCell<String>(
             columnName: 'Especialidad', value: instructor.especialidad),
-        DataGridCell<Widget>(
-            columnName: 'Eliminar',
-            value: ElevatedButton(
-              onPressed: () {},
-              style: const ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(primaryColor)),
-              child: const Text("Eliminar"),
-            )),
+
       ]);
     }).toList();
   }

@@ -117,6 +117,7 @@ class _PdfFichasAprendicesScreenState extends State<PdfFichasAprendicesScreen> {
       'Lider',
       'Programa',
       'Tipo Programa',
+      'Tipo Oferta',
       'Coordinador',
     ];
     final tableData = registros.map((item) {

@@ -9,8 +9,8 @@ import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/provider.dart';
 import 'package:provider/provider.dart';
-import '../../Home/homePage.dart';
-import '../Source/verification.dart';
+import '../../../Home/homePage.dart';
+import '../../Source/verification.dart';
 // import 'package:smtp/smtp.dart';
 
 /// Esta clase representa la pantalla de verificación del código de acceso.
@@ -158,9 +158,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
     if (code == _currentCode) {
       // Cancelamos el temporizador y mostramos la siguiente página
       setState(() {
+        _timer.cancel();
         Provider.of<AppState>(context, listen: false)
             .setUsuarioAutenticado(widget.usuario);
-        _timer.cancel();
       });
 
       Navigator.pushReplacement(
@@ -305,8 +305,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                                   fillColor: Colors.white,
                                                   hintText: '*',
                                                   hintStyle: const TextStyle(
-                                                      fontSize: 35,
-                                                      color: Colors.black),
+                                                    fontSize: 35,
+                                                  ),
                                                   counterStyle: const TextStyle(
                                                     color: Colors
                                                         .white, // Cambia este color al que prefieras
@@ -612,9 +612,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                                           hintText: '*',
                                                           hintStyle:
                                                               const TextStyle(
-                                                                  fontSize: 35,
-                                                                  color: Colors
-                                                                      .black),
+                                                            fontSize: 35,
+                                                          ),
                                                           counterStyle:
                                                               const TextStyle(
                                                             color: Colors

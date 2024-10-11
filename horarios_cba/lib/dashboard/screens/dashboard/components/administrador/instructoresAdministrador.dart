@@ -1,6 +1,7 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/AsignacionInstructor/asignacionInstructorFormulario.dart';
 import 'package:horarios_cba/Dashboard/Listas/instructores.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/PDF/AdministradorPDF/pdfInstructoresAdministrador.dart';
@@ -74,6 +75,7 @@ class _InstructoresAdministradorState extends State<InstructoresAdministrador> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -206,7 +208,13 @@ class _InstructoresAdministradorState extends State<InstructoresAdministrador> {
                 const SizedBox(
                   width: defaultPadding,
                 ),
-                buildButton('Añadir', () {}),
+                buildButton('Añadir', () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const AsignacionInstructorFormulario()));
+                }),
               ],
             ),
           if (Responsive.isMobile(context))
@@ -229,7 +237,13 @@ class _InstructoresAdministradorState extends State<InstructoresAdministrador> {
                   const SizedBox(
                     height: defaultPadding,
                   ),
-                  buildButton('Añadir', () {}),
+                  buildButton('Añadir', () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const AsignacionInstructorFormulario()));
+                  }),
                 ],
               ),
             ),

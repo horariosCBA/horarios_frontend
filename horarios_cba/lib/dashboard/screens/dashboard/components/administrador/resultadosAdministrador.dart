@@ -5,6 +5,8 @@ import 'package:horarios_cba/Dashboard/Listas/resultado_aprendizaje.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/PDF/AdministradorPDF/pdfResultadosAdministrador.dart';
 import 'package:horarios_cba/PDF/modalsPdf.dart';
+import 'package:horarios_cba/Resultado/Crear/resultadoFormularioCrear.dart';
+import 'package:horarios_cba/Resultado/Editar/resultadoFormularioEditar.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/responsive.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -32,7 +34,7 @@ class _ResultadosAdministradorState extends State<ResultadosAdministrador> {
     resultadosAdministrador = listaResultadoAprendizaje;
 
     _dataGridSource = ResultadosAdministradorDataGridSource(
-        resultados: resultadosAdministrador);
+        resultados: resultadosAdministrador, context: context);
   }
 
   @override
@@ -73,6 +75,7 @@ class _ResultadosAdministradorState extends State<ResultadosAdministrador> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -181,7 +184,13 @@ class _ResultadosAdministradorState extends State<ResultadosAdministrador> {
                 const SizedBox(
                   width: defaultPadding,
                 ),
-                buildButton('Añadir', () {}),
+                buildButton('Añadir', () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ResultadoFormularioCrear(),
+                      ));
+                }),
               ],
             ),
           if (Responsive.isMobile(context))
@@ -204,7 +213,14 @@ class _ResultadosAdministradorState extends State<ResultadosAdministrador> {
                   const SizedBox(
                     height: defaultPadding,
                   ),
-                  buildButton('Añadir', () {}),
+                  buildButton('Añadir', () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const ResultadoFormularioCrear(),
+                        ));
+                  }),
                 ],
               ),
             ),
@@ -216,7 +232,8 @@ class _ResultadosAdministradorState extends State<ResultadosAdministrador> {
 
 class ResultadosAdministradorDataGridSource extends DataGridSource {
   ResultadosAdministradorDataGridSource(
-      {required List<ResultadoAprendizaje> resultados}) {
+      {required List<ResultadoAprendizaje> resultados,
+      required BuildContext context}) {
     _resultadosAdministradorData = resultados.map<DataGridRow>((resultado) {
       return DataGridRow(cells: [
         DataGridCell<String>(columnName: 'Programa', value: resultado.programa),
@@ -231,7 +248,13 @@ class ResultadosAdministradorDataGridSource extends DataGridSource {
         DataGridCell<Widget>(
             columnName: 'Editar',
             value: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ResultadoFormularioEditar(),
+                    ));
+              },
               style: const ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(primaryColor)),
               child: const Text("Editar"),

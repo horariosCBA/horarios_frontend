@@ -4,13 +4,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:horarios_cba/Auth/Source/randomCode.dart';
-import 'package:horarios_cba/Auth/VerificacionLogin/metodoVerificacion.dart';
+import 'package:horarios_cba/Auth/Login/VerificacionLogin/metodoVerificacion.dart';
 import 'package:horarios_cba/Home/homePage.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/provider.dart';
 
 import 'package:local_auth/local_auth.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_platform/universal_platform.dart';
 
@@ -64,6 +65,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   /// Servicio para el envío de correos electrónicos de verificación.
   final VerificationService emailService = VerificationService();
+
+  /// Formateador para el campo de número de documento.
+  var inputDocumento = MaskTextInputFormatter(
+      mask: "############", filter: {"#": RegExp(r'[0-9]')});
 
   /// Función asincrónica para realizar el inicio de sesión.
   ///
@@ -299,6 +304,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                 padding: const EdgeInsets.only(
                                     left: 2.0, right: 2.0),
                                 child: TextField(
+                                  inputFormatters: [inputDocumento],
+                                  keyboardType: TextInputType.number,
                                   style: const TextStyle(color: Colors.black),
                                   controller: _documentoController,
                                   obscureText: false,
@@ -313,9 +320,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                           const BorderSide(color: Colors.white),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
-                                    hintText: 'N° Identificación',
-                                    hintStyle:
-                                        const TextStyle(color: Colors.black),
+                                    hintText:
+                                        'N° Documento (NIT sin guion y dígito de verificación)',
                                     fillColor: Colors.grey[200],
                                     filled: true,
                                   ),
@@ -529,6 +535,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                       padding: const EdgeInsets.only(
                                           left: 2.0, right: 2.0),
                                       child: TextField(
+                                        inputFormatters: [inputDocumento],
+                                        keyboardType: TextInputType.number,
                                         style: const TextStyle(
                                             color: Colors.black),
                                         controller: _documentoController,
@@ -546,9 +554,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                             borderRadius:
                                                 BorderRadius.circular(12),
                                           ),
-                                          hintText: 'N° Identificación',
-                                          hintStyle: const TextStyle(
-                                              color: Colors.black),
+                                          hintText:
+                                              'N° Documento (NIT sin guion y dígito de verificación)',
                                           fillColor: Colors.grey[200],
                                           filled: true,
                                         ),

@@ -1,6 +1,7 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horarios_cba/AsignacionAprendiz/asignacionAprendizFormulario.dart';
 import 'package:horarios_cba/Dashboard/Listas/aprendiz.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/PDF/AdministradorPDF/pdfAprendicesAdministrador.dart';
@@ -73,6 +74,7 @@ class _AprendicesAdministradorState extends State<AprendicesAdministrador> {
                   verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
                   frozenRowsCount: 0,
                   showVerticalScrollbar: true,
+                  showHorizontalScrollbar: true,
                   defaultColumnWidth: 200,
                   shrinkWrapColumns: true,
                   shrinkWrapRows: true,
@@ -222,7 +224,13 @@ class _AprendicesAdministradorState extends State<AprendicesAdministrador> {
                 const SizedBox(
                   width: defaultPadding,
                 ),
-                buildButton('Añadir', () {}),
+                buildButton('Añadir', () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const AsignacionAprendizFormulario()));
+                }),
               ],
             ),
           if (Responsive.isMobile(context))
@@ -245,7 +253,13 @@ class _AprendicesAdministradorState extends State<AprendicesAdministrador> {
                   const SizedBox(
                     height: defaultPadding,
                   ),
-                  buildButton('Añadir', () {}),
+                  buildButton('Añadir', () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const AsignacionAprendizFormulario()));
+                  }),
                 ],
               ),
             ),

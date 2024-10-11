@@ -13,16 +13,18 @@ class PlaneacionModel {
   final int id;
   // número de la planeación
   final int numero;
-  // duración presencial de la planeación
-  final int duracionPresencial;
-  // duración virtual de la planeación
-  final int duracionVirtual;
+  // trabajo directo de la planeación
+  final int trabajoDirecto;
+  // trabajo autonomo de la planeación
+  final int trabajoAutonomo;
   // duración total de la planeación
   final int duracionTotal;
   // horas recomendadas de la planeación
   final int horasRecomendadas;
   // días recomendados de la planeación
-  final int diasRecomendados;
+  final double diasRecomendados;
+  // creditos de la planeación
+  final double creditos;
   // resultado de la planeación
   final ResultadoAprendizajeModel resultadoAprendizaje;
 
@@ -30,12 +32,13 @@ class PlaneacionModel {
   PlaneacionModel(
       {required this.id,
       required this.numero,
-      required this.duracionPresencial,
-      required this.duracionVirtual,
+      required this.trabajoDirecto,
+      required this.trabajoAutonomo,
       required this.duracionTotal,
       required this.resultadoAprendizaje,
       required this.horasRecomendadas,
-      required this.diasRecomendados});
+      required this.diasRecomendados,
+      required this.creditos});
 }
 
 // lista de las planeaciones
@@ -65,11 +68,12 @@ Future<List<PlaneacionModel>> getPlaneaciones() async {
       planeaciones.add(PlaneacionModel(
         id: planeaciondata['id'] ?? 0,
         numero: planeaciondata['numero'] ?? 0,
-        duracionPresencial: planeaciondata['duracionPresencial'] ?? 0,
-        duracionVirtual: planeaciondata['duracionVirtual'] ?? 0,
+        trabajoDirecto: planeaciondata['trabajoDirecto'] ?? 0,
+        trabajoAutonomo: planeaciondata['trabajoAutonomo'] ?? 0,
         duracionTotal: planeaciondata['duracionTotal'] ?? 0,
         horasRecomendadas: planeaciondata['horasRecomendadas'] ?? 0,
         diasRecomendados: planeaciondata['diasRecomendados'] ?? 0,
+        creditos: planeaciondata['creditos'] ?? 0,
         resultadoAprendizaje: ResultadoAprendizajeModel(
           id: planeaciondata['resultadoAprendizaje']['id'] ?? 0,
           numero: planeaciondata['resultadoAprendizaje']['numero'] ?? "",
@@ -126,6 +130,12 @@ Future<List<PlaneacionModel>> getPlaneaciones() async {
                   "",
               descripcion: planeaciondata['resultadoAprendizaje']['competencia']
                       ['programa']['descripcion'] ??
+                  "",
+              tipoOferta: planeaciondata['resultadoAprendizaje']['competencia']
+                      ['programa']['tipoOferta'] ??
+                  "",
+              modalidad: planeaciondata['resultadoAprendizaje']['competencia']
+                      ['programa']['modalidad'] ??
                   "",
               area: planeaciondata['resultadoAprendizaje']['competencia']
                       ['programa']['area'] ??

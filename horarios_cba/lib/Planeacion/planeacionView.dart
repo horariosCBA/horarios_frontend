@@ -107,7 +107,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                         child: Column(
                           children: [
                             Text(
-                              "Número de la planeación: 002",
+                              "Número: 002.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -146,7 +146,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Número resultado de aprendizaje: 4",
+                              "Número resultado de aprendizaje: RAP 4.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -172,7 +172,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Identificar los principios y leyes de la física en la solución de problemas de acuerdo al contexto productivo. ",
+                              "Identificar los principios y leyes de la física en la solución de problemas de acuerdo al contexto productivo.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -185,7 +185,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Duración presencial: 2500 Horas",
+                              "Trabajo Directo: 2500 Horas.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -198,7 +198,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Duración virtual: 2500 Horas",
+                              "Trabajo Autónomo: 2500 Horas.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -211,7 +211,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Horas recomendadas: 8 Horas ",
+                              "Duración Total: 2500 Horas.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -224,7 +224,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Días recomendados: 5 Días",
+                              "Horas Recomendadas: 8 Horas.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -237,7 +237,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Tipo de programa: Técnico",
+                              "Días Recomendados: 5 Días.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -250,7 +250,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Nombre del programa: Entrenamiento deportivo",
+                              "Créditos: 1 Créditos.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -263,7 +263,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Área: Educación Física",
+                              "Programa: Entrenamiento deportivo.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -276,7 +276,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Nombre del coordinador: Mario Jeremias Poveda Suarez",
+                              "Tipo de programa: Técnico.",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -289,7 +289,46 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Descripción de la temática:",
+                              "Tipo de oferta: Oferta.",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: Colors.white,
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: defaultPadding,
+                            ),
+                            Text(
+                              "Área: Educación Física.",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: Colors.white,
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: defaultPadding,
+                            ),
+                            Text(
+                              "Coordinador: Mario Jeremias Poveda Suarez.",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: Colors.white,
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: defaultPadding,
+                            ),
+                            Text(
+                              "Temática:",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -315,7 +354,7 @@ class _PlaneacionViewState extends State<PlaneacionView> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Descripción del producto: ",
+                              "Producto:",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
