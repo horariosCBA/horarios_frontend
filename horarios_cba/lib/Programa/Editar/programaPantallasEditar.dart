@@ -704,28 +704,24 @@ class PantallaDosPrograma extends StatefulWidget {
   TextEditingController duracionTotalController = TextEditingController();
   TextEditingController tipoController = TextEditingController();
   TextEditingController certificacionController = TextEditingController();
-  TextEditingController tipoOfertaController = TextEditingController();
-  TextEditingController modalidadController = TextEditingController();
 
-  PantallaDosPrograma(
-      {super.key,
-      required this.duracionLectivaController,
-      required this.duracionProductivaController,
-      required this.duracionTotalController,
-      required this.tipoController,
-      required this.certificacionController,
-      required this.tipoOfertaController,
-      required this.modalidadController});
+  PantallaDosPrograma({
+    super.key,
+    required this.duracionLectivaController,
+    required this.duracionProductivaController,
+    required this.duracionTotalController,
+    required this.tipoController,
+    required this.certificacionController,
+  });
 
   @override
   State<PantallaDosPrograma> createState() => _PantallaDosProgramaState(
-      duracionLectivaController: duracionLectivaController,
-      duracionProductivaController: duracionProductivaController,
-      duracionTotalController: duracionTotalController,
-      tipoController: tipoController,
-      certificacionController: certificacionController,
-      tipoOfertaController: tipoOfertaController,
-      modalidadController: modalidadController);
+        duracionLectivaController: duracionLectivaController,
+        duracionProductivaController: duracionProductivaController,
+        duracionTotalController: duracionTotalController,
+        tipoController: tipoController,
+        certificacionController: certificacionController,
+      );
 }
 
 class _PantallaDosProgramaState extends State<PantallaDosPrograma> {
@@ -734,17 +730,14 @@ class _PantallaDosProgramaState extends State<PantallaDosPrograma> {
   TextEditingController duracionTotalController = TextEditingController();
   TextEditingController tipoController = TextEditingController();
   TextEditingController certificacionController = TextEditingController();
-  TextEditingController tipoOfertaController = TextEditingController();
-  TextEditingController modalidadController = TextEditingController();
 
-  _PantallaDosProgramaState(
-      {required this.duracionLectivaController,
-      required this.duracionProductivaController,
-      required this.duracionTotalController,
-      required this.tipoController,
-      required this.certificacionController,
-      required this.modalidadController,
-      required this.tipoOfertaController});
+  _PantallaDosProgramaState({
+    required this.duracionLectivaController,
+    required this.duracionProductivaController,
+    required this.duracionTotalController,
+    required this.tipoController,
+    required this.certificacionController,
+  });
 
   // Mascara para los campos numéricos
   var formatoNumero =
@@ -753,10 +746,6 @@ class _PantallaDosProgramaState extends State<PantallaDosPrograma> {
   String? tipoProgramaSeleccionado;
 
   String? tipoCertificacionSeleccionada;
-
-  String? tipoOfertaSeleccionada;
-
-  String? tipoModalidadSeleccionada;
 
   @override
   Widget build(BuildContext context) {
@@ -1121,188 +1110,6 @@ class _PantallaDosProgramaState extends State<PantallaDosPrograma> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
-              Tooltip(
-                message: "Se requiere este campo.",
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton2<String>(
-                    isExpanded: true,
-                    hint: const Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "Seleccione tipo de oferta",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                    items: tipoOfertasPrograma
-                        .map((item) => DropdownMenuItem<String>(
-                              value: item.valor,
-                              child: Text(
-                                item.titulo,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
-                        .toList(),
-                    // Valor seleccionado actualmente en el menú desplegable
-                    value: tipoOfertaSeleccionada,
-                    // Manejar el cambio de selección
-                    onChanged: (String? value) {
-                      // Actualizar el estado con la nueva selección
-                      setState(() {
-                        tipoOfertaSeleccionada = value;
-                        tipoOfertaController.text = tipoOfertaSeleccionada!;
-                      });
-
-                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
-                      if (tipoOfertaSeleccionada == null ||
-                          tipoOfertaSeleccionada!.isEmpty) {
-                        return;
-                      }
-                    },
-                    buttonStyleData: ButtonStyleData(
-                      height: 50,
-                      padding: const EdgeInsets.only(left: 14, right: 14),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: Colors.black26,
-                        ),
-                        color: Colors.white,
-                      ),
-                    ),
-                    iconStyleData: const IconStyleData(
-                      icon: Icon(
-                        Icons.arrow_forward_ios_outlined,
-                      ),
-                      iconSize: 14,
-                      iconEnabledColor: Colors.black,
-                      iconDisabledColor: Colors.grey,
-                    ),
-                    dropdownStyleData: DropdownStyleData(
-                      maxHeight: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: Colors.white,
-                      ),
-                      scrollbarTheme: ScrollbarThemeData(
-                        radius: const Radius.circular(40),
-                        thickness: WidgetStateProperty.all<double>(6),
-                        thumbVisibility: WidgetStateProperty.all<bool>(true),
-                      ),
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                      padding: EdgeInsets.symmetric(horizontal: 25.0),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Tooltip(
-                message: "Se requiere este campo.",
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton2<String>(
-                    isExpanded: true,
-                    hint: const Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "Seleccione Modalidad",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                    items: modalidadesPrograma
-                        .map((item) => DropdownMenuItem<String>(
-                              value: item.valor,
-                              child: Text(
-                                item.titulo,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
-                        .toList(),
-                    // Valor seleccionado actualmente en el menú desplegable
-                    value: tipoModalidadSeleccionada,
-                    // Manejar el cambio de selección
-                    onChanged: (String? value) {
-                      // Actualizar el estado con la nueva selección
-                      setState(() {
-                        tipoModalidadSeleccionada = value;
-                        modalidadController.text = tipoModalidadSeleccionada!;
-                      });
-
-                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
-                      if (tipoModalidadSeleccionada == null ||
-                          tipoModalidadSeleccionada!.isEmpty) {
-                        return;
-                      }
-                    },
-                    buttonStyleData: ButtonStyleData(
-                      height: 50,
-                      padding: const EdgeInsets.only(left: 14, right: 14),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: Colors.black26,
-                        ),
-                        color: Colors.white,
-                      ),
-                    ),
-                    iconStyleData: const IconStyleData(
-                      icon: Icon(
-                        Icons.arrow_forward_ios_outlined,
-                      ),
-                      iconSize: 14,
-                      iconEnabledColor: Colors.black,
-                      iconDisabledColor: Colors.grey,
-                    ),
-                    dropdownStyleData: DropdownStyleData(
-                      maxHeight: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: Colors.white,
-                      ),
-                      scrollbarTheme: ScrollbarThemeData(
-                        radius: const Radius.circular(40),
-                        thickness: WidgetStateProperty.all<double>(6),
-                        thumbVisibility: WidgetStateProperty.all<bool>(true),
-                      ),
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                      padding: EdgeInsets.symmetric(horizontal: 25.0),
-                    ),
-                  ),
-                ),
-              ),
               const SizedBox(height: 20),
             ],
           ),
@@ -1593,188 +1400,6 @@ class _PantallaDosProgramaState extends State<PantallaDosPrograma> {
                       // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
                       if (tipoCertificacionSeleccionada == null ||
                           tipoCertificacionSeleccionada!.isEmpty) {
-                        return;
-                      }
-                    },
-                    buttonStyleData: ButtonStyleData(
-                      height: 50,
-                      padding: const EdgeInsets.only(left: 14, right: 14),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: Colors.black26,
-                        ),
-                        color: Colors.white,
-                      ),
-                    ),
-                    iconStyleData: const IconStyleData(
-                      icon: Icon(
-                        Icons.arrow_forward_ios_outlined,
-                      ),
-                      iconSize: 14,
-                      iconEnabledColor: Colors.black,
-                      iconDisabledColor: Colors.grey,
-                    ),
-                    dropdownStyleData: DropdownStyleData(
-                      maxHeight: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: Colors.white,
-                      ),
-                      scrollbarTheme: ScrollbarThemeData(
-                        radius: const Radius.circular(40),
-                        thickness: WidgetStateProperty.all<double>(6),
-                        thumbVisibility: WidgetStateProperty.all<bool>(true),
-                      ),
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                      padding: EdgeInsets.symmetric(horizontal: 25.0),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Tooltip(
-                message: "Se requiere este campo.",
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton2<String>(
-                    isExpanded: true,
-                    hint: const Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "Seleccione tipo de oferta",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                    items: tipoOfertasPrograma
-                        .map((item) => DropdownMenuItem<String>(
-                              value: item.valor,
-                              child: Text(
-                                item.titulo,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
-                        .toList(),
-                    // Valor seleccionado actualmente en el menú desplegable
-                    value: tipoOfertaSeleccionada,
-                    // Manejar el cambio de selección
-                    onChanged: (String? value) {
-                      // Actualizar el estado con la nueva selección
-                      setState(() {
-                        tipoOfertaSeleccionada = value;
-                        tipoOfertaController.text = tipoOfertaSeleccionada!;
-                      });
-
-                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
-                      if (tipoOfertaSeleccionada == null ||
-                          tipoOfertaSeleccionada!.isEmpty) {
-                        return;
-                      }
-                    },
-                    buttonStyleData: ButtonStyleData(
-                      height: 50,
-                      padding: const EdgeInsets.only(left: 14, right: 14),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: Colors.black26,
-                        ),
-                        color: Colors.white,
-                      ),
-                    ),
-                    iconStyleData: const IconStyleData(
-                      icon: Icon(
-                        Icons.arrow_forward_ios_outlined,
-                      ),
-                      iconSize: 14,
-                      iconEnabledColor: Colors.black,
-                      iconDisabledColor: Colors.grey,
-                    ),
-                    dropdownStyleData: DropdownStyleData(
-                      maxHeight: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: Colors.white,
-                      ),
-                      scrollbarTheme: ScrollbarThemeData(
-                        radius: const Radius.circular(40),
-                        thickness: WidgetStateProperty.all<double>(6),
-                        thumbVisibility: WidgetStateProperty.all<bool>(true),
-                      ),
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                      padding: EdgeInsets.symmetric(horizontal: 25.0),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Tooltip(
-                message: "Se requiere este campo.",
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton2<String>(
-                    isExpanded: true,
-                    hint: const Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "Seleccione Modalidad",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                    items: modalidadesPrograma
-                        .map((item) => DropdownMenuItem<String>(
-                              value: item.valor,
-                              child: Text(
-                                item.titulo,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
-                        .toList(),
-                    // Valor seleccionado actualmente en el menú desplegable
-                    value: tipoModalidadSeleccionada,
-                    // Manejar el cambio de selección
-                    onChanged: (String? value) {
-                      // Actualizar el estado con la nueva selección
-                      setState(() {
-                        tipoModalidadSeleccionada = value;
-                        modalidadController.text = tipoModalidadSeleccionada!;
-                      });
-
-                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
-                      if (tipoModalidadSeleccionada == null ||
-                          tipoModalidadSeleccionada!.isEmpty) {
                         return;
                       }
                     },

@@ -42,12 +42,6 @@ class ProgramaModel {
   // descripción del programa
   final String descripcion;
 
-  // tipo de oferta del programa
-  final String tipoOferta;
-
-  // modalidad del programa
-  final String modalidad;
-
   // area del programa
   final String area;
 
@@ -65,8 +59,6 @@ class ProgramaModel {
       required this.tipoPrograma,
       required this.certificacion,
       required this.descripcion,
-      required this.tipoOferta,
-      required this.modalidad,
       required this.area});
 }
 
@@ -107,8 +99,6 @@ Future<List<ProgramaModel>> getProgramas() async {
           tipoPrograma: programadata['tipoPrograma'] ?? "",
           certificacion: programadata['certificacion'] ?? "",
           descripcion: programadata['descripcion'] ?? "",
-          tipoOferta: programadata['tipoOferta'] ?? "",
-          modalidad: programadata['modalidad'] ?? "",
           area: programadata['area'] ?? ""));
     }
     // Devolver la lista de programas

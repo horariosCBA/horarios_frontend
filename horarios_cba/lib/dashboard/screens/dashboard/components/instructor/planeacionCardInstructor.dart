@@ -112,20 +112,6 @@ class _PlaneacionCardInstructorState extends State<PlaneacionCardInstructor> {
                               height: defaultPadding,
                             ),
                             Text(
-                              "Tipo de oferta: ${widget.planeacion.tipoOferta}.",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                    color: Colors.white,
-                                    fontFamily: 'Calibri-Bold',
-                                  ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(
-                              height: defaultPadding,
-                            ),
-                            Text(
                               "Competencia:",
                               style: Theme.of(context)
                                   .textTheme

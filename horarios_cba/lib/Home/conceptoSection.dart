@@ -7,7 +7,10 @@ import 'package:horarios_cba/constantsDesign.dart';
 
 // Clase ConceptoSection, que representa la sección de conceptos.
 class ConceptoSection extends StatelessWidget {
-  const ConceptoSection({super.key});
+  ConceptoSection({super.key});
+
+  // Controlador del scroll.
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +50,22 @@ class ConceptoSection extends StatelessWidget {
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 500,
-            child: ListView.builder(
+            child: Scrollbar(
+              controller: _scrollController,
+              thumbVisibility: true,
+              child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                itemCount: conceptoList.length,
-                itemBuilder: (context, index) =>
-                    Padding(
+                controller: _scrollController,
+                child: Row(
+                  children: List.generate(conceptoList.length, (index) {
+                    return Padding(
                       padding: const EdgeInsets.only(right: defaultPadding),
                       child: ConceptoCard(concepto: conceptoList[index]),
-                    )),
+                    );
+                  }),
+                ),
+              ),
+            ),
           ),
         )
       ],

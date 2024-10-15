@@ -125,12 +125,6 @@ Future<List<TematicaModel>> getTematicas() async {
                 descripcion: tematicadata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['descripcion'] ??
                     "",
-                tipoOferta: tematicadata['planeacion']['resultadoAprendizaje']
-                        ['competencia']['programa']['tipoOferta'] ??
-                    "",
-                modalidad: tematicadata['planeacion']['resultadoAprendizaje']
-                        ['competencia']['programa']['modalidad'] ??
-                    "",
                 area: tematicadata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['area'] ??
                     "",

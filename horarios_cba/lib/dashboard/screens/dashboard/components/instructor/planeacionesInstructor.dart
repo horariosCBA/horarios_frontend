@@ -7,9 +7,12 @@ import 'package:horarios_cba/constantsDesign.dart';
 
 // Vista que muestra las tarjetas de planeaciones, adaptándose a diferentes dispositivos.
 class PlaneacionesInstructor extends StatelessWidget {
-  const PlaneacionesInstructor({
+  PlaneacionesInstructor({
     super.key,
   });
+
+  // Controlador del scroll.
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +36,20 @@ class PlaneacionesInstructor extends StatelessWidget {
         // Contenedor que muestra las tarjetas de planeaciones
         SizedBox(
           height: 600,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: listaPlaneaciones.length,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(right: defaultPadding),
-              child: PlaneacionCardInstructor(
-                planeacion: listaPlaneaciones[index],
-              ),
+          child: Scrollbar(
+            controller: _scrollController,
+            thumbVisibility: true,
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              scrollDirection: Axis.horizontal,
+              child: Row(children: List.generate(listaPlaneaciones.length, (index){
+                return Padding(
+                  padding: const EdgeInsets.only(right: defaultPadding),
+                  child: PlaneacionCardInstructor(
+                    planeacion: listaPlaneaciones[index],
+                  ),
+                );
+              }),),
             ),
           ),
         ),

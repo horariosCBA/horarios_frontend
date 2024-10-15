@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:horarios_cba/Auth/Source/randomCode.dart';
-import 'package:horarios_cba/Auth/Login/VerificacionLogin/metodoVerificacion.dart';
+import 'package:horarios_cba/Auth/Login/metodoVerificacion.dart';
 import 'package:horarios_cba/Home/homePage.dart';
 import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';

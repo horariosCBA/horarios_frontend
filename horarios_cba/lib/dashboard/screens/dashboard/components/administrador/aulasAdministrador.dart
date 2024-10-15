@@ -9,9 +9,12 @@ import 'package:horarios_cba/responsive.dart';
 
 // Vista que muestra las tarjetas de aulas, adaptándose a diferentes dispositivos.
 class AulasAdministrador extends StatelessWidget {
-  const AulasAdministrador({
+  AulasAdministrador({
     super.key,
   });
+
+  // Controlador del scroll.
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -135,15 +138,22 @@ class AulasAdministrador extends StatelessWidget {
         // Contenedor que muestra las tarjetas de aulas
         SizedBox(
           height: 400,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: listaAulas.length,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(right: defaultPadding),
-              child: AulaCard(
-                aula: listaAulas[index],
-                index: index,
-              ),
+          child: Scrollbar(
+            controller: _scrollController,
+            thumbVisibility: true,
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                  children: List.generate(listaAulas.length, (index) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: defaultPadding),
+                  child: AulaCard(
+                    aula: listaAulas[index],
+                    index: index,
+                  ),
+                );
+              })),
             ),
           ),
         ),

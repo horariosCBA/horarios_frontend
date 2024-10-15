@@ -475,284 +475,286 @@ class _UploadUsersCSVState extends State<UploadUsersCSV> {
   // Cuerpo de la pantalla
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          // Fondo con imagen
-          Image.asset(
-            "assets/img/fondoCSV.webp",
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-          ),
-          // Capa verde semitransparente
-          Container(
-            color: primaryColor.withOpacity(
-                0.5), // Ajusta el nivel de opacidad según sea necesario
-            width: double.infinity,
-            height: double.infinity,
-          ),
-          // Contenido de la pantalla
-          Column(
-            children: [
-              // Encabezado
-              Padding(
-                padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Botón de retroceso
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: background1,
-                        ),
-                        child: Center(
-                          child: Transform.translate(
-                            offset: const Offset(
-                                -2, 0), // adjust the offset as needed
-                            child: const Icon(
-                              Icons.arrow_back_ios_new,
-                              color: primaryColor,
-                              size: 25,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            // Fondo con imagen
+            Image.asset(
+              "assets/img/fondoCSV.webp",
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            // Capa verde semitransparente
+            Container(
+              color: primaryColor.withOpacity(
+                  0.5), // Ajusta el nivel de opacidad según sea necesario
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            // Contenido de la pantalla
+            Column(
+              children: [
+                // Encabezado
+                Padding(
+                  padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Botón de retroceso
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: 50,
+                          height: 50,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: background1,
+                          ),
+                          child: Center(
+                            child: Transform.translate(
+                              offset: const Offset(
+                                  -2, 0), // adjust the offset as needed
+                              child: const Icon(
+                                Icons.arrow_back_ios_new,
+                                color: primaryColor,
+                                size: 25,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    // Botón de guardado si hay usuarios con datos completos
-                    if (_usuariosCompletos.isNotEmpty)
-                      Tooltip(
-                        message: 'Cargar Usuarios',
-                        child: GestureDetector(
-                          onTap: () {
-                            modalPost();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(3),
-                            width: 50,
-                            height: 50,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: background1,
-                            ),
-                            child: const Icon(
-                              Icons.save,
-                              color: primaryColor,
+                      // Botón de guardado si hay usuarios con datos completos
+                      if (_usuariosCompletos.isNotEmpty)
+                        Tooltip(
+                          message: 'Cargar Usuarios',
+                          child: GestureDetector(
+                            onTap: () {
+                              modalPost();
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(3),
+                              width: 50,
+                              height: 50,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: background1,
+                              ),
+                              child: const Icon(
+                                Icons.save,
+                                color: primaryColor,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: defaultPadding,
-              ),
-              // Titulo
-              Center(
-                child: Text(
-                  'Registro de usuarios',
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                    fontFamily: 'Calibri-Bold',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        color: Colors.black
-                            .withOpacity(0.5), // Color y opacidad de la sombra
-                        offset: const Offset(2,
-                            2), // Desplazamiento de la sombra (horizontal, vertical)
-                        blurRadius: 3, // Radio de desenfoque de la sombra
-                      ),
                     ],
                   ),
                 ),
-              ),
-              // Mensaje introductorio si no hay un archivo CSV cargado
-              _usuariosCompletos.isEmpty && _usuariosIncompletos.isEmpty
-                  ? Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Por favor, cargue un archivo CSV. Para asegurar que el proceso se realice de la mejor manera posible, le recomendamos seguir las pautas de la introducción.',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(
-                              fontFamily: 'Calibri-Bold',
-                              color: Colors.white,
-                              shadows: [
-                                Shadow(
-                                  color: Colors.black.withOpacity(
-                                      0.5), // Color y opacidad de la sombra
-                                  offset: const Offset(2,
-                                      2), // Desplazamiento de la sombra (horizontal, vertical)
-                                  blurRadius:
-                                      3, // Radio de desenfoque de la sombra
-                                ),
-                              ],
+                const SizedBox(
+                  height: defaultPadding,
+                ),
+                // Titulo
+                Center(
+                  child: Text(
+                    'Registro de usuarios',
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                      fontFamily: 'Calibri-Bold',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black
+                              .withOpacity(0.5), // Color y opacidad de la sombra
+                          offset: const Offset(2,
+                              2), // Desplazamiento de la sombra (horizontal, vertical)
+                          blurRadius: 3, // Radio de desenfoque de la sombra
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // Mensaje introductorio si no hay un archivo CSV cargado
+                _usuariosCompletos.isEmpty && _usuariosIncompletos.isEmpty
+                    ? Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Por favor, cargue un archivo CSV. Para asegurar que el proceso se realice de la mejor manera posible, le recomendamos seguir las pautas de la introducción.',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                fontFamily: 'Calibri-Bold',
+                                color: Colors.white,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withOpacity(
+                                        0.5), // Color y opacidad de la sombra
+                                    offset: const Offset(2,
+                                        2), // Desplazamiento de la sombra (horizontal, vertical)
+                                    blurRadius:
+                                        3, // Radio de desenfoque de la sombra
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: defaultPadding),
-                          // Botón para ver la introducción
-                          Container(
-                            width: 200,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  10), // Borde redondeado.
-                              color: background1, // Color de fondo.
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: botonSombra, // Color de la sombra.
-                                  blurRadius:
-                                      5, // Radio de desfoque de la sombra.
-                                  offset: Offset(
-                                      0, 3), // Desplazamiento de la sombra.
-                                ),
-                              ],
-                            ),
-                            child: Material(
-                              color: Colors
-                                  .transparent, // Color transparente para el Material.
-                              child: InkWell(
-                                onTap: () {}, // Función de presionar.
+                            const SizedBox(height: defaultPadding),
+                            // Botón para ver la introducción
+                            Container(
+                              width: 200,
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
-                                    10), // Radio del borde redondeado.
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10), // Padding vertical.
-                                  child: Center(
-                                    child: Text(
-                                      "Ver Introducción CSV", // Texto del botón.
-                                      style: TextStyle(
-                                        color: primaryColor, // Color del texto.
-                                        fontSize: 13, // Tamaño de fuente.
-                                        fontWeight:
-                                            FontWeight.bold, // Peso de fuente.
-                                        fontFamily: 'Calibri-Bold', // Fuente.
+                                    10), // Borde redondeado.
+                                color: background1, // Color de fondo.
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: botonSombra, // Color de la sombra.
+                                    blurRadius:
+                                        5, // Radio de desfoque de la sombra.
+                                    offset: Offset(
+                                        0, 3), // Desplazamiento de la sombra.
+                                  ),
+                                ],
+                              ),
+                              child: Material(
+                                color: Colors
+                                    .transparent, // Color transparente para el Material.
+                                child: InkWell(
+                                  onTap: () {}, // Función de presionar.
+                                  borderRadius: BorderRadius.circular(
+                                      10), // Radio del borde redondeado.
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10), // Padding vertical.
+                                    child: Center(
+                                      child: Text(
+                                        "Ver Introducción CSV", // Texto del botón.
+                                        style: TextStyle(
+                                          color: primaryColor, // Color del texto.
+                                          fontSize: 13, // Tamaño de fuente.
+                                          fontWeight:
+                                              FontWeight.bold, // Peso de fuente.
+                                          fontFamily: 'Calibri-Bold', // Fuente.
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  // Tabla de usuarios
-                  : Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListView(
-                          children: [
-                            // Encabezado de la tabla
-                            _buildTableHeader(),
-                            // Encabezado de la sección de usuarios completos
-                            ListTile(
-                              title: Text(
-                                'Usuarios Completos',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                  fontFamily: 'Calibri-Bold',
-                                  color: Colors.white,
-                                  shadows: [
-                                    Shadow(
-                                      color: Colors.black.withOpacity(
-                                          0.5), // Color y opacidad de la sombra
-                                      offset: const Offset(2,
-                                          2), // Desplazamiento de la sombra (horizontal, vertical)
-                                      blurRadius:
-                                          3, // Radio de desenfoque de la sombra
-                                    ),
-                                  ],
+                            )
+                          ],
+                        ),
+                      )
+                    // Tabla de usuarios
+                    : Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListView(
+                            children: [
+                              // Encabezado de la tabla
+                              _buildTableHeader(),
+                              // Encabezado de la sección de usuarios completos
+                              ListTile(
+                                title: Text(
+                                  'Usuarios Completos',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                    fontFamily: 'Calibri-Bold',
+                                    color: Colors.white,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withOpacity(
+                                            0.5), // Color y opacidad de la sombra
+                                        offset: const Offset(2,
+                                            2), // Desplazamiento de la sombra (horizontal, vertical)
+                                        blurRadius:
+                                            3, // Radio de desenfoque de la sombra
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            // Itera los usuarios completos para añadirlos a una fila
-                            ..._usuariosCompletos.map((usuario) => Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 12),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12),
+                              // Itera los usuarios completos para añadirlos a una fila
+                              ..._usuariosCompletos.map((usuario) => Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 12),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
+                                    ),
+                                    child: _buildUserRow(usuario),
+                                  )),
+                              const SizedBox(height: defaultPadding),
+                              const Divider(
+                                color: Colors.white,
+                              ),
+                              const SizedBox(height: defaultPadding),
+                              // Encabezado de la sección de usuarios incompletos
+                              ListTile(
+                                title: Text(
+                                  'Usuarios Incompletos',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .copyWith(
+                                    fontFamily: 'Calibri-Bold',
+                                    color: Colors.white,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withOpacity(
+                                            0.5), // Color y opacidad de la sombra
+                                        offset: const Offset(2,
+                                            2), // Desplazamiento de la sombra (horizontal, vertical)
+                                        blurRadius:
+                                            3, // Radio de desenfoque de la sombra
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              // Itera los usuarios incompletos para añadirlos a una fila
+                              ..._usuariosIncompletos.map(
+                                (usuario) => Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 12),
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 12),
                                   decoration: BoxDecoration(
                                     border: Border.all(color: Colors.grey),
                                     borderRadius: BorderRadius.circular(10),
                                     color: Colors.white,
                                   ),
                                   child: _buildUserRow(usuario),
-                                )),
-                            const SizedBox(height: defaultPadding),
-                            const Divider(
-                              color: Colors.white,
-                            ),
-                            const SizedBox(height: defaultPadding),
-                            // Encabezado de la sección de usuarios incompletos
-                            ListTile(
-                              title: Text(
-                                'Usuarios Incompletos',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                  fontFamily: 'Calibri-Bold',
-                                  color: Colors.white,
-                                  shadows: [
-                                    Shadow(
-                                      color: Colors.black.withOpacity(
-                                          0.5), // Color y opacidad de la sombra
-                                      offset: const Offset(2,
-                                          2), // Desplazamiento de la sombra (horizontal, vertical)
-                                      blurRadius:
-                                          3, // Radio de desenfoque de la sombra
-                                    ),
-                                  ],
                                 ),
                               ),
-                            ),
-                            // Itera los usuarios incompletos para añadirlos a una fila
-                            ..._usuariosIncompletos.map(
-                              (usuario) => Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                ),
-                                child: _buildUserRow(usuario),
-                              ),
-                            ),
-                            const SizedBox(height: defaultPadding),
-                          ],
+                              const SizedBox(height: defaultPadding),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-            ],
-          ),
-        ],
-      ),
-      // Botón para cargar el archivo CSV
-      floatingActionButton: FloatingActionButton(
-        onPressed: _loadCSV,
-        tooltip: 'Cargar CSV',
-        child: Icon(_usuariosCompletos.isEmpty || _usuariosIncompletos.isEmpty
-            ? Icons.file_upload
-            : Icons.replay_rounded),
+              ],
+            ),
+          ],
+        ),
+        // Botón para cargar el archivo CSV
+        floatingActionButton: FloatingActionButton(
+          onPressed: _loadCSV,
+          tooltip: 'Cargar CSV',
+          child: Icon(_usuariosCompletos.isEmpty || _usuariosIncompletos.isEmpty
+              ? Icons.file_upload
+              : Icons.replay_rounded),
+        ),
       ),
     );
   }

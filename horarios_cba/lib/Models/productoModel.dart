@@ -124,12 +124,6 @@ Future<List<ProductoModel>> getProductos() async {
                 descripcion: productodata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['descripcion'] ??
                     "",
-                tipoOferta: productodata['planeacion']['resultadoAprendizaje']
-                        ['competencia']['programa']['tipoOferta'] ??
-                    "",
-                modalidad: productodata['planeacion']['resultadoAprendizaje']
-                        ['competencia']['programa']['modalidad'] ??
-                    "",
                 area: productodata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['area'] ??
                     "",

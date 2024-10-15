@@ -13,6 +13,9 @@ class CoordinadorSection extends StatefulWidget {
 }
 
 class _CoordinadorSectionState extends State<CoordinadorSection> {
+  // Controlador del scroll.
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     // Contenedor para la sección de coordinadores.
@@ -46,12 +49,19 @@ class _CoordinadorSectionState extends State<CoordinadorSection> {
         // Lista de tarjetas de coordinadores.
         SizedBox(
           height: 350,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 6,
-            itemBuilder: (context, index) {
-              return const CoordinadorCard();
-            },
+          width: MediaQuery.of(context).size.width,
+          child: Scrollbar(
+            controller: _scrollController,
+            thumbVisibility: true,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              controller: _scrollController,
+              child: Row(
+                children: List.generate(6, (index) {
+                  return const CoordinadorCard();
+                }),
+              ),
+            ),
           ),
         ),
       ],

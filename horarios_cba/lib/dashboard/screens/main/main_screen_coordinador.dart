@@ -14,43 +14,45 @@ class MainScreenCoordinador extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: context.read<MenuAppController>().scaffoldKey,
-      drawer: SideMenu(
-        usuarioAutenticado: usuarioAutenticado,
-      ),
-      body: SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // We want this side menu only for large screen
-            if (Responsive.isDesktop(context))
+    return SafeArea(
+      child: Scaffold(
+        key: context.read<MenuAppController>().scaffoldKey,
+        drawer: SideMenu(
+          usuarioAutenticado: usuarioAutenticado,
+        ),
+        body: SafeArea(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // We want this side menu only for large screen
+              if (Responsive.isDesktop(context))
+                Expanded(
+                  // default flex = 1
+                  // and it takes 1/6 part of the screen
+                  child: SideMenu(
+                    usuarioAutenticado: usuarioAutenticado,
+                  ),
+                ),
               Expanded(
-                // default flex = 1
-                // and it takes 1/6 part of the screen
-                child: SideMenu(
+                // It takes 5/6 part of the screen
+                flex: 5,
+                child: DashboardScreenCoordinador(
                   usuarioAutenticado: usuarioAutenticado,
                 ),
               ),
-            Expanded(
-              // It takes 5/6 part of the screen
-              flex: 5,
-              child: DashboardScreenCoordinador(
-                usuarioAutenticado: usuarioAutenticado,
-              ),
-            ),
-          ],
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ChatBot()),
+            );
+          },
+          child: const Icon(Icons.support_agent),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ChatBot()),
-                    );
-                  },
-                  child: const Icon(Icons.support_agent),
-                ),
     );
   }
 }

@@ -38,89 +38,89 @@ class SideMenu extends StatelessWidget {
             },
           ),
           //if (usuarioAutenticado.rol == "Aprendiz")
-            DrawerListTile(
-              title: "Panel Aprendiz",
-              svgSrc: "assets/icons/aprendiz.svg",
-              press: () {
-                Navigator.pushReplacement(
+          DrawerListTile(
+            title: "Panel Aprendiz",
+            svgSrc: "assets/icons/aprendiz.svg",
+            press: () {
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MultiProvider(
-                            providers: [
-                              ChangeNotifierProvider(
-                                create: (context) => MenuAppController(),
-                              ),
-                            ],
-                            child: MainScreenAprendiz(
-                              usuarioAutenticado: usuarioAutenticado,
-                            ),
-                          )),
+                    builder: (context) => MultiProvider(
+                      providers: [
+                        ChangeNotifierProvider(
+                            create: (context) => MenuAppController()),
+                      ],
+                      child: MainScreenAprendiz(
+                        usuarioAutenticado: usuarioAutenticado,
+                      ),
+                    ),
+                  ),
                 );
-              },
-            ),
+            },
+          ),
           //if (usuarioAutenticado.rol == "Instructor")
-            DrawerListTile(
-              title: "Panel Instructor",
-              svgSrc: "assets/icons/instructor.svg",
-              press: () {
-                Navigator.pushReplacement(
+          DrawerListTile(
+            title: "Panel Instructor",
+            svgSrc: "assets/icons/instructor.svg",
+            press: () {
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MultiProvider(
-                            providers: [
-                              ChangeNotifierProvider(
-                                create: (context) => MenuAppController(),
-                              ),
-                            ],
-                            child: MainScreenInstructor(
-                              usuarioAutenticado: usuarioAutenticado,
-                            ),
-                          )),
+                    builder: (context) => MultiProvider(
+                      providers: [
+                        ChangeNotifierProvider(
+                            create: (context) => MenuAppController()),
+                      ],
+                      child: MainScreenInstructor(
+                        usuarioAutenticado: usuarioAutenticado,
+                      ),
+                    ),
+                  ),
                 );
-              },
-            ),
+            },
+          ),
           //if (usuarioAutenticado.rol == "Coordinador")
-            DrawerListTile(
-              title: "Panel Coordinador",
-              svgSrc: "assets/icons/coordinador.svg",
-              press: () {
-                Navigator.pushReplacement(
+          DrawerListTile(
+            title: "Panel Coordinador",
+            svgSrc: "assets/icons/coordinador.svg",
+            press: () {
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MultiProvider(
-                            providers: [
-                              ChangeNotifierProvider(
-                                create: (context) => MenuAppController(),
-                              ),
-                            ],
-                            child: MainScreenCoordinador(
-                              usuarioAutenticado: usuarioAutenticado,
-                            ),
-                          )),
+                    builder: (context) => MultiProvider(
+                      providers: [
+                        ChangeNotifierProvider(
+                            create: (context) => MenuAppController()),
+                      ],
+                      child: MainScreenCoordinador(
+                        usuarioAutenticado: usuarioAutenticado,
+                      ),
+                    ),
+                  ),
                 );
-              },
-            ),
+            },
+          ),
           //if (usuarioAutenticado.rol == "Administrador")
-            DrawerListTile(
-              title: "Panel Administrador",
-              svgSrc: "assets/icons/administrador.svg",
-              press: () {
-                Navigator.pushReplacement(
+          DrawerListTile(
+            title: "Panel Administrador",
+            svgSrc: "assets/icons/administrador.svg",
+            press: () {
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MultiProvider(
-                            providers: [
-                              ChangeNotifierProvider(
-                                create: (context) => MenuAppController(),
-                              ),
-                            ],
-                            child: MainScreenAdministrador(
-                              usuarioAutenticado: usuarioAutenticado,
-                            ),
-                          )),
+                    builder: (context) => MultiProvider(
+                      providers: [
+                        ChangeNotifierProvider(
+                            create: (context) => MenuAppController()),
+                      ],
+                      child: MainScreenAdministrador(
+                        usuarioAutenticado: usuarioAutenticado,
+                      ),
+                    ),
+                  ),
                 );
-              },
-            ),
+            },
+          ),
           DrawerListTile(
             title: "Cerrar Sesión",
             svgSrc: "assets/icons/logout.svg",

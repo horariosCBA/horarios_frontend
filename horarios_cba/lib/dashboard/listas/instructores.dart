@@ -15,6 +15,10 @@ class Instructores {
 
   final String especialidad;
 
+  final String programa;
+
+  final String tipoPrograma;
+
   Instructores({
     required this.nombresApellidos,
     required this.tipoDocumento,
@@ -24,6 +28,8 @@ class Instructores {
     required this.titulacion,
     required this.cargo,
     required this.especialidad,
+    required this.programa,
+    required this.tipoPrograma,
   });
 }
 
@@ -36,7 +42,9 @@ List<Instructores> listaInstructores = [
       telefonoCelular: "3133554878",
       titulacion: "Programacion de software",
       cargo: "instructor",
-      especialidad: "sin novedad"),
+      especialidad: "sin novedad",
+      programa: "Programacion orientada a objetos",
+      tipoPrograma: "Tecnico"),
   Instructores(
       nombresApellidos: "Paula Milena Rojas Roa",
       tipoDocumento: "Cedula",
@@ -45,7 +53,9 @@ List<Instructores> listaInstructores = [
       telefonoCelular: "3135789541",
       titulacion: "Programacion de software",
       cargo: "instructor",
-      especialidad: "sin novedad"),
+      especialidad: "sin novedad",
+      programa: "Programacion orientada a objetos",
+      tipoPrograma: "Tecnico"),
   Instructores(
       nombresApellidos: "Laura Carrillo Lopez",
       tipoDocumento: "Cedula",
@@ -54,7 +64,9 @@ List<Instructores> listaInstructores = [
       telefonoCelular: "3002023354",
       titulacion: "Por especificar",
       cargo: "instructor",
-      especialidad: "sin novedad"),
+      especialidad: "sin novedad",
+      programa: "Programacion orientada a objetos",
+      tipoPrograma: "Tecnico"),
   Instructores(
       nombresApellidos: "Aura Poveda Carreño",
       tipoDocumento: "Cedula",
@@ -63,7 +75,9 @@ List<Instructores> listaInstructores = [
       telefonoCelular: "3015004748",
       titulacion: "Por especificar",
       cargo: "instructor",
-      especialidad: "sin novedad"),
+      especialidad: "sin novedad",
+      programa: "Programacion orientada a objetos",
+      tipoPrograma: "Tecnico"),
   Instructores(
       nombresApellidos: "Kevin villa Rodriguez",
       tipoDocumento: "Cedula",
@@ -72,7 +86,9 @@ List<Instructores> listaInstructores = [
       telefonoCelular: "3114789524",
       titulacion: "Por especificar",
       cargo: "instructor",
-      especialidad: "sin novedad"),
+      especialidad: "sin novedad",
+      programa: "Programacion orientada a objetos",
+      tipoPrograma: "Tecnico"),
   Instructores(
       nombresApellidos: "Caterin Rodriguez Rojas",
       tipoDocumento: "Cedula",
@@ -81,7 +97,9 @@ List<Instructores> listaInstructores = [
       telefonoCelular: "3134782522",
       titulacion: "Por especificar",
       cargo: "instructor",
-      especialidad: "sin novedad"),
+      especialidad: "sin novedad",
+      programa: "Programacion orientada a objetos",
+      tipoPrograma: "Tecnico"),
   Instructores(
       nombresApellidos: "Mariana Poveda Morales",
       tipoDocumento: "Cedula",
@@ -90,7 +108,9 @@ List<Instructores> listaInstructores = [
       telefonoCelular: "3004789524",
       titulacion: "Por especificar",
       cargo: "instructor",
-      especialidad: "sin novedad"),
+      especialidad: "sin novedad",
+      programa: "Programacion orientada a objetos",
+      tipoPrograma: "Tecnico"),
   Instructores(
       nombresApellidos: "Jessica flores oritiz",
       tipoDocumento: "Cedula",
@@ -99,7 +119,9 @@ List<Instructores> listaInstructores = [
       telefonoCelular: "3238254749",
       titulacion: "Por especificar",
       cargo: "instructor",
-      especialidad: "sin novedad"),
+      especialidad: "sin novedad",
+      programa: "Programacion orientada a objetos",
+      tipoPrograma: "Tecnico"),
   Instructores(
       nombresApellidos: "Cesar saenz castiblanco",
       tipoDocumento: "Cedula",
@@ -108,7 +130,9 @@ List<Instructores> listaInstructores = [
       telefonoCelular: "3147892565",
       titulacion: "Por especificar",
       cargo: "instructor",
-      especialidad: "sin novedad"),
+      especialidad: "sin novedad",
+      programa: "Programacion orientada a objetos",
+      tipoPrograma: "Tecnico"),
   Instructores(
       nombresApellidos: "yaneth rodriguez villamizar",
       tipoDocumento: "Cedula",
@@ -117,5 +141,7 @@ List<Instructores> listaInstructores = [
       telefonoCelular: "3224789524",
       titulacion: "Por especificar",
       cargo: "instructor",
-      especialidad: "sin novedad"),
+      especialidad: "sin novedad",
+      programa: "Programacion orientada a objetos",
+      tipoPrograma: "Tecnico"),
 ];

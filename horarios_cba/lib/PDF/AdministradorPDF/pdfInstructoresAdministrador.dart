@@ -73,31 +73,33 @@ class _PdfInstructoresAdministradorScreenState
         ),
     ];
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 24,
-            color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 24,
+              color: Colors.white,
+            ),
           ),
+          centerTitle: true,
+          title: const Text(
+            "CBA MOSQUERA",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: primaryColor,
         ),
-        centerTitle: true,
-        title: const Text(
-          "CBA MOSQUERA",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        body: PdfPreview(
+          maxPageWidth: 700,
+          actions: actions,
+          onPrinted: showPrintedToast,
+          onShared: showSharedToast,
+          build: generatePdf,
         ),
-        backgroundColor: primaryColor,
-      ),
-      body: PdfPreview(
-        maxPageWidth: 700,
-        actions: actions,
-        onPrinted: showPrintedToast,
-        onShared: showSharedToast,
-        build: generatePdf,
       ),
     );
   }
@@ -119,6 +121,8 @@ class _PdfInstructoresAdministradorScreenState
       'Titulación',
       'Cargo',
       'Especialidad',
+      'Programa',
+      'Tipo Programa',
     ];
     final tableData = registros.map((item) {
       final cellsWithIndex = item.getCells().asMap().entries;

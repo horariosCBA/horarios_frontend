@@ -100,62 +100,64 @@ class _LoginScreenState extends State<LoginScreen>
           } else {
             imagen = false;
           }
-          return Scaffold(
-            resizeToAvoidBottomInset: true,
-            body: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration:
-                  const BoxDecoration(image: DecorationImage(image: AssetImage(
-                      //imagen ? '../images/imagen4.jpg' : '../images/imagen5.jpg'
-                      'assets/img/login.webp'), fit: BoxFit.cover)),
-              child: Stack(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    decoration: const BoxDecoration(color: Color(0x27000000)),
-                    //ir al formulario del login
-                    child: Login(
-                      tabController: tabController,
-                    ),
-                  ),
-                  Positioned(
-                    top: 40,
-                    left: 20,
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: background1,
-                        boxShadow: [
-                          BoxShadow(
-                            color: primaryColor.withOpacity(0.5),
-                            spreadRadius: 3,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
+          return SafeArea(
+            child: Scaffold(
+              resizeToAvoidBottomInset: true,
+              body: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration:
+                    const BoxDecoration(image: DecorationImage(image: AssetImage(
+                        //imagen ? '../images/imagen4.jpg' : '../images/imagen5.jpg'
+                        'assets/img/login.webp'), fit: BoxFit.cover)),
+                child: Stack(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      decoration: const BoxDecoration(color: Color(0x27000000)),
+                      //ir al formulario del login
+                      child: Login(
+                        tabController: tabController,
                       ),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 2.0),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              size: 24,
-                              color: primaryColor,
+                    ),
+                    Positioned(
+                      top: 40,
+                      left: 20,
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: background1,
+                          boxShadow: [
+                            BoxShadow(
+                              color: primaryColor.withOpacity(0.5),
+                              spreadRadius: 3,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 2.0),
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back_ios,
+                                size: 24,
+                                color: primaryColor,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
@@ -167,65 +169,67 @@ class _LoginScreenState extends State<LoginScreen>
           } else {
             imagen = false;
           }
-          return Scaffold(
-            body: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                      //imagen ? '../images/imagen8.jpg' : '../images/imagen7.jpg'
-                      'assets/img/login.webp'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Stack(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    decoration: const BoxDecoration(color: Color(0x27000000)),
-                    //ir al formulario del login
-                    child: Login(
-                      tabController: tabController,
-                    ),
+          return SafeArea(
+            child: Scaffold(
+              body: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                        //imagen ? '../images/imagen8.jpg' : '../images/imagen7.jpg'
+                        'assets/img/login.webp'),
+                    fit: BoxFit.cover,
                   ),
-                  Positioned(
-                    top: 40,
-                    left: 20,
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: background1,
-                        boxShadow: [
-                          BoxShadow(
-                            color: primaryColor.withOpacity(0.5),
-                            spreadRadius: 3,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
+                ),
+                child: Stack(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      decoration: const BoxDecoration(color: Color(0x27000000)),
+                      //ir al formulario del login
+                      child: Login(
+                        tabController: tabController,
                       ),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 2.0),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              size: 24,
-                              color: primaryColor,
+                    ),
+                    Positioned(
+                      top: 40,
+                      left: 20,
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: background1,
+                          boxShadow: [
+                            BoxShadow(
+                              color: primaryColor.withOpacity(0.5),
+                              spreadRadius: 3,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 2.0),
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back_ios,
+                                size: 24,
+                                color: primaryColor,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

@@ -41,13 +41,13 @@ class MyApp extends StatelessWidget {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent, // Propaga gestos a widgets hijos
         // Reinicia el temporizador de inactividad al tocar la pantalla
-        onTap: () => appState.startInactivityTimer(),
+        //onTap: () => appState.startInactivityTimer(),
         // Reinicia el temporizador al deslizar la pantalla
-        onPanDown: (_) => appState.startInactivityTimer(),
+        //onPanDown: (_) => appState.startInactivityTimer(),
         // Reinicia el temporizador al arrastrar la pantalla
-        onPanUpdate: (_) => appState.startInactivityTimer(),
+        //onPanUpdate: (_) => appState.startInactivityTimer(),
         // Reinicia el temporizador al dejar de arrastrar la pantalla
-        onPanEnd: (_) => appState.startInactivityTimer(),
+        //onPanEnd: (_) => appState.startInactivityTimer(),
         child: MaterialApp(
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
           navigatorKey: navigatorKey,
           theme: lightTheme, // Define el tema de la aplicación
           debugShowCheckedModeBanner: false, // Oculta el banner de modo debug
-          home: const SplashScreen(), // Pantalla de inicio (SplashScreen)
+          home: const SafeArea(child: SplashScreen()), // Pantalla de inicio (SplashScreen)
         ),
       ),
     );

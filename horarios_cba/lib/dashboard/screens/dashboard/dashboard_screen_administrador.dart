@@ -146,7 +146,7 @@ class DashboardScreenAdministrador extends StatelessWidget {
               const SizedBox(
                 height: defaultPadding,
               ),
-              const AulasAdministrador(),
+              AulasAdministrador(),
               const SizedBox(height: defaultPadding),
               const Divider(
                 color: Colors.grey,

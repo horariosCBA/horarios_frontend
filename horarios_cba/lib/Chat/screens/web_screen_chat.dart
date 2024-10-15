@@ -79,62 +79,64 @@ class _WebLayoutChatState extends State<WebLayoutChat> {
   // Cuerpo de la pantalla
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Lista de contactos y encabezado del chat en la web ubicado en la parte izquierda
-          ContactsListWeb(
-            onUsuarioSeleccionado: (UsuarioModel usuario) {
-              // Actualiza el usuario receptor con el usuario seleccionado en el callback para inciar una conversación
-              setState(() {
-                usuarioReceptor = usuario;
-              });
-            },
-            usuarioAutenticado: widget.usuarioAutenticado,
-            contactos: contactos,
-          ),
-          // Pantalla de chat en la web si hay un usuario receptor
-          if (usuarioReceptor != null)
-            WebChatScreen(
-              usuario: usuarioReceptor!,
+    return SafeArea(
+      child: Scaffold(
+        body: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Lista de contactos y encabezado del chat en la web ubicado en la parte izquierda
+            ContactsListWeb(
+              onUsuarioSeleccionado: (UsuarioModel usuario) {
+                // Actualiza el usuario receptor con el usuario seleccionado en el callback para inciar una conversación
+                setState(() {
+                  usuarioReceptor = usuario;
+                });
+              },
               usuarioAutenticado: widget.usuarioAutenticado,
-            )
-          // Pantalla de bienvenida en la web si no hay un usuario receptor
-          else
-            Container(
-              color: background1,
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Logo
-                    Container(
-                      width: MediaQuery.of(context).size.width *
-                          0.2, // 20% del ancho de la pantalla
-                      height: MediaQuery.of(context).size.width *
-                          0.2, // 20% del ancho de la pantalla
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: primaryColor,
+              contactos: contactos,
+            ),
+            // Pantalla de chat en la web si hay un usuario receptor
+            if (usuarioReceptor != null)
+              WebChatScreen(
+                usuario: usuarioReceptor!,
+                usuarioAutenticado: widget.usuarioAutenticado,
+              )
+            // Pantalla de bienvenida en la web si no hay un usuario receptor
+            else
+              Container(
+                color: background1,
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Logo
+                      Container(
+                        width: MediaQuery.of(context).size.width *
+                            0.2, // 20% del ancho de la pantalla
+                        height: MediaQuery.of(context).size.width *
+                            0.2, // 20% del ancho de la pantalla
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: primaryColor,
+                        ),
+                        // Coloca aquí tu imagen de logo
+                        child: Image.asset('assets/img/logo.png'),
                       ),
-                      // Coloca aquí tu imagen de logo
-                      child: Image.asset('assets/img/logo.png'),
-                    ),
-                    const SizedBox(width: 20),
-                    const Text(
-                      'Bienvenido al chat CBA Mosquera',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                      const SizedBox(width: 20),
+                      const Text(
+                        'Bienvenido al chat CBA Mosquera',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -165,621 +165,311 @@ class _UsuarioFormularioEditarState extends State<UsuarioFormularioEditar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
-        // Botón para regresar a la pantalla anterior
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 24,
-            color: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          // Botón para regresar a la pantalla anterior
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 24,
+              color: Colors.white,
+            ),
           ),
-        ),
-        actions: [
-          // Botón para guardar los cambios
-          if (currentIndex == listaPantallas.length - 1)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: 110,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: const Center(
-                    child: Text(
-                      "Guardar",
-                      style: TextStyle(
-                          color: primaryColor,
-                          fontSize: 17,
-                          fontFamily: 'Calibri-Bold'),
+          actions: [
+            // Botón para guardar los cambios
+            if (currentIndex == listaPantallas.length - 1)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    width: 110,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: const Center(
+                      child: Text(
+                        "Guardar",
+                        style: TextStyle(
+                            color: primaryColor,
+                            fontSize: 17,
+                            fontFamily: 'Calibri-Bold'),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            )
-        ],
-      ),
-      body: LayoutBuilder(
-        builder: (context, responsive) {
-          // Valida si el ancho de la pantalla es menor a 970
-          if (responsive.maxWidth <= 970) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      colorFilter: ColorFilter.mode(
-                          primaryColor.withOpacity(0.7), BlendMode.darken),
-                      image: const AssetImage(
-                          'assets/img/fondoFormularioUsuario.webp'),
-                      fit: BoxFit.cover)),
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 6,
-                    child: PageView.builder(
-                      controller: controller,
-                      itemCount: listaPantallas.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      onPageChanged: (int index) {
-                        if (index >= currentIndex) {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                        } else {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                        }
-                      },
-                      itemBuilder: (context, index) {
-                        currentIndex = index;
-
-                        return Center(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                listaPantallas[index].pantalla,
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Expanded(
-                      flex: -1,
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Row(
-                                  children: List.generate(listaPantallas.length,
-                                      (index) => buildDot(index, context)),
-                                ),
-                              ),
-                              if (currentIndex < listaPantallas.length - 1)
-                                GestureDetector(
-                                  onTap: () {
-                                    if (llave1.currentState!.validate() &&
-                                        tipoDocumentoController
-                                            .text.isNotEmpty) {
-                                      controller!.nextPage(
-                                        duration:
-                                            const Duration(milliseconds: 500),
-                                        curve: Curves.easeInOut,
-                                      );
-                                    } else {
-                                      modalCamposRequeridos();
-                                    }
-                                  },
-                                  child: Container(
-                                    width: 90,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: primaryColor,
-                                      borderRadius: BorderRadius.circular(13),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Colors.white,
-                                          offset: Offset(1.0, 1.0),
-                                          blurRadius: 8.0,
-                                          spreadRadius: 2.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        "Continuar",
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              else
-                                GestureDetector(
-                                  onTap: () {
-                                    controller!.previousPage(
-                                      duration:
-                                          const Duration(milliseconds: 500),
-                                      curve: Curves.easeInOut,
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 90,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: primaryColor,
-                                      borderRadius: BorderRadius.circular(13),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Colors.white,
-                                          offset: Offset(1.0, 1.0),
-                                          blurRadius: 8.0,
-                                          spreadRadius: 2.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        "Retroceder",
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ))),
-                  Expanded(
-                      flex: -1,
-                      child: Column(
-                        children: [
-                          // Imagen de perfil
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: Text(
-                              "Imagen Usuario",
-                              style: TextStyle(
-                                fontSize: 19,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Calibri-Bold',
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black.withOpacity(
-                                        0.5), // Color y opacidad de la sombra
-                                    offset: const Offset(2,
-                                        2), // Desplazamiento de la sombra (horizontal, vertical)
-                                    blurRadius:
-                                        3, // Radio de desenfoque de la sombra
+              )
+          ],
+        ),
+        body: LayoutBuilder(
+          builder: (context, responsive) {
+            // Valida si el ancho de la pantalla es menor a 970
+            if (responsive.maxWidth <= 970) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        colorFilter: ColorFilter.mode(
+                            primaryColor.withOpacity(0.7), BlendMode.darken),
+                        image: const AssetImage(
+                            'assets/img/fondoFormularioUsuario.webp'),
+                        fit: BoxFit.cover)),
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 6,
+                      child: PageView.builder(
+                        controller: controller,
+                        itemCount: listaPantallas.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        onPageChanged: (int index) {
+                          if (index >= currentIndex) {
+                            setState(() {
+                              currentIndex = index;
+                            });
+                          } else {
+                            setState(() {
+                              currentIndex = index;
+                            });
+                          }
+                        },
+                        itemBuilder: (context, index) {
+                          currentIndex = index;
+      
+                          return Center(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  listaPantallas[index].pantalla,
+                                  const SizedBox(
+                                    height: 10,
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 15),
-                          Center(
-                            child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 25.0),
-                                child: selectFile.isEmpty
-                                    ? CircleAvatar(
-                                        radius: 50,
-                                        backgroundColor:
-                                            Colors.black.withOpacity(0.5),
-                                        backgroundImage: const AssetImage(
-                                          "assets/img/logo.png",
-                                        ),
-                                      )
-                                    : CircleAvatar(
-                                        radius: 50,
-                                        backgroundImage:
-                                            MemoryImage(selectedImagenInBytes!),
-                                      )),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          // Botón de editar imagen
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: primaryColor,
-                                      offset: Offset(
-                                        2.0,
-                                        2.0,
+                          );
+                        },
+                      ),
+                    ),
+                    Expanded(
+                        flex: -1,
+                        child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Row(
+                                    children: List.generate(listaPantallas.length,
+                                        (index) => buildDot(index, context)),
+                                  ),
+                                ),
+                                if (currentIndex < listaPantallas.length - 1)
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (llave1.currentState!.validate() &&
+                                          tipoDocumentoController
+                                              .text.isNotEmpty) {
+                                        controller!.nextPage(
+                                          duration:
+                                              const Duration(milliseconds: 500),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      } else {
+                                        modalCamposRequeridos();
+                                      }
+                                    },
+                                    child: Container(
+                                      width: 90,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: primaryColor,
+                                        borderRadius: BorderRadius.circular(13),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.white,
+                                            offset: Offset(1.0, 1.0),
+                                            blurRadius: 8.0,
+                                            spreadRadius: 2.0,
+                                          ),
+                                        ],
                                       ),
-                                      blurRadius: 3.0,
-                                      spreadRadius: 1.0,
-                                    ), //BoxShadow
-                                    BoxShadow(
-                                      color: primaryColor,
-                                      offset: Offset(0.0, 0.0),
-                                      blurRadius: 0.0,
-                                      spreadRadius: 0.0,
-                                    ), //BoxShadow
-                                  ],
-                                  color: Colors.white,
-                                ),
-                                child: IconButton(
-                                  icon: const Icon(Icons.edit,
-                                      size: 25, color: primaryColor),
-                                  onPressed: () {
-                                    // Acción al presionar el botón de editar
-                                    _selectFile(context, true);
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                width: defaultPadding,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: primaryColor,
-                                      offset: Offset(
-                                        2.0,
-                                        2.0,
-                                      ),
-                                      blurRadius: 3.0,
-                                      spreadRadius: 1.0,
-                                    ), //BoxShadow
-                                    BoxShadow(
-                                      color: primaryColor,
-                                      offset: Offset(0.0, 0.0),
-                                      blurRadius: 0.0,
-                                      spreadRadius: 0.0,
-                                    ), //BoxShadow
-                                  ],
-                                  color: Colors.white,
-                                ),
-                                child: IconButton(
-                                  icon: const Icon(Icons.delete,
-                                      size: 25, color: primaryColor),
-                                  onPressed: () {
-                                    setState(() {
-                                      selectFile = '';
-                                      selectedImagenInBytes = null;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ))
-                ],
-              ),
-            );
-            // Vista por defecto
-          } else {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      colorFilter: ColorFilter.mode(
-                          primaryColor.withOpacity(0.7), BlendMode.darken),
-                      image: const AssetImage(
-                          'assets/img/fondoFormularioUsuario.webp'),
-                      fit: BoxFit.cover)),
-              child: Row(
-                children: [
-                  // Columna izquierda
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      children: [
-                        Expanded(
-                            flex: 6,
-                            child: PageView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              controller: controller,
-                              itemCount: listaPantallas.length,
-                              onPageChanged: (int index) {
-                                if (index >= currentIndex) {
-                                  setState(() {
-                                    currentIndex = index;
-                                  });
-                                } else {
-                                  setState(() {
-                                    currentIndex = index;
-                                  });
-                                }
-                              },
-                              itemBuilder: (context, index) {
-                                currentIndex = index;
-
-                                return Center(
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        listaPantallas[index].pantalla,
-                                        const SizedBox(
-                                          height: 10,
+                                      child: const Center(
+                                        child: Text(
+                                          "Continuar",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
                                         ),
-                                      ],
+                                      ),
+                                    ),
+                                  )
+                                else
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller!.previousPage(
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 90,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: primaryColor,
+                                        borderRadius: BorderRadius.circular(13),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.white,
+                                            offset: Offset(1.0, 1.0),
+                                            blurRadius: 8.0,
+                                            spreadRadius: 2.0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          "Retroceder",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                );
-                              },
-                            )),
-                        Expanded(
-                            flex: -1,
-                            child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 20),
-                                      child: Row(
-                                        children: List.generate(
-                                            listaPantallas.length,
-                                            (index) =>
-                                                buildDot(index, context)),
-                                      ),
-                                    ),
-                                    if (currentIndex <
-                                        listaPantallas.length - 1)
-                                      GestureDetector(
-                                        onTap: () {
-                                          if (llave1.currentState!.validate() &&
-                                              tipoDocumentoController
-                                                  .text.isNotEmpty) {
-                                            controller!.nextPage(
-                                              duration: const Duration(
-                                                  milliseconds: 500),
-                                              curve: Curves.easeInOut,
-                                            );
-                                          } else {
-                                            modalCamposRequeridos();
-                                          }
-                                        },
-                                        child: Container(
-                                          width: 90,
-                                          height: 40,
-                                          decoration: BoxDecoration(
-                                            color: primaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(13),
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                color: Colors.white,
-                                                offset: Offset(1.0, 1.0),
-                                                blurRadius: 8.0,
-                                                spreadRadius: 2.0,
-                                              ),
-                                            ],
-                                          ),
-                                          child: const Center(
-                                            child: Text(
-                                              "Continuar",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    else
-                                      GestureDetector(
-                                        onTap: () {
-                                          controller!.previousPage(
-                                            duration: const Duration(
-                                                milliseconds: 500),
-                                            curve: Curves.easeInOut,
-                                          );
-                                        },
-                                        child: Container(
-                                          width: 90,
-                                          height: 40,
-                                          decoration: BoxDecoration(
-                                            color: primaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(13),
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                color: Colors.white,
-                                                offset: Offset(1.0, 1.0),
-                                                blurRadius: 8.0,
-                                                spreadRadius: 2.0,
-                                              ),
-                                            ],
-                                          ),
-                                          child: const Center(
-                                            child: Text(
-                                              "Retroceder",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ))),
-                      ],
-                    ),
-                  ),
-                  // Separador
-                  Container(
-                    width: 2,
-                    height: MediaQuery.of(context).size.height - 150,
-                    color: Colors.white,
-                  ),
-                  // Columna derecha
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 20),
-                      child: SingleChildScrollView(
+                              ],
+                            ))),
+                    Expanded(
+                        flex: -1,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
                             // Imagen de perfil
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
+                              padding: const EdgeInsets.symmetric(horizontal: 5),
                               child: Text(
                                 "Imagen Usuario",
                                 style: TextStyle(
-                                  fontSize:
-                                      24, // Incremento de tamaño de fuente
+                                  fontSize: 19,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Calibri-Bold',
                                   shadows: [
                                     Shadow(
-                                      color: Colors.black.withOpacity(0.5),
-                                      offset: const Offset(3, 3),
-                                      blurRadius: 4,
+                                      color: Colors.black.withOpacity(
+                                          0.5), // Color y opacidad de la sombra
+                                      offset: const Offset(2,
+                                          2), // Desplazamiento de la sombra (horizontal, vertical)
+                                      blurRadius:
+                                          3, // Radio de desenfoque de la sombra
                                     ),
                                   ],
                                 ),
                               ),
                             ),
                             const SizedBox(height: 15),
-                            // Imagen
                             Center(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 25.0),
-                                child: selectFile.isEmpty
-                                    ? CircleAvatar(
-                                        radius: 200,
-                                        backgroundColor:
-                                            Colors.black.withOpacity(0.5),
-                                        backgroundImage: const AssetImage(
-                                          "assets/img/logo.png",
-                                        ),
-                                      )
-                                    : CircleAvatar(
-                                        radius: 200,
-                                        backgroundImage:
-                                            MemoryImage(selectedImagenInBytes!),
-                                      ),
-                              ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25.0),
+                                  child: selectFile.isEmpty
+                                      ? CircleAvatar(
+                                          radius: 50,
+                                          backgroundColor:
+                                              Colors.black.withOpacity(0.5),
+                                          backgroundImage: const AssetImage(
+                                            "assets/img/logo.png",
+                                          ),
+                                        )
+                                      : CircleAvatar(
+                                          radius: 50,
+                                          backgroundImage:
+                                              MemoryImage(selectedImagenInBytes!),
+                                        )),
                             ),
                             const SizedBox(
-                              height: 30,
+                              height: 15,
                             ),
-                            // Botón de editar
+                            // Botón de editar imagen
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  width:
-                                      60, // Ajusta el ancho del contenedor del botón
-                                  height:
-                                      60, // Ajusta la altura del contenedor del botón
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
+                                    borderRadius: BorderRadius.circular(20),
                                     boxShadow: const [
                                       BoxShadow(
                                         color: primaryColor,
-                                        offset: Offset(3.0, 3.0),
-                                        blurRadius: 4.0,
-                                        spreadRadius: 1.5,
-                                      ),
+                                        offset: Offset(
+                                          2.0,
+                                          2.0,
+                                        ),
+                                        blurRadius: 3.0,
+                                        spreadRadius: 1.0,
+                                      ), //BoxShadow
                                       BoxShadow(
                                         color: primaryColor,
                                         offset: Offset(0.0, 0.0),
                                         blurRadius: 0.0,
                                         spreadRadius: 0.0,
-                                      ),
+                                      ), //BoxShadow
                                     ],
                                     color: Colors.white,
                                   ),
                                   child: IconButton(
                                     icon: const Icon(Icons.edit,
-                                        size: 35,
-                                        color:
-                                            primaryColor), // Incremento de tamaño del icono
+                                        size: 25, color: primaryColor),
                                     onPressed: () {
-                                      // Llamado a la función
+                                      // Acción al presionar el botón de editar
                                       _selectFile(context, true);
                                     },
                                   ),
                                 ),
                                 const SizedBox(
-                                  width:
-                                      20, // Ajusta el espacio entre los botones
+                                  width: defaultPadding,
                                 ),
                                 Container(
-                                  width:
-                                      60, // Ajusta el ancho del contenedor del botón
-                                  height:
-                                      60, // Ajusta la altura del contenedor del botón
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
+                                    borderRadius: BorderRadius.circular(20),
                                     boxShadow: const [
                                       BoxShadow(
                                         color: primaryColor,
-                                        offset: Offset(3.0, 3.0),
-                                        blurRadius: 4.0,
-                                        spreadRadius: 1.5,
-                                      ),
+                                        offset: Offset(
+                                          2.0,
+                                          2.0,
+                                        ),
+                                        blurRadius: 3.0,
+                                        spreadRadius: 1.0,
+                                      ), //BoxShadow
                                       BoxShadow(
                                         color: primaryColor,
                                         offset: Offset(0.0, 0.0),
                                         blurRadius: 0.0,
                                         spreadRadius: 0.0,
-                                      ),
+                                      ), //BoxShadow
                                     ],
                                     color: Colors.white,
                                   ),
                                   child: IconButton(
                                     icon: const Icon(Icons.delete,
-                                        size: 35,
-                                        color:
-                                            primaryColor), // Incremento de tamaño del icono
+                                        size: 25, color: primaryColor),
                                     onPressed: () {
                                       setState(() {
-                                        selectFile = "";
+                                        selectFile = '';
                                         selectedImagenInBytes = null;
                                       });
                                     },
@@ -787,16 +477,328 @@ class _UsuarioFormularioEditarState extends State<UsuarioFormularioEditar> {
                                 ),
                               ],
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                           ],
-                        ),
+                        ))
+                  ],
+                ),
+              );
+              // Vista por defecto
+            } else {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        colorFilter: ColorFilter.mode(
+                            primaryColor.withOpacity(0.7), BlendMode.darken),
+                        image: const AssetImage(
+                            'assets/img/fondoFormularioUsuario.webp'),
+                        fit: BoxFit.cover)),
+                child: Row(
+                  children: [
+                    // Columna izquierda
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [
+                          Expanded(
+                              flex: 6,
+                              child: PageView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                controller: controller,
+                                itemCount: listaPantallas.length,
+                                onPageChanged: (int index) {
+                                  if (index >= currentIndex) {
+                                    setState(() {
+                                      currentIndex = index;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      currentIndex = index;
+                                    });
+                                  }
+                                },
+                                itemBuilder: (context, index) {
+                                  currentIndex = index;
+      
+                                  return Center(
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          listaPantallas[index].pantalla,
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )),
+                          Expanded(
+                              flex: -1,
+                              child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 20),
+                                        child: Row(
+                                          children: List.generate(
+                                              listaPantallas.length,
+                                              (index) =>
+                                                  buildDot(index, context)),
+                                        ),
+                                      ),
+                                      if (currentIndex <
+                                          listaPantallas.length - 1)
+                                        GestureDetector(
+                                          onTap: () {
+                                            if (llave1.currentState!.validate() &&
+                                                tipoDocumentoController
+                                                    .text.isNotEmpty) {
+                                              controller!.nextPage(
+                                                duration: const Duration(
+                                                    milliseconds: 500),
+                                                curve: Curves.easeInOut,
+                                              );
+                                            } else {
+                                              modalCamposRequeridos();
+                                            }
+                                          },
+                                          child: Container(
+                                            width: 90,
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                              color: primaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(13),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                  color: Colors.white,
+                                                  offset: Offset(1.0, 1.0),
+                                                  blurRadius: 8.0,
+                                                  spreadRadius: 2.0,
+                                                ),
+                                              ],
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                "Continuar",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      else
+                                        GestureDetector(
+                                          onTap: () {
+                                            controller!.previousPage(
+                                              duration: const Duration(
+                                                  milliseconds: 500),
+                                              curve: Curves.easeInOut,
+                                            );
+                                          },
+                                          child: Container(
+                                            width: 90,
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                              color: primaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(13),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                  color: Colors.white,
+                                                  offset: Offset(1.0, 1.0),
+                                                  blurRadius: 8.0,
+                                                  spreadRadius: 2.0,
+                                                ),
+                                              ],
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                "Retroceder",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                    ],
+                                  ))),
+                        ],
                       ),
                     ),
-                  )
-                ],
-              ),
-            );
-          }
-        },
+                    // Separador
+                    Container(
+                      width: 2,
+                      height: MediaQuery.of(context).size.height - 150,
+                      color: Colors.white,
+                    ),
+                    // Columna derecha
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 20),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              // Imagen de perfil
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                child: Text(
+                                  "Imagen Usuario",
+                                  style: TextStyle(
+                                    fontSize:
+                                        24, // Incremento de tamaño de fuente
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Calibri-Bold',
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        offset: const Offset(3, 3),
+                                        blurRadius: 4,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                              // Imagen
+                              Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25.0),
+                                  child: selectFile.isEmpty
+                                      ? CircleAvatar(
+                                          radius: 200,
+                                          backgroundColor:
+                                              Colors.black.withOpacity(0.5),
+                                          backgroundImage: const AssetImage(
+                                            "assets/img/logo.png",
+                                          ),
+                                        )
+                                      : CircleAvatar(
+                                          radius: 200,
+                                          backgroundImage:
+                                              MemoryImage(selectedImagenInBytes!),
+                                        ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              // Botón de editar
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width:
+                                        60, // Ajusta el ancho del contenedor del botón
+                                    height:
+                                        60, // Ajusta la altura del contenedor del botón
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: primaryColor,
+                                          offset: Offset(3.0, 3.0),
+                                          blurRadius: 4.0,
+                                          spreadRadius: 1.5,
+                                        ),
+                                        BoxShadow(
+                                          color: primaryColor,
+                                          offset: Offset(0.0, 0.0),
+                                          blurRadius: 0.0,
+                                          spreadRadius: 0.0,
+                                        ),
+                                      ],
+                                      color: Colors.white,
+                                    ),
+                                    child: IconButton(
+                                      icon: const Icon(Icons.edit,
+                                          size: 35,
+                                          color:
+                                              primaryColor), // Incremento de tamaño del icono
+                                      onPressed: () {
+                                        // Llamado a la función
+                                        _selectFile(context, true);
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width:
+                                        20, // Ajusta el espacio entre los botones
+                                  ),
+                                  Container(
+                                    width:
+                                        60, // Ajusta el ancho del contenedor del botón
+                                    height:
+                                        60, // Ajusta la altura del contenedor del botón
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: primaryColor,
+                                          offset: Offset(3.0, 3.0),
+                                          blurRadius: 4.0,
+                                          spreadRadius: 1.5,
+                                        ),
+                                        BoxShadow(
+                                          color: primaryColor,
+                                          offset: Offset(0.0, 0.0),
+                                          blurRadius: 0.0,
+                                          spreadRadius: 0.0,
+                                        ),
+                                      ],
+                                      color: Colors.white,
+                                    ),
+                                    child: IconButton(
+                                      icon: const Icon(Icons.delete,
+                                          size: 35,
+                                          color:
+                                              primaryColor), // Incremento de tamaño del icono
+                                      onPressed: () {
+                                        setState(() {
+                                          selectFile = "";
+                                          selectedImagenInBytes = null;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }
+          },
+        ),
       ),
     );
   }

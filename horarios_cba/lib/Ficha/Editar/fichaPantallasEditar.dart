@@ -9,12 +9,16 @@ class PantallaUnoFicha extends StatefulWidget {
   TextEditingController programaController = TextEditingController();
   TextEditingController codigoController = TextEditingController();
   TextEditingController descripcionController = TextEditingController();
+  TextEditingController tipoOfertaController = TextEditingController();
+  TextEditingController modalidadController = TextEditingController();
 
   PantallaUnoFicha({
     super.key,
     required this.programaController,
     required this.codigoController,
     required this.descripcionController,
+    required this.modalidadController,
+    required this.tipoOfertaController,
   });
 
   @override
@@ -22,6 +26,8 @@ class PantallaUnoFicha extends StatefulWidget {
         programaController: programaController,
         codigoController: codigoController,
         descripcionController: descripcionController,
+        modalidadController: modalidadController,
+        tipoOfertaController: tipoOfertaController,
       );
 }
 
@@ -29,11 +35,15 @@ class _PantallaUnoFichaState extends State<PantallaUnoFicha> {
   TextEditingController programaController = TextEditingController();
   TextEditingController codigoController = TextEditingController();
   TextEditingController descripcionController = TextEditingController();
+  TextEditingController tipoOfertaController = TextEditingController();
+  TextEditingController modalidadController = TextEditingController();
 
   _PantallaUnoFichaState({
     required this.programaController,
     required this.codigoController,
     required this.descripcionController,
+    required this.modalidadController,
+    required this.tipoOfertaController,
   });
 
   // Mascara para los campos numéricos
@@ -41,6 +51,10 @@ class _PantallaUnoFichaState extends State<PantallaUnoFicha> {
       MaskTextInputFormatter(mask: '#######', filter: {"#": RegExp(r'[0-9]')});
 
   String? _programaSeleccionado;
+
+  String? tipoOfertaSeleccionada;
+
+  String? tipoModalidadSeleccionada;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +118,7 @@ class _PantallaUnoFichaState extends State<PantallaUnoFicha> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        "${item.tipo} - Modalidad ${item.modalidad}",
+                                        item.tipo,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                           fontSize: 11,
@@ -215,6 +229,188 @@ class _PantallaUnoFichaState extends State<PantallaUnoFicha> {
                         }
                         return null;
                       },
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Tooltip(
+                message: "Se requiere este campo.",
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<String>(
+                    isExpanded: true,
+                    hint: const Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Seleccione tipo de oferta",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    items: tipoOfertasFicha
+                        .map((item) => DropdownMenuItem<String>(
+                              value: item.valor,
+                              child: Text(
+                                item.titulo,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ))
+                        .toList(),
+                    // Valor seleccionado actualmente en el menú desplegable
+                    value: tipoOfertaSeleccionada,
+                    // Manejar el cambio de selección
+                    onChanged: (String? value) {
+                      // Actualizar el estado con la nueva selección
+                      setState(() {
+                        tipoOfertaSeleccionada = value;
+                        tipoOfertaController.text = tipoOfertaSeleccionada!;
+                      });
+
+                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
+                      if (tipoOfertaSeleccionada == null ||
+                          tipoOfertaSeleccionada!.isEmpty) {
+                        return;
+                      }
+                    },
+                    buttonStyleData: ButtonStyleData(
+                      height: 50,
+                      padding: const EdgeInsets.only(left: 14, right: 14),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: Colors.black26,
+                        ),
+                        color: Colors.white,
+                      ),
+                    ),
+                    iconStyleData: const IconStyleData(
+                      icon: Icon(
+                        Icons.arrow_forward_ios_outlined,
+                      ),
+                      iconSize: 14,
+                      iconEnabledColor: Colors.black,
+                      iconDisabledColor: Colors.grey,
+                    ),
+                    dropdownStyleData: DropdownStyleData(
+                      maxHeight: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        color: Colors.white,
+                      ),
+                      scrollbarTheme: ScrollbarThemeData(
+                        radius: const Radius.circular(40),
+                        thickness: WidgetStateProperty.all<double>(6),
+                        thumbVisibility: WidgetStateProperty.all<bool>(true),
+                      ),
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Tooltip(
+                message: "Se requiere este campo.",
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<String>(
+                    isExpanded: true,
+                    hint: const Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Seleccione Modalidad",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    items: modalidadesFicha
+                        .map((item) => DropdownMenuItem<String>(
+                              value: item.valor,
+                              child: Text(
+                                item.titulo,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ))
+                        .toList(),
+                    // Valor seleccionado actualmente en el menú desplegable
+                    value: tipoModalidadSeleccionada,
+                    // Manejar el cambio de selección
+                    onChanged: (String? value) {
+                      // Actualizar el estado con la nueva selección
+                      setState(() {
+                        tipoModalidadSeleccionada = value;
+                        modalidadController.text = tipoModalidadSeleccionada!;
+                      });
+
+                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
+                      if (tipoModalidadSeleccionada == null ||
+                          tipoModalidadSeleccionada!.isEmpty) {
+                        return;
+                      }
+                    },
+                    buttonStyleData: ButtonStyleData(
+                      height: 50,
+                      padding: const EdgeInsets.only(left: 14, right: 14),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: Colors.black26,
+                        ),
+                        color: Colors.white,
+                      ),
+                    ),
+                    iconStyleData: const IconStyleData(
+                      icon: Icon(
+                        Icons.arrow_forward_ios_outlined,
+                      ),
+                      iconSize: 14,
+                      iconEnabledColor: Colors.black,
+                      iconDisabledColor: Colors.grey,
+                    ),
+                    dropdownStyleData: DropdownStyleData(
+                      maxHeight: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        color: Colors.white,
+                      ),
+                      scrollbarTheme: ScrollbarThemeData(
+                        radius: const Radius.circular(40),
+                        thickness: WidgetStateProperty.all<double>(6),
+                        thumbVisibility: WidgetStateProperty.all<bool>(true),
+                      ),
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
                     ),
                   ),
                 ),
@@ -326,7 +522,7 @@ class _PantallaUnoFichaState extends State<PantallaUnoFicha> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        "${item.tipo} - Modalidad ${item.modalidad}",
+                                        item.tipo,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                           fontSize: 11,
@@ -437,6 +633,188 @@ class _PantallaUnoFichaState extends State<PantallaUnoFicha> {
                         }
                         return null;
                       },
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Tooltip(
+                message: "Se requiere este campo.",
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<String>(
+                    isExpanded: true,
+                    hint: const Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Seleccione tipo de oferta",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    items: tipoOfertasFicha
+                        .map((item) => DropdownMenuItem<String>(
+                              value: item.valor,
+                              child: Text(
+                                item.titulo,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ))
+                        .toList(),
+                    // Valor seleccionado actualmente en el menú desplegable
+                    value: tipoOfertaSeleccionada,
+                    // Manejar el cambio de selección
+                    onChanged: (String? value) {
+                      // Actualizar el estado con la nueva selección
+                      setState(() {
+                        tipoOfertaSeleccionada = value;
+                        tipoOfertaController.text = tipoOfertaSeleccionada!;
+                      });
+
+                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
+                      if (tipoOfertaSeleccionada == null ||
+                          tipoOfertaSeleccionada!.isEmpty) {
+                        return;
+                      }
+                    },
+                    buttonStyleData: ButtonStyleData(
+                      height: 50,
+                      padding: const EdgeInsets.only(left: 14, right: 14),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: Colors.black26,
+                        ),
+                        color: Colors.white,
+                      ),
+                    ),
+                    iconStyleData: const IconStyleData(
+                      icon: Icon(
+                        Icons.arrow_forward_ios_outlined,
+                      ),
+                      iconSize: 14,
+                      iconEnabledColor: Colors.black,
+                      iconDisabledColor: Colors.grey,
+                    ),
+                    dropdownStyleData: DropdownStyleData(
+                      maxHeight: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        color: Colors.white,
+                      ),
+                      scrollbarTheme: ScrollbarThemeData(
+                        radius: const Radius.circular(40),
+                        thickness: WidgetStateProperty.all<double>(6),
+                        thumbVisibility: WidgetStateProperty.all<bool>(true),
+                      ),
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Tooltip(
+                message: "Se requiere este campo.",
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<String>(
+                    isExpanded: true,
+                    hint: const Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Seleccione Modalidad",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    items: modalidadesFicha
+                        .map((item) => DropdownMenuItem<String>(
+                              value: item.valor,
+                              child: Text(
+                                item.titulo,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ))
+                        .toList(),
+                    // Valor seleccionado actualmente en el menú desplegable
+                    value: tipoModalidadSeleccionada,
+                    // Manejar el cambio de selección
+                    onChanged: (String? value) {
+                      // Actualizar el estado con la nueva selección
+                      setState(() {
+                        tipoModalidadSeleccionada = value;
+                        modalidadController.text = tipoModalidadSeleccionada!;
+                      });
+
+                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
+                      if (tipoModalidadSeleccionada == null ||
+                          tipoModalidadSeleccionada!.isEmpty) {
+                        return;
+                      }
+                    },
+                    buttonStyleData: ButtonStyleData(
+                      height: 50,
+                      padding: const EdgeInsets.only(left: 14, right: 14),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: Colors.black26,
+                        ),
+                        color: Colors.white,
+                      ),
+                    ),
+                    iconStyleData: const IconStyleData(
+                      icon: Icon(
+                        Icons.arrow_forward_ios_outlined,
+                      ),
+                      iconSize: 14,
+                      iconEnabledColor: Colors.black,
+                      iconDisabledColor: Colors.grey,
+                    ),
+                    dropdownStyleData: DropdownStyleData(
+                      maxHeight: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        color: Colors.white,
+                      ),
+                      scrollbarTheme: ScrollbarThemeData(
+                        radius: const Radius.circular(40),
+                        thickness: WidgetStateProperty.all<double>(6),
+                        thumbVisibility: WidgetStateProperty.all<bool>(true),
+                      ),
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
                     ),
                   ),
                 ),

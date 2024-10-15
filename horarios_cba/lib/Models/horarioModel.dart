@@ -196,14 +196,6 @@ Future<List<Horariomodel>> getHorarios() async {
                               ['resultadoAprendizaje']['competencia']
                           ['programa']['descripcion'] ??
                       "",
-                  tipoOferta: horariodata['programacion']['planeacion']
-                              ['resultadoAprendizaje']['competencia']
-                          ['programa']['tipoOferta'] ??
-                      "",
-                  modalidad: horariodata['programacion']['planeacion']
-                              ['resultadoAprendizaje']['competencia']
-                          ['programa']['modalidad'] ??
-                      "",
                   area: horariodata['programacion']['planeacion']
                               ['resultadoAprendizaje']['competencia']
                           ['programa']['area'] ??

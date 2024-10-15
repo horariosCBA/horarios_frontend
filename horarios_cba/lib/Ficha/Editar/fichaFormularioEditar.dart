@@ -23,6 +23,8 @@ class _FichaFormularioEditarState extends State<FichaFormularioEditar> {
   TextEditingController fechaFinController = TextEditingController();
   TextEditingController liderController = TextEditingController();
   TextEditingController lugarController = TextEditingController();
+  TextEditingController tipoOfertaController = TextEditingController();
+  TextEditingController modalidadController = TextEditingController();
 
   String textoBoton = 'Guardar';
 
@@ -48,659 +50,687 @@ class _FichaFormularioEditarState extends State<FichaFormularioEditar> {
     return LayoutBuilder(
       builder: (context, responsive) {
         if (responsive.maxWidth >= 970) {
-          return Scaffold(
-            backgroundColor: Colors.black,
-            body: Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image:
-                            AssetImage('assets/img/fondoFormularioFicha.webp'),
-                        fit: BoxFit.cover)),
-                child: Stack(
-                  children: [
-                    // Capa verde semitransparente
-                    Container(
-                      color: primaryColor.withOpacity(
-                          0.5), // Ajusta el nivel de opacidad según sea necesario
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
-                    Positioned(
-                      left: 10,
-                      top: 10,
-                      child: // Botón de retroceso
-                          GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: background1,
-                          ),
-                          child: Center(
-                            child: Transform.translate(
-                              offset: const Offset(
-                                  -2, 0), // adjust the offset as needed
-                              child: const Icon(
-                                Icons.arrow_back_ios_new,
-                                color: primaryColor,
-                                size: 22,
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: Colors.black,
+              body: Container(
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                              'assets/img/fondoFormularioFicha.webp'),
+                          fit: BoxFit.cover)),
+                  child: Stack(
+                    children: [
+                      // Capa verde semitransparente
+                      Container(
+                        color: primaryColor.withOpacity(
+                            0.5), // Ajusta el nivel de opacidad según sea necesario
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                      Positioned(
+                        left: 10,
+                        top: 10,
+                        child: // Botón de retroceso
+                            GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: background1,
+                            ),
+                            child: Center(
+                              child: Transform.translate(
+                                offset: const Offset(
+                                    -2, 0), // adjust the offset as needed
+                                child: const Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: primaryColor,
+                                  size: 22,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40, vertical: 20),
-                        child: Center(
-                          child: Container(
-                            width: responsive.maxWidth * 0.9,
-                            decoration: BoxDecoration(
-                              color: const Color(0x2ADAD7D7),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: PageView.builder(
-                                controller: controller,
-                                itemCount: listaPantallas.length,
-                                physics: const NeverScrollableScrollPhysics(),
-                                onPageChanged: (int index) {
-                                  if (index >= currentIndex) {
-                                    setState(() {
-                                      currentIndex = index;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      currentIndex = index;
-                                    });
-                                  }
-                                },
-                                itemBuilder: (context, index) {
-                                  currentIndex = index;
-                                  return Column(
-                                    children: [
-                                      Expanded(
-                                        flex: 6,
-                                        child: Center(
-                                          child: SingleChildScrollView(
-                                              child: Column(
-                                            children: [
-                                              listaPantallas[index].pantalla,
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
-                                          )),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 20),
+                          child: Center(
+                            child: Container(
+                              width: responsive.maxWidth * 0.9,
+                              decoration: BoxDecoration(
+                                color: const Color(0x2ADAD7D7),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: PageView.builder(
+                                  controller: controller,
+                                  itemCount: listaPantallas.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  onPageChanged: (int index) {
+                                    if (index >= currentIndex) {
+                                      setState(() {
+                                        currentIndex = index;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        currentIndex = index;
+                                      });
+                                    }
+                                  },
+                                  itemBuilder: (context, index) {
+                                    currentIndex = index;
+                                    return Column(
+                                      children: [
+                                        Expanded(
+                                          flex: 6,
+                                          child: Center(
+                                            child: SingleChildScrollView(
+                                                child: Column(
+                                              children: [
+                                                listaPantallas[index].pantalla,
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                              ],
+                                            )),
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
-                                          flex: -1,
-                                          child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20),
-                                                    child: Row(
-                                                      children: List.generate(
-                                                          listaPantallas.length,
-                                                          (index) => buildDot(
-                                                              index, context)),
+                                        Expanded(
+                                            flex: -1,
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 20),
+                                                      child: Row(
+                                                        children: List.generate(
+                                                            listaPantallas
+                                                                .length,
+                                                            (index) => buildDot(
+                                                                index,
+                                                                context)),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      // Verificar si no está en la primera pantalla para mostrar el botón de retroceder
-                                                      if (currentIndex > 0)
-                                                        // Botón de Retroceder
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            // Retrocede a la pantalla anterior
-                                                            if (currentIndex >
-                                                                0) {
-                                                              controller!
-                                                                  .previousPage(
-                                                                duration:
-                                                                    const Duration(
-                                                                        milliseconds:
-                                                                            500),
-                                                                curve: Curves
-                                                                    .easeInOut,
-                                                              );
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                            width: 90,
-                                                            height: 40,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  primaryColor,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          13),
-                                                              boxShadow: const [
-                                                                BoxShadow(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  offset:
-                                                                      Offset(
-                                                                          1.0,
-                                                                          1.0),
-                                                                  blurRadius:
-                                                                      8.0,
-                                                                  spreadRadius:
-                                                                      2.0,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            child: const Center(
-                                                              child: Text(
-                                                                "Retroceder",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white,
+                                                    Row(
+                                                      children: [
+                                                        // Verificar si no está en la primera pantalla para mostrar el botón de retroceder
+                                                        if (currentIndex > 0)
+                                                          // Botón de Retroceder
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              // Retrocede a la pantalla anterior
+                                                              if (currentIndex >
+                                                                  0) {
+                                                                controller!
+                                                                    .previousPage(
+                                                                  duration: const Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                                  curve: Curves
+                                                                      .easeInOut,
+                                                                );
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: 90,
+                                                              height: 40,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color:
+                                                                    primaryColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            13),
+                                                                boxShadow: const [
+                                                                  BoxShadow(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    offset:
+                                                                        Offset(
+                                                                            1.0,
+                                                                            1.0),
+                                                                    blurRadius:
+                                                                        8.0,
+                                                                    spreadRadius:
+                                                                        2.0,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "Retroceder",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      const SizedBox(
-                                                          width:
-                                                              10), // Espaciado entre los botones
-                                                      if (currentIndex ==
-                                                          listaPantallas
-                                                                  .length -
-                                                              1)
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            // Si estamos en la última página
-                                                            if (llave2
-                                                                    .currentState!
-                                                                    .validate() &&
-                                                                fechaInicioController
-                                                                    .text
-                                                                    .isNotEmpty &&
-                                                                fechaFinController
-                                                                    .text
-                                                                    .isNotEmpty &&
-                                                                liderController
-                                                                    .text
-                                                                    .isNotEmpty) {
-                                                              // Cambiar el texto del botón a "Cargando" si todo está validado
-                                                              setState(() {
-                                                                textoBoton =
-                                                                    "Cargando";
-                                                              });
+                                                        const SizedBox(
+                                                            width:
+                                                                10), // Espaciado entre los botones
+                                                        if (currentIndex ==
+                                                            listaPantallas
+                                                                    .length -
+                                                                1)
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              // Si estamos en la última página
+                                                              if (llave2
+                                                                      .currentState!
+                                                                      .validate() &&
+                                                                  fechaInicioController
+                                                                      .text
+                                                                      .isNotEmpty &&
+                                                                  fechaFinController
+                                                                      .text
+                                                                      .isNotEmpty &&
+                                                                  liderController
+                                                                      .text
+                                                                      .isNotEmpty) {
+                                                                // Cambiar el texto del botón a "Cargando" si todo está validado
+                                                                setState(() {
+                                                                  textoBoton =
+                                                                      "Cargando";
+                                                                });
 
-                                                              // Aquí puedes agregar lógica adicional para enviar el formulario o realizar otra acción
-                                                            } else {
-                                                              modalCamposRequeridos();
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                            width: 90,
-                                                            height: 40,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  primaryColor,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          13),
-                                                              boxShadow: const [
-                                                                BoxShadow(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  offset:
-                                                                      Offset(
-                                                                          1.0,
-                                                                          1.0),
-                                                                  blurRadius:
-                                                                      8.0,
-                                                                  spreadRadius:
-                                                                      2.0,
+                                                                // Aquí puedes agregar lógica adicional para enviar el formulario o realizar otra acción
+                                                              } else {
+                                                                modalCamposRequeridos();
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: 90,
+                                                              height: 40,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color:
+                                                                    primaryColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            13),
+                                                                boxShadow: const [
+                                                                  BoxShadow(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    offset:
+                                                                        Offset(
+                                                                            1.0,
+                                                                            1.0),
+                                                                    blurRadius:
+                                                                        8.0,
+                                                                    spreadRadius:
+                                                                        2.0,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  // Cambia el texto dependiendo de si estamos en la última página o no
+                                                                  "Guardar",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
                                                                 ),
-                                                              ],
+                                                              ),
                                                             ),
-                                                            child: const Center(
-                                                              child: Text(
-                                                                // Cambia el texto dependiendo de si estamos en la última página o no
-                                                                "Guardar",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white,
+                                                          )
+                                                        else if (currentIndex ==
+                                                            0)
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              if (llave1
+                                                                      .currentState!
+                                                                      .validate() &&
+                                                                  programaController
+                                                                      .text
+                                                                      .isNotEmpty &&
+                                                                  tipoOfertaController
+                                                                      .text
+                                                                      .isNotEmpty &&
+                                                                  modalidadController
+                                                                      .text
+                                                                      .isNotEmpty) {
+                                                                controller!
+                                                                    .nextPage(
+                                                                  duration: const Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                                  curve: Curves
+                                                                      .easeInOut,
+                                                                );
+                                                              } else {
+                                                                modalCamposRequeridos();
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: 90,
+                                                              height: 40,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color:
+                                                                    primaryColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            13),
+                                                                boxShadow: const [
+                                                                  BoxShadow(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    offset:
+                                                                        Offset(
+                                                                            1.0,
+                                                                            1.0),
+                                                                    blurRadius:
+                                                                        8.0,
+                                                                    spreadRadius:
+                                                                        2.0,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "Continuar",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
                                                           ),
-                                                        )
-                                                      else if (currentIndex ==
-                                                          0)
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            if (llave1
-                                                                    .currentState!
-                                                                    .validate() &&
-                                                                programaController
-                                                                    .text
-                                                                    .isNotEmpty) {
-                                                              controller!
-                                                                  .nextPage(
-                                                                duration:
-                                                                    const Duration(
-                                                                        milliseconds:
-                                                                            500),
-                                                                curve: Curves
-                                                                    .easeInOut,
-                                                              );
-                                                            } else {
-                                                              modalCamposRequeridos();
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                            width: 90,
-                                                            height: 40,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  primaryColor,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          13),
-                                                              boxShadow: const [
-                                                                BoxShadow(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  offset:
-                                                                      Offset(
-                                                                          1.0,
-                                                                          1.0),
-                                                                  blurRadius:
-                                                                      8.0,
-                                                                  spreadRadius:
-                                                                      2.0,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            child: const Center(
-                                                              child: Text(
-                                                                "Continuar",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              )))
-                                    ],
-                                  );
-                                }),
-                          ),
-                        )),
-                  ],
-                )),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )))
+                                      ],
+                                    );
+                                  }),
+                            ),
+                          )),
+                    ],
+                  )),
+            ),
           );
         } else {
-          return Scaffold(
-            backgroundColor: Colors.black,
-            body: Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image:
-                            AssetImage('assets/img/fondoFormularioFicha.webp'),
-                        fit: BoxFit.cover)),
-                child: Stack(
-                  children: [
-                    // Capa verde semitransparente
-                    Container(
-                      color: primaryColor.withOpacity(
-                          0.5), // Ajusta el nivel de opacidad según sea necesario
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: Colors.black,
+              body: Container(
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                              'assets/img/fondoFormularioFicha.webp'),
+                          fit: BoxFit.cover)),
+                  child: Stack(
+                    children: [
+                      // Capa verde semitransparente
+                      Container(
+                        color: primaryColor.withOpacity(
+                            0.5), // Ajusta el nivel de opacidad según sea necesario
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
 
-                    Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: Center(
-                          child: Container(
-                            width: 500,
-                            decoration: BoxDecoration(
-                              color: const Color(0x2ADAD7D7),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: PageView.builder(
-                                controller: controller,
-                                itemCount: listaPantallas.length,
-                                physics: const NeverScrollableScrollPhysics(),
-                                onPageChanged: (int index) {
-                                  if (index >= currentIndex) {
-                                    setState(() {
-                                      currentIndex = index;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      currentIndex = index;
-                                    });
-                                  }
-                                },
-                                itemBuilder: (context, index) {
-                                  currentIndex = index;
-                                  return Column(
-                                    children: [
-                                      Expanded(
-                                        flex: 6,
-                                        child: Center(
-                                          child: SingleChildScrollView(
-                                              child: Column(
-                                            children: [
-                                              listaPantallas[index].pantalla,
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
-                                          )),
-                                        ),
-                                      ),
-                                      Expanded(
-                                          flex: -1,
-                                          child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20),
-                                                    child: Row(
-                                                      children: List.generate(
-                                                          listaPantallas.length,
-                                                          (index) => buildDot(
-                                                              index, context)),
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      // Verificar si no está en la primera pantalla para mostrar el botón de retroceder
-                                                      if (currentIndex > 0)
-                                                        // Botón de Retroceder
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            // Retrocede a la pantalla anterior
-                                                            if (currentIndex >
-                                                                0) {
-                                                              controller!
-                                                                  .previousPage(
-                                                                duration:
-                                                                    const Duration(
-                                                                        milliseconds:
-                                                                            500),
-                                                                curve: Curves
-                                                                    .easeInOut,
-                                                              );
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                            width: 90,
-                                                            height: 40,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  primaryColor,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          13),
-                                                              boxShadow: const [
-                                                                BoxShadow(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  offset:
-                                                                      Offset(
-                                                                          1.0,
-                                                                          1.0),
-                                                                  blurRadius:
-                                                                      8.0,
-                                                                  spreadRadius:
-                                                                      2.0,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            child: const Center(
-                                                              child: Text(
-                                                                "Retroceder",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      const SizedBox(
-                                                          width:
-                                                              10), // Espaciado entre los botones
-                                                      if (currentIndex ==
-                                                          listaPantallas
-                                                                  .length -
-                                                              1)
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            // Si estamos en la última página
-                                                            if (llave2
-                                                                    .currentState!
-                                                                    .validate() &&
-                                                                fechaInicioController
-                                                                    .text
-                                                                    .isNotEmpty &&
-                                                                fechaFinController
-                                                                    .text
-                                                                    .isNotEmpty &&
-                                                                liderController
-                                                                    .text
-                                                                    .isNotEmpty) {
-                                                              // Cambiar el texto del botón a "Cargando" si todo está validado
-                                                              setState(() {
-                                                                textoBoton =
-                                                                    "Cargando";
-                                                              });
-
-                                                              // Aquí puedes agregar lógica adicional para enviar el formulario o realizar otra acción
-                                                            } else {
-                                                              modalCamposRequeridos();
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                            width: 90,
-                                                            height: 40,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  primaryColor,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          13),
-                                                              boxShadow: const [
-                                                                BoxShadow(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  offset:
-                                                                      Offset(
-                                                                          1.0,
-                                                                          1.0),
-                                                                  blurRadius:
-                                                                      8.0,
-                                                                  spreadRadius:
-                                                                      2.0,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            child: const Center(
-                                                              child: Text(
-                                                                // Cambia el texto dependiendo de si estamos en la última página o no
-                                                                "Guardar",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      else if (currentIndex ==
-                                                          0)
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            if (llave1
-                                                                    .currentState!
-                                                                    .validate() &&
-                                                                programaController
-                                                                    .text
-                                                                    .isNotEmpty) {
-                                                              controller!
-                                                                  .nextPage(
-                                                                duration:
-                                                                    const Duration(
-                                                                        milliseconds:
-                                                                            500),
-                                                                curve: Curves
-                                                                    .easeInOut,
-                                                              );
-                                                            } else {
-                                                              modalCamposRequeridos();
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                            width: 90,
-                                                            height: 40,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  primaryColor,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          13),
-                                                              boxShadow: const [
-                                                                BoxShadow(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  offset:
-                                                                      Offset(
-                                                                          1.0,
-                                                                          1.0),
-                                                                  blurRadius:
-                                                                      8.0,
-                                                                  spreadRadius:
-                                                                      2.0,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            child: const Center(
-                                                              child: Text(
-                                                                "Continuar",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ))),
-                                    ],
-                                  );
-                                }),
-                          ),
-                        )),
-                    Positioned(
-                      left: 10,
-                      top: 10,
-                      child: // Botón de retroceso
-                          GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: background1,
-                          ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
                           child: Center(
-                            child: Transform.translate(
-                              offset: const Offset(
-                                  -2, 0), // adjust the offset as needed
-                              child: const Icon(
-                                Icons.arrow_back_ios_new,
-                                color: primaryColor,
-                                size: 22,
+                            child: Container(
+                              width: 500,
+                              decoration: BoxDecoration(
+                                color: const Color(0x2ADAD7D7),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: PageView.builder(
+                                  controller: controller,
+                                  itemCount: listaPantallas.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  onPageChanged: (int index) {
+                                    if (index >= currentIndex) {
+                                      setState(() {
+                                        currentIndex = index;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        currentIndex = index;
+                                      });
+                                    }
+                                  },
+                                  itemBuilder: (context, index) {
+                                    currentIndex = index;
+                                    return Column(
+                                      children: [
+                                        Expanded(
+                                          flex: 6,
+                                          child: Center(
+                                            child: SingleChildScrollView(
+                                                child: Column(
+                                              children: [
+                                                listaPantallas[index].pantalla,
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                              ],
+                                            )),
+                                          ),
+                                        ),
+                                        Expanded(
+                                            flex: -1,
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 20),
+                                                      child: Row(
+                                                        children: List.generate(
+                                                            listaPantallas
+                                                                .length,
+                                                            (index) => buildDot(
+                                                                index,
+                                                                context)),
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        // Verificar si no está en la primera pantalla para mostrar el botón de retroceder
+                                                        if (currentIndex > 0)
+                                                          // Botón de Retroceder
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              // Retrocede a la pantalla anterior
+                                                              if (currentIndex >
+                                                                  0) {
+                                                                controller!
+                                                                    .previousPage(
+                                                                  duration: const Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                                  curve: Curves
+                                                                      .easeInOut,
+                                                                );
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: 90,
+                                                              height: 40,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color:
+                                                                    primaryColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            13),
+                                                                boxShadow: const [
+                                                                  BoxShadow(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    offset:
+                                                                        Offset(
+                                                                            1.0,
+                                                                            1.0),
+                                                                    blurRadius:
+                                                                        8.0,
+                                                                    spreadRadius:
+                                                                        2.0,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "Retroceder",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        const SizedBox(
+                                                            width:
+                                                                10), // Espaciado entre los botones
+                                                        if (currentIndex ==
+                                                            listaPantallas
+                                                                    .length -
+                                                                1)
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              // Si estamos en la última página
+                                                              if (llave2
+                                                                      .currentState!
+                                                                      .validate() &&
+                                                                  fechaInicioController
+                                                                      .text
+                                                                      .isNotEmpty &&
+                                                                  fechaFinController
+                                                                      .text
+                                                                      .isNotEmpty &&
+                                                                  liderController
+                                                                      .text
+                                                                      .isNotEmpty) {
+                                                                // Cambiar el texto del botón a "Cargando" si todo está validado
+                                                                setState(() {
+                                                                  textoBoton =
+                                                                      "Cargando";
+                                                                });
+
+                                                                // Aquí puedes agregar lógica adicional para enviar el formulario o realizar otra acción
+                                                              } else {
+                                                                modalCamposRequeridos();
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: 90,
+                                                              height: 40,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color:
+                                                                    primaryColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            13),
+                                                                boxShadow: const [
+                                                                  BoxShadow(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    offset:
+                                                                        Offset(
+                                                                            1.0,
+                                                                            1.0),
+                                                                    blurRadius:
+                                                                        8.0,
+                                                                    spreadRadius:
+                                                                        2.0,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  // Cambia el texto dependiendo de si estamos en la última página o no
+                                                                  "Guardar",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        else if (currentIndex ==
+                                                            0)
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              if (llave1
+                                                                      .currentState!
+                                                                      .validate() &&
+                                                                  programaController
+                                                                      .text
+                                                                      .isNotEmpty &&
+                                                                  tipoOfertaController
+                                                                      .text
+                                                                      .isNotEmpty &&
+                                                                  modalidadController
+                                                                      .text
+                                                                      .isNotEmpty) {
+                                                                controller!
+                                                                    .nextPage(
+                                                                  duration: const Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                                  curve: Curves
+                                                                      .easeInOut,
+                                                                );
+                                                              } else {
+                                                                modalCamposRequeridos();
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: 90,
+                                                              height: 40,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color:
+                                                                    primaryColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            13),
+                                                                boxShadow: const [
+                                                                  BoxShadow(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    offset:
+                                                                        Offset(
+                                                                            1.0,
+                                                                            1.0),
+                                                                    blurRadius:
+                                                                        8.0,
+                                                                    spreadRadius:
+                                                                        2.0,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "Continuar",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ))),
+                                      ],
+                                    );
+                                  }),
+                            ),
+                          )),
+                      Positioned(
+                        left: 10,
+                        top: 10,
+                        child: // Botón de retroceso
+                            GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: background1,
+                            ),
+                            child: Center(
+                              child: Transform.translate(
+                                offset: const Offset(
+                                    -2, 0), // adjust the offset as needed
+                                child: const Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: primaryColor,
+                                  size: 22,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                )),
+                    ],
+                  )),
+            ),
           );
         }
       },
@@ -718,6 +748,8 @@ class _FichaFormularioEditarState extends State<FichaFormularioEditar> {
           programaController: programaController,
           codigoController: codigoController,
           descripcionController: descripcionController,
+          tipoOfertaController: tipoOfertaController,
+          modalidadController: modalidadController,
         ),
       )),
       // Segunda pantalla con formulario

@@ -423,274 +423,276 @@ class _MobileChatScreenState extends State<MobileChatScreen> {
   // Interfaz de usuario del chat
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // Encabezado de la interfaz de usuario
-      appBar: AppBar(
-        // Botón de retroceso
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.grey,
+    return SafeArea(
+      child: Scaffold(
+        // Encabezado de la interfaz de usuario
+        appBar: AppBar(
+          // Botón de retroceso
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.grey,
+            ),
           ),
-        ),
-        backgroundColor: background1,
-        title: Row(
-          children: [
-            // Imagen del usuario
-            Stack(
-              children: [
-                // Si no hay una imagen de perfil, se muestra una imagen de usuario por defecto
-                if (widget.usuario.foto != "")
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(
-                      widget.usuario.foto,
+          backgroundColor: background1,
+          title: Row(
+            children: [
+              // Imagen del usuario
+              Stack(
+                children: [
+                  // Si no hay una imagen de perfil, se muestra una imagen de usuario por defecto
+                  if (widget.usuario.foto != "")
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        widget.usuario.foto,
+                      ),
+                      radius: 20,
+                    )
+                  else
+                    CircleAvatar(
+                      backgroundColor: primaryColor,
+                      radius: 20,
+                      child: Text(
+                        widget.usuario.nombres[0].toUpperCase(),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                    radius: 20,
-                  )
-                else
-                  CircleAvatar(
-                    backgroundColor: primaryColor,
-                    radius: 20,
-                    child: Text(
-                      widget.usuario.nombres[0].toUpperCase(),
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
+                  // Widget que indica la disponibilidad del usuario si esta en linea o no
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Container(
+                      width: 10,
+                      height: 10,
+                      decoration: BoxDecoration(
+                        color: widget.usuario.enLinea == false
+                            ? Colors.grey
+                            : primaryColor,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 1.5,
+                        ),
                       ),
                     ),
                   ),
-                // Widget que indica la disponibilidad del usuario si esta en linea o no
-                Positioned(
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    width: 10,
-                    height: 10,
-                    decoration: BoxDecoration(
-                      color: widget.usuario.enLinea == false
-                          ? Colors.grey
-                          : primaryColor,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 1.5,
-                      ),
-                    ),
+                ],
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.01,
+              ),
+              // Nombre del usuario
+              Flexible(
+                child: Text(
+                  '${widget.usuario.nombres} ${widget.usuario.apellidos}',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width > 600 ? 18 : 14,
+                    color: primaryColor,
+                    fontWeight: FontWeight.bold,
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.01,
-            ),
-            // Nombre del usuario
-            Flexible(
-              child: Text(
-                '${widget.usuario.nombres} ${widget.usuario.apellidos}',
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width > 600 ? 18 : 14,
-                  color: primaryColor,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
+            ],
+          ),
+          centerTitle: false,
+          actions: [
+            // Botón para borrar la conversación
+            IconButton(
+              onPressed: () {
+                borrarConversacion(context);
+              },
+              icon: const Icon(Icons.delete, color: Colors.grey),
             ),
           ],
         ),
-        centerTitle: false,
-        actions: [
-          // Botón para borrar la conversación
-          IconButton(
-            onPressed: () {
-              borrarConversacion(context);
-            },
-            icon: const Icon(Icons.delete, color: Colors.grey),
-          ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          // Imagen de fondo
-          Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                left: BorderSide(color: Colors.grey),
-              ),
-              image: DecorationImage(
-                image: AssetImage(
-                  "assets/img/fondoChat.webp",
+        body: Stack(
+          children: [
+            // Imagen de fondo
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  left: BorderSide(color: Colors.grey),
                 ),
-                fit: BoxFit.cover,
+                image: DecorationImage(
+                  image: AssetImage(
+                    "assets/img/fondoChat.webp",
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          // Capa verde semitransparente
-          Container(
-            color: primaryColor.withOpacity(
-                0.5), // Ajusta el nivel de opacidad según sea necesario
-            width: double.infinity,
-            height: double.infinity,
-          ),
-          Column(
-            children: [
-              // Lista de mensajes
-              Expanded(
-                child: listMsg.isEmpty
-                    ? Container()
-                    : ListView.builder(
-                        controller:
-                            _scrollController, // Controlador de desplazamiento
-                        itemCount: listMsg.length,
-                        itemBuilder: (context, index) {
-                          final msg = listMsg[index];
-                          // Verificar si el usuario emisor es el mismo que el usuario autenticado
-                          // para mostrar el mensaje en el lado correspondiente
-                          if (msg.usuarioEmisor ==
-                              widget.usuarioAutenticado.id) {
-                            return MyMessageCard(
-                              message: msg.contenido,
-                              date: msg.fechaEnviado.toString(),
-                              dateMark: msg.fechaLeido.toString(),
-                              imagen: msg.imagen,
-                            );
-                          } else {
-                            return SenderMessageCard(
-                              message: msg.contenido,
-                              date: msg.fechaEnviado.toString(),
-                              imagen: msg.imagen,
-                            );
-                          }
-                        },
-                      ),
-              ),
-              // Panel de escritura
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.grey),
-                  ),
-                  color: background1,
+            // Capa verde semitransparente
+            Container(
+              color: primaryColor.withOpacity(
+                  0.5), // Ajusta el nivel de opacidad según sea necesario
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            Column(
+              children: [
+                // Lista de mensajes
+                Expanded(
+                  child: listMsg.isEmpty
+                      ? Container()
+                      : ListView.builder(
+                          controller:
+                              _scrollController, // Controlador de desplazamiento
+                          itemCount: listMsg.length,
+                          itemBuilder: (context, index) {
+                            final msg = listMsg[index];
+                            // Verificar si el usuario emisor es el mismo que el usuario autenticado
+                            // para mostrar el mensaje en el lado correspondiente
+                            if (msg.usuarioEmisor ==
+                                widget.usuarioAutenticado.id) {
+                              return MyMessageCard(
+                                message: msg.contenido,
+                                date: msg.fechaEnviado.toString(),
+                                dateMark: msg.fechaLeido.toString(),
+                                imagen: msg.imagen,
+                              );
+                            } else {
+                              return SenderMessageCard(
+                                message: msg.contenido,
+                                date: msg.fechaEnviado.toString(),
+                                imagen: msg.imagen,
+                              );
+                            }
+                          },
+                        ),
                 ),
-                child: IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 10,
-                            right: 15,
-                          ),
-                          // Input de escritura
-                          child: TextField(
-                            minLines: 1,
-                            maxLines: null,
-                            controller: _msgController, // Controlador de texto
-                            focusNode: focusNode, // Controlador de foco
-                            decoration: InputDecoration(
-                              prefixIcon: show
-                                  ? IconButton(
-                                      onPressed: () {
-                                        // Si el panel de emojis está abierto, solo lo cerramos
-                                        setState(() {
-                                          show = false;
-                                        });
-                                      },
-                                      icon: const Icon(
-                                        Icons.keyboard_alt_outlined,
-                                        color: Colors.grey,
-                                      ),
-                                    )
-                                  : IconButton(
-                                      onPressed: () {
-                                        // Si el panel de emojis está cerrado, cerramos el teclado y luego abrimos el panel
-                                        setState(() {
-                                          show = true;
-                                        });
-                                      },
-                                      icon: const Icon(
-                                        Icons.emoji_emotions_outlined,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                              // Botón para adjuntar archivos
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  _selectFile(context, true);
-                                },
-                                icon: const Icon(
-                                  Icons.attach_file,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              filled: true,
-                              fillColor: background1,
-                              hintText: 'Escribir un mensaje',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                  width: 0,
-                                  style: BorderStyle.none,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10,
-                                horizontal: 20,
-                              ),
+                // Panel de escritura
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: Colors.grey),
+                    ),
+                    color: background1,
+                  ),
+                  child: IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 10,
+                              right: 15,
                             ),
-                            style: const TextStyle(color: Colors.black),
+                            // Input de escritura
+                            child: TextField(
+                              minLines: 1,
+                              maxLines: null,
+                              controller: _msgController, // Controlador de texto
+                              focusNode: focusNode, // Controlador de foco
+                              decoration: InputDecoration(
+                                prefixIcon: show
+                                    ? IconButton(
+                                        onPressed: () {
+                                          // Si el panel de emojis está abierto, solo lo cerramos
+                                          setState(() {
+                                            show = false;
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.keyboard_alt_outlined,
+                                          color: Colors.grey,
+                                        ),
+                                      )
+                                    : IconButton(
+                                        onPressed: () {
+                                          // Si el panel de emojis está cerrado, cerramos el teclado y luego abrimos el panel
+                                          setState(() {
+                                            show = true;
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.emoji_emotions_outlined,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                // Botón para adjuntar archivos
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    _selectFile(context, true);
+                                  },
+                                  icon: const Icon(
+                                    Icons.attach_file,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                filled: true,
+                                fillColor: background1,
+                                hintText: 'Escribir un mensaje',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: const BorderSide(
+                                    width: 0,
+                                    style: BorderStyle.none,
+                                  ),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 20,
+                                ),
+                              ),
+                              style: const TextStyle(color: Colors.black),
+                            ),
                           ),
                         ),
-                      ),
-                      // Botón para enviar el mensaje
-                      IconButton(
-                        onPressed: () {
-                          // Verificar que el mensaje no este vacío
-                          if (_msgController.text.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'No se puede enviar un mensaje vacio.')),
-                            );
-                          } else {
-                            // Enviar el mensaje y notificar si el mensaje es una imagen
-                            sendMessage(false);
-                            // Limpiar el campo de escritura
-                            _msgController.clear();
-                            // Desplazar el scroll para que se vea el nuevo mensaje
-                            _scrollToBottom();
-                          }
-                        }, // Enviar mensaje al presionar el botón
-                        icon: const Icon(
-                          Icons.send,
-                          color: Colors.grey,
+                        // Botón para enviar el mensaje
+                        IconButton(
+                          onPressed: () {
+                            // Verificar que el mensaje no este vacío
+                            if (_msgController.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'No se puede enviar un mensaje vacio.')),
+                              );
+                            } else {
+                              // Enviar el mensaje y notificar si el mensaje es una imagen
+                              sendMessage(false);
+                              // Limpiar el campo de escritura
+                              _msgController.clear();
+                              // Desplazar el scroll para que se vea el nuevo mensaje
+                              _scrollToBottom();
+                            }
+                          }, // Enviar mensaje al presionar el botón
+                          icon: const Icon(
+                            Icons.send,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // Panel de emojis
-              show
-                  ? Container(
-                      height: 265,
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.grey),
+                // Panel de emojis
+                show
+                    ? Container(
+                        height: 265,
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(10),
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Colors.grey),
+                          ),
+                          color: background1,
                         ),
-                        color: background1,
-                      ),
-                      child: emojiSelect(),
-                    )
-                  : Container(),
-            ],
-          ),
-        ],
+                        child: emojiSelect(),
+                      )
+                    : Container(),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

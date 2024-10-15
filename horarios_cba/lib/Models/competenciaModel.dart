@@ -80,8 +80,6 @@ Future<List<CompetenciaModel>> getCompetencias() async {
             tipoPrograma: competenciadata['programa']['tipoPrograma'] ?? "",
             certificacion: competenciadata['programa']['certificacion'] ?? "",
             descripcion: competenciadata['programa']['descripcion'] ?? "",
-            tipoOferta: competenciadata['programa']['tipoOferta'] ?? "",
-            modalidad: competenciadata['programa']['modalidad'] ?? "",
             area: competenciadata['programa']['area'] ?? "",
           )));
     }

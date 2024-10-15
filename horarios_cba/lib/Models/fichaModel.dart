@@ -19,6 +19,10 @@ class FichaModel {
   final String fechaFin;
   // lugar donde se encontrará la ficha
   final String lugar;
+  // tipo de oferta de la ficha
+  final String tipoOferta;
+  // modalidad de la ficha
+  final String modalidad;
   // estado de la ficha
   final bool estado;
   // programa relacionado a la ficha
@@ -32,6 +36,8 @@ class FichaModel {
       required this.fechaInicio,
       required this.fechaFin,
       required this.lugar,
+      required this.tipoOferta,
+      required this.modalidad,
       required this.estado,
       required this.programa});
 }
@@ -68,6 +74,8 @@ Future<List<FichaModel>> getFichas() async {
         fechaInicio: fichadata['fechaInicio'] ?? "",
         fechaFin: fichadata['fechaFin'] ?? "",
         lugar: fichadata['lugar'] ?? "",
+        tipoOferta: fichadata['tipoOferta'] ?? "",
+        modalidad: fichadata['modalidad'] ?? "",
         estado: fichadata['estado'] ?? false,
         programa: ProgramaModel(
           id: fichadata['programa']['id'] ?? 0,
@@ -82,8 +90,6 @@ Future<List<FichaModel>> getFichas() async {
           tipoPrograma: fichadata['programa']['tipoPrograma'] ?? "",
           certificacion: fichadata['programa']['certificacion'] ?? "",
           descripcion: fichadata['programa']['descripcion'] ?? "",
-          tipoOferta: fichadata['programa']['tipoOferta'] ?? "",
-          modalidad: fichadata['programa']['modalidad'] ?? "",
           area: fichadata['programa']['area'] ?? "",
         ),
       ));

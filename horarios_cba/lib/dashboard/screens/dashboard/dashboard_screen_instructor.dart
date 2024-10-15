@@ -264,7 +264,7 @@ class _DashboardScreenInstructorState extends State<DashboardScreenInstructor> {
                           height: 1,
                         ),
                         const SizedBox(height: defaultPadding),
-                        const PlaneacionesInstructor(),
+                        PlaneacionesInstructor(),
                         const SizedBox(height: defaultPadding),
                         const Divider(
                           color: Colors.grey,

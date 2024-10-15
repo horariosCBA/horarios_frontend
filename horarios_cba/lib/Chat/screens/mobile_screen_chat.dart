@@ -71,69 +71,71 @@ class _MobileScreenChatState extends State<MobileScreenChat> {
   // Cuerpo de la pantalla
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // Encabezado del chat
-      appBar: AppBar(
-        // Regresa a la pantalla anterior
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.grey,
+    return SafeArea(
+      child: Scaffold(
+        // Encabezado del chat
+        appBar: AppBar(
+          // Regresa a la pantalla anterior
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.grey,
+            ),
           ),
-        ),
-        backgroundColor: background1,
-        elevation: 0,
-        title: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(3),
-              width: 40,
-              height: 40,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: primaryColor,
+          backgroundColor: background1,
+          elevation: 0,
+          title: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(3),
+                width: 40,
+                height: 40,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: primaryColor,
+                ),
+                // Coloca aquí tu imagen de logo
+                child: Image.asset('assets/img/logo.png'),
               ),
-              // Coloca aquí tu imagen de logo
-              child: Image.asset('assets/img/logo.png'),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.01,
-            ),
-            const Text(
-              'CBA Mosquera',
-              style: TextStyle(
-                fontSize: 18,
-                color: primaryColor,
-                fontWeight: FontWeight.bold,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.01,
               ),
-            ),
+              const Text(
+                'CBA Mosquera',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          centerTitle: false,
+          actions: [
+            // Botón para ir al buscador de contactos
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BuscadorScreenChat(
+                                usuarioAutenticado: widget.usuarioAutenticado,
+                              )));
+                },
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.grey,
+                )),
           ],
         ),
-        centerTitle: false,
-        actions: [
-          // Botón para ir al buscador de contactos
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BuscadorScreenChat(
-                              usuarioAutenticado: widget.usuarioAutenticado,
-                            )));
-              },
-              icon: const Icon(
-                Icons.search,
-                color: Colors.grey,
-              )),
-        ],
-      ),
-      // Lista de contactos
-      body: ContactsList(
-        usuarioAutenticado: widget.usuarioAutenticado,
-        contactos: contactos,
+        // Lista de contactos
+        body: ContactsList(
+          usuarioAutenticado: widget.usuarioAutenticado,
+          contactos: contactos,
+        ),
       ),
     );
   }

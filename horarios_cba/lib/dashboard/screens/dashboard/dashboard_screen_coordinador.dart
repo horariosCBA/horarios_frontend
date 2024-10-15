@@ -270,7 +270,7 @@ class _DashboardScreenCoordinadorState
                           height: 1,
                         ),
                         const SizedBox(height: defaultPadding),
-                        const PlaneacionesCoordinador(),
+                        PlaneacionesCoordinador(),
                         const SizedBox(height: defaultPadding),
                         const Divider(
                           color: Colors.grey,

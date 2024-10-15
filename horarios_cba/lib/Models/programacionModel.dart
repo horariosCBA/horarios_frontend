@@ -172,14 +172,6 @@ Future<List<ProgramacionModel>> getProgramaciones() async {
                             ['resultadoAprendizaje']['competencia']['programa']
                         ['descripcion'] ??
                     "",
-                tipoOferta: programaciondata['planeacion']
-                            ['resultadoAprendizaje']['competencia']['programa']
-                        ['tipoOferta'] ??
-                    "",
-                modalidad: programaciondata['planeacion']
-                            ['resultadoAprendizaje']['competencia']['programa']
-                        ['modalidad'] ??
-                    "",
                 area: programaciondata['planeacion']['resultadoAprendizaje']
                         ['competencia']['programa']['area'] ??
                     "",

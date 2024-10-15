@@ -48,7 +48,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                     constraints: BoxConstraints(maxWidth: w * 2 / 3),
                     child: Text(
                       // Muestra el texto del mensaje en el contenedor
-                      widget.messages[index]['message'].text.text[0],
+                      widget.messages[index]['message'],
                       style: const TextStyle(color: Colors.white),
                     )),
               ],

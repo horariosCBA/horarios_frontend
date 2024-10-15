@@ -74,6 +74,8 @@ Future<List<Trimestremodel>> getTrimestres() async {
                 fechaInicio: trimestredata['ficha']['fechaInicio'] ?? "",
                 fechaFin: trimestredata['ficha']['fechaFin'] ?? "",
                 lugar: trimestredata['ficha']['lugar'] ?? "",
+                tipoOferta: trimestredata['ficha']['tipoOferta'] ?? "",
+                modalidad: trimestredata['ficha']['modalidad'] ?? "",
                 estado: trimestredata['ficha']['estado'] ?? false,
                 programa: ProgramaModel(
                   id: trimestredata['ficha']['programa']['id'] ?? 0,
@@ -98,10 +100,6 @@ Future<List<Trimestremodel>> getTrimestres() async {
                       trimestredata['ficha']['programa']['certificacion'] ?? "",
                   descripcion:
                       trimestredata['ficha']['programa']['descripcion'] ?? "",
-                  tipoOferta:
-                      trimestredata['ficha']['programa']['tipoOferta'] ?? "",
-                  modalidad:
-                      trimestredata['ficha']['programa']['modalidad'] ?? "",
                   area: trimestredata['ficha']['programa']['area'] ?? "",
                 ))),
       );

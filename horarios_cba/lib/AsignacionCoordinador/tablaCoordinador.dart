@@ -1,4 +1,4 @@
-// ignore_for_file: use_full_hex_values_for_flutter_colors, file_names
+// ignore_for_file: use_full_hex_values_for_flutter_colors, file_names, no_leading_underscores_for_local_identifiers
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:horarios_cba/AsignacionCoordinador/desplegablesAsignacionCoordinador.dart';
@@ -21,6 +21,9 @@ class _TablaCoordinadorState extends State<TablaCoordinador> {
   List<ProgramaCoordinador> programas = [];
 
   List<DataGridRow> registros = [];
+
+  // Controlador del scroll.
+  final ScrollController _scrollController1 = ScrollController();
 
   @override
   void initState() {
@@ -64,102 +67,107 @@ class _TablaCoordinadorState extends State<TablaCoordinador> {
             height: 300,
             width: double.infinity,
             child: Center(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SfDataGrid(
-                  verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
-                  frozenRowsCount: 0,
-                  showVerticalScrollbar: true,
-                  showHorizontalScrollbar: true,
-                  defaultColumnWidth: 200,
-                  shrinkWrapColumns: true,
-                  shrinkWrapRows: true,
-                  rowsPerPage: 10,
-                  source:
-                      _dataGridSource, // Carga los datos de las producciones
-                  selectionMode: SelectionMode.multiple,
-                  showCheckboxColumn: true,
-                  allowSorting: true,
-                  allowFiltering: true,
-                  // Cambia la firma del callback
-                  onSelectionChanged: (List<DataGridRow> addedRows,
-                      List<DataGridRow> removedRows) {
-                    setState(() {
-                      // Añadir filas a la lista de registros seleccionados
-                      registros.addAll(addedRows);
-
-                      // Eliminar filas de la lista de registros seleccionados
-                      for (var row in removedRows) {
-                        registros.remove(row);
-                      }
-                    });
-                  },
-                  // Columnas de la tabla
-                  columns: <GridColumn>[
-                    GridColumn(
-                      width: 300,
-                      columnName: 'Nombre',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text('Nombre'),
+              child: Scrollbar(
+                controller: _scrollController1,
+                thumbVisibility: true,
+                child: SingleChildScrollView(
+                  controller: _scrollController1,
+                  scrollDirection: Axis.horizontal,
+                  child: SfDataGrid(
+                    verticalScrollPhysics: const AlwaysScrollableScrollPhysics(),
+                    frozenRowsCount: 0,
+                    showVerticalScrollbar: true,
+                    showHorizontalScrollbar: true,
+                    defaultColumnWidth: 200,
+                    shrinkWrapColumns: true,
+                    shrinkWrapRows: true,
+                    rowsPerPage: 10,
+                    source:
+                        _dataGridSource, // Carga los datos de las producciones
+                    selectionMode: SelectionMode.multiple,
+                    showCheckboxColumn: true,
+                    allowSorting: true,
+                    allowFiltering: true,
+                    // Cambia la firma del callback
+                    onSelectionChanged: (List<DataGridRow> addedRows,
+                        List<DataGridRow> removedRows) {
+                      setState(() {
+                        // Añadir filas a la lista de registros seleccionados
+                        registros.addAll(addedRows);
+                
+                        // Eliminar filas de la lista de registros seleccionados
+                        for (var row in removedRows) {
+                          registros.remove(row);
+                        }
+                      });
+                    },
+                    // Columnas de la tabla
+                    columns: <GridColumn>[
+                      GridColumn(
+                        width: 300,
+                        columnName: 'Nombre',
+                        label: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          alignment: Alignment.center,
+                          child: const Text('Nombre'),
+                        ),
                       ),
-                    ),
-                    GridColumn(
-                      width: 140,
-                      columnName: 'Fecha Inicio',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text('Fecha Inicio'),
+                      GridColumn(
+                        width: 140,
+                        columnName: 'Fecha Inicio',
+                        label: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          alignment: Alignment.center,
+                          child: const Text('Fecha Inicio'),
+                        ),
                       ),
-                    ),
-                    GridColumn(
-                      width: 140,
-                      columnName: 'Fecha Final',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text('Fecha Final'),
+                      GridColumn(
+                        width: 140,
+                        columnName: 'Fecha Final',
+                        label: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          alignment: Alignment.center,
+                          child: const Text('Fecha Final'),
+                        ),
                       ),
-                    ),
-                    GridColumn(
-                      width: 150,
-                      columnName: 'Duración Lectiva',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text('Duración Lectiva'),
+                      GridColumn(
+                        width: 150,
+                        columnName: 'Duración Lectiva',
+                        label: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          alignment: Alignment.center,
+                          child: const Text('Duración Lectiva'),
+                        ),
                       ),
-                    ),
-                    GridColumn(
-                      width: 150,
-                      columnName: 'Duración Productiva',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text('Duración Productiva'),
+                      GridColumn(
+                        width: 150,
+                        columnName: 'Duración Productiva',
+                        label: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          alignment: Alignment.center,
+                          child: const Text('Duración Productiva'),
+                        ),
                       ),
-                    ),
-                    GridColumn(
-                      width: 150,
-                      columnName: 'Duración Total',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text('Duración Total'),
+                      GridColumn(
+                        width: 150,
+                        columnName: 'Duración Total',
+                        label: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          alignment: Alignment.center,
+                          child: const Text('Duración Total'),
+                        ),
                       ),
-                    ),
-                    GridColumn(
-                      width: 150,
-                      columnName: 'Área',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text('Área'),
+                      GridColumn(
+                        width: 150,
+                        columnName: 'Área',
+                        label: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          alignment: Alignment.center,
+                          child: const Text('Área'),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -205,26 +213,35 @@ class TablaCoordinadorDataGridSource extends DataGridSource {
 
   @override
   DataGridRowAdapter buildRow(DataGridRow row) {
+    // Controlador del scroll.
+    final ScrollController _scrollController2 = ScrollController();
+
     return DataGridRowAdapter(cells: [
       Container(
         padding: const EdgeInsets.all(8.0),
         alignment: Alignment.centerLeft,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SvgPicture.asset(
-                "assets/icons/programas.svg",
-                height: 30,
-                width: 30,
-                colorFilter:
-                    const ColorFilter.mode(Color(0xFF642EFE), BlendMode.srcIn),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                child: Text(row.getCells()[0].value.toString()),
-              ),
-            ],
+        child: Scrollbar(
+          controller: _scrollController2,
+          thumbVisibility: true,
+          child: SingleChildScrollView(
+            controller: _scrollController2,
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  "assets/icons/programas.svg",
+                  height: 30,
+                  width: 30,
+                  colorFilter: const ColorFilter.mode(
+                      Color(0xFF642EFE), BlendMode.srcIn),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
+                  child: Text(row.getCells()[0].value.toString()),
+                ),
+              ],
+            ),
           ),
         ),
       ),

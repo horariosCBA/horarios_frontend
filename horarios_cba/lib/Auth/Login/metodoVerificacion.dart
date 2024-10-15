@@ -1,140 +1,85 @@
-// ignore_for_file: unused_local_variable, use_build_context_synchronously
+// ignore_for_file: unused_local_variable, file_names, use_build_context_synchronously
 
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:horarios_cba/Auth/Source/randomCode.dart';
+import 'package:horarios_cba/Models/usuarioModel.dart';
 import 'package:horarios_cba/constantsDesign.dart';
 import 'package:horarios_cba/provider.dart';
-
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 import '../../Home/homePage.dart';
-import '../../Models/usuarioModel.dart';
-import '../../source.dart';
 import '../Source/verification.dart';
 // import 'package:smtp/smtp.dart';
 
-/// Esta clase representa la pantalla de verificación del correo electrónico para el registro de usuarios.
+/// Esta clase representa la pantalla de verificación del código de acceso.
 ///
-/// Esta clase extiende [StatefulWidget] y proporciona un estado asociado
-/// [_VerificationScreenRegisterState].
+/// La pantalla se utiliza para verificar el código de acceso enviado por correo electrónico.
+/// Recibe un objeto de tipo [UsuarioModel] que contiene los datos del usuario y un código de acceso.
+/// La pantalla muestra un campo de texto para ingresar el código de acceso y un botón para confirmar el código.
 ///
 /// Los siguientes atributos deben ser proporcionados:
-/// - [usuarioNombres]: El nombre del usuario.
-/// - [usuarioApellidos]: El apellido del usuario.
-/// - [usuarioTelefono]: El número de teléfono del usuario.
-/// - [usuarioTdocumento]: El tipo de documento del usuario.
-/// - [usuarionoDocumento]: El número de documento del usuario.
-/// - [usuarioemail]: El correo electrónico del usuario.
-/// - [code]: El código de verificación enviado al correo electrónico del usuario.
-class VerificationScreenRegister extends StatefulWidget {
-  /// El nombre del usuario.
-  final FlutterSecureStorage usuarioNombres;
-
-  /// El apellido del usuario.
-  final FlutterSecureStorage usuarioApellidos;
-
-  /// El número de teléfono del usuario.
-  final FlutterSecureStorage usuarioTelefono;
-
-  /// El tipo de documento del usuario.
-  final FlutterSecureStorage usuarioTdocumento;
-
-  /// El número de documento del usuario.
-  final FlutterSecureStorage usuarioNoDocumento;
-
-  /// El correo electrónico del usuario.
-  final FlutterSecureStorage usuarioEmail;
-
-  /// El código de verificación enviado al correo electrónico del usuario.
+/// - [usuario]: Un objeto de tipo [UsuarioModel] que contiene los datos del usuario.
+/// - [code]: El código de acceso enviado por correo electrónico.
+class VerificationScreen extends StatefulWidget {
+  final UsuarioModel usuario;
   final FlutterSecureStorage code;
 
-  /// Construye un objeto [VerificationScreenRegister].
+  /// Crea una instancia de [VerificationScreen].
   ///
-  /// Los siguientes parámetros deben ser proporcionados:
-  /// - [usuarioNombres]: El nombre del usuario.
-  /// - [usuarioApellidos]: El apellido del usuario.
-  /// - [usuarioTelefono]: El número de teléfono del usuario.
-  /// - [usuarioTdocumento]: El tipo de documento del usuario.
-  /// - [usuarionoDocumento]: El número de documento del usuario.
-  /// - [usuarioemail]: El correo electrónico del usuario.
-  /// - [code]: El código de verificación enviado al correo electrónico del usuario.
-  const VerificationScreenRegister({
+  /// Recibe los siguientes argumentos obligatorios:
+  /// - [key]: La clave de la widget.
+  /// - [usuario]: Un objeto de tipo [UsuarioModel] que contiene los datos del usuario.
+  /// - [code]: El código de acceso enviado por correo electrónico.
+  const VerificationScreen({
     super.key,
-    required this.usuarioNombres,
+    required this.usuario,
     required this.code,
-    required this.usuarioApellidos,
-    required this.usuarioTelefono,
-    required this.usuarioTdocumento,
-    required this.usuarioNoDocumento,
-    required this.usuarioEmail,
   });
 
   @override
-  State<VerificationScreenRegister> createState() =>
-      _VerificationScreenRegisterState();
+  State<VerificationScreen> createState() => _VerificationScreenState();
 }
 
-class _VerificationScreenRegisterState
-    extends State<VerificationScreenRegister> {
-  /// Los controles de texto de los campos de entrada.
+class _VerificationScreenState extends State<VerificationScreen> {
+  /// Lista de controladores de texto para los dígitos de verificación.
   ///
-  /// Cada elemento de la lista es un [TextEditingController] que se utiliza para
-  /// validar el valor ingresado en el campo de entrada correspondiente.
+  /// Cada controlador de texto se utiliza para controlar el valor de un dígito de verificación.
   final List<TextEditingController> _controllers =
       List.generate(6, (_) => TextEditingController());
 
-  /// Las nodos de enfoque de los campos de entrada.
+  /// Lista de nodos de enfoque para los dígitos de verificación.
   ///
-  /// Cada elemento de la lista es un [FocusNode] que se utiliza para
-  /// controlar el enfoque de los campos de entrada correspondientes.
+  /// Cada nodo de enfoque se utiliza para controlar el enfoque de un dígito de verificación.
   final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
 
-  /// La clase de servicio para la verificación de correos electrónicos.
-  final emailService = VerificationService();
+  /// Servicio de verificación de correo electrónico utilizado para enviar y recibir códigos de verificación.
+  final VerificationService emailService = VerificationService();
 
-  /// Indica si se está realizando una carga de información.
+  /// Indica si se está realizando una operación asincrónica, como enviar un código de verificación.
   bool isLoading = false;
 
   /// El código de verificación actual.
   late String _currentCode;
 
-  /// El temporizador que se utiliza para enviar nuevos códigos de verificación.
+  /// El temporizador utilizado para enviar nuevos códigos de verificación.
   late Timer _timer;
 
-  /// El número de veces que se ha enviado un código de verificación.
+  /// El número de envios realizados.
   late int numeroEnvios = 0;
-
-  // Controladores donde se guardaran los datos desencriptados del usuario
-
-  final TextEditingController _nombresController = TextEditingController();
-
-  final TextEditingController _apellidosController = TextEditingController();
-
-  final TextEditingController _telefonoController = TextEditingController();
-
-  final TextEditingController _tipoDocumentoController =
-      TextEditingController();
-
-  final TextEditingController _noDocumentoController = TextEditingController();
-
-  final TextEditingController _emailController = TextEditingController();
-
-  @override
 
   /// Inicializa el estado de la pantalla de verificación del código.
   ///
   /// Establece el código de verificación actual y establece un temporizador que envía
   /// nuevos códigos de verificación cada 300 segundos. Si se han enviado 3 códigos,
   /// se cancela el temporizador y se muestra un diálogo de alerta.
+  @override
   void initState() {
     super.initState();
 
-    // Establecer las variables encriptadas del usuario
-    loadVariables();
+    // Establecer el código de verificación actual
+    loadCode();
 
     // Establecer un temporizador para enviar nuevos códigos de verificación
     _timer = Timer.periodic(
@@ -154,7 +99,7 @@ class _VerificationScreenRegisterState
           } else {
             // Enviar un nuevo código de verificación por correo electrónico
             emailService.djangoSendEmail(
-                _emailController.text, _currentCode, context);
+                widget.usuario.correoElectronico, _currentCode, context);
 
             // Actualizar la interfaz de usuario con el nuevo código de verificación
             nuevoCodigo(context);
@@ -164,123 +109,38 @@ class _VerificationScreenRegisterState
     );
   }
 
-  /// Carga los datos desencriptados y actualiza el estado de la aplicación.
-  void loadVariables() async {
-    // Desencripta y recupera el código almacenado
+  /// Carga el código desencriptado y actualiza el estado de la aplicación.
+  void loadCode() async {
     String? codigo = await decifrarCodigo();
 
-    // Desencripta y recupera los nombres almacenados
-    String? nombres = await decifrarNombres();
+    await widget.code.delete(key: "codigo");
 
-    // Desencripta y recupera los apellidos almacenados
-    String? apellidos = await decifrarApellidos();
-
-    // Desencripta y recupera el número de teléfono almacenado
-    String? telefono = await decifrarTelefono();
-
-    // Desencripta y recupera el tipo de documento almacenado
-    String? tipoDocumento = await decifrarTipoDocumento();
-
-    // Desencripta y recupera el número de documento almacenado
-    String? noDocumento = await decifrarNumeroDocumento();
-
-    // Desencripta y recupera el correo electrónico almacenado
-    String? email = await decifrarCorreo();
-
-    // Elimina los datos almacenados en FlutterSecureStorage
-    await widget.code.delete(key: "codigoRegistro");
-    await widget.usuarioNombres.delete(key: "nombres");
-    await widget.usuarioApellidos.delete(key: "apellidos");
-    await widget.usuarioTelefono.delete(key: "telefono");
-    await widget.usuarioTdocumento.delete(key: "tipoDocumento");
-    await widget.usuarioNoDocumento.delete(key: "numeroDocumento");
-    await widget.usuarioEmail.delete(key: "correo");
-
-    // Actualiza el estado de la aplicación con los valores desencriptados
     setState(() {
       _currentCode = codigo;
-      _nombresController.text = nombres;
-      _apellidosController.text = apellidos;
-      _telefonoController.text = telefono;
-      _tipoDocumentoController.text = tipoDocumento;
-      _noDocumentoController.text = noDocumento;
-      _emailController.text = email;
     });
   }
 
   /// Función asíncrona para desencriptar y recuperar el código almacenado.
   Future<String> decifrarCodigo() async {
     // Recupera el código almacenado en FlutterSecureStorage
-    String? codigo = await widget.code.read(key: 'codigoRegistro');
+    String? codigo = await widget.code.read(key: 'codigo');
     return codigo ??
         ''; // Retorna una cadena vacía si no se encuentra el código
   }
 
-  /// Función asíncrona para desencriptar y recuperar los nombres almacenados.
-  Future<String> decifrarNombres() async {
-    // Recupera los nombres almacenados en FlutterSecureStorage
-    String? nombres = await widget.usuarioNombres.read(key: 'nombres');
-    return nombres ??
-        ''; // Retorna una cadena vacía si no se encuentran los nombres
-  }
-
-  /// Función asíncrona para desencriptar y recuperar los apellidos almacenados.
-  Future<String> decifrarApellidos() async {
-    // Recupera los apellidos almacenados en FlutterSecureStorage
-    String? apellidos = await widget.usuarioApellidos.read(key: 'apellidos');
-    return apellidos ??
-        ''; // Retorna una cadena vacía si no se encuentran los apellidos
-  }
-
-  /// Función asíncrona para desencriptar y recuperar el teléfono almacenado.
-  Future<String> decifrarTelefono() async {
-    // Recupera el número de teléfono almacenado en FlutterSecureStorage
-    String? telefono = await widget.usuarioTelefono.read(key: 'telefono');
-    return telefono ??
-        ''; // Retorna una cadena vacía si no se encuentra el teléfono
-  }
-
-  /// Función asíncrona para desencriptar y recuperar el tipo de documento almacenado.
-  Future<String> decifrarTipoDocumento() async {
-    // Recupera el tipo de documento almacenado en FlutterSecureStorage
-    String? tipoDocumento =
-        await widget.usuarioTdocumento.read(key: 'tipoDocumento');
-    return tipoDocumento ??
-        ''; // Retorna una cadena vacía si no se encuentra el tipo de documento
-  }
-
-  /// Función asíncrona para desencriptar y recuperar el número de documento almacenado.
-  Future<String> decifrarNumeroDocumento() async {
-    // Recupera el número de documento almacenado en FlutterSecureStorage
-    String? numeroDocumento =
-        await widget.usuarioNoDocumento.read(key: 'numeroDocumento');
-    return numeroDocumento ??
-        ''; // Retorna una cadena vacía si no se encuentra el número de documento
-  }
-
-  /// Función asíncrona para desencriptar y recuperar el correo electrónico almacenado.
-  Future<String> decifrarCorreo() async {
-    // Recupera el correo electrónico almacenado en FlutterSecureStorage
-    String? correo = await widget.usuarioEmail.read(key: 'correo');
-    return correo ??
-        ''; // Retorna una cadena vacía si no se encuentra el correo electrónico
-  }
-
-  /// Libera los recursos utilizados por el temporizador y los controles de texto.
+  /// Método que se llama cuando se elimina el widget.
   ///
-  /// Se llama automáticamente cuando se elimina el widget.
-  /// Se debe llamar a [dispose] para liberar los recursos utilizados por el temporizador y los controles de texto.
-  /// Finalmente, se llama al método [dispose] del padre para liberar recursos adicionales.
+  /// Cancela el temporizador y libera los controles de texto.
   @override
   void dispose() {
+    // Se llama al método [dispose] del widget base
+    super.dispose();
+
     // Cancela el temporizador si está activo
     _timer.cancel();
 
     // Llama al método [clearControllers] para liberar los controles de texto
     clearControllers();
-
-    // Llama al método [dispose] del widget base
-    super.dispose();
   }
 
   /// Función asincrónica para confirmar el código de verificación ingresado por el usuario.
@@ -295,74 +155,27 @@ class _VerificationScreenRegisterState
     // Obtener el código de verificación ingresado por el usuario
     String code = getVerificationCode();
 
-    // URL de la API para registrar al usuario
-    String url = "$sourceApi/api/usuarios/";
-
-    // Verificar si el código ingresado coincide con el código de verificación enviado por correo electrónico
     if (code == _currentCode) {
-      // Si los códigos coinciden, envía una solicitud POST a la API para registrar al usuario
-      final headers = {'Content-Type': 'application/json'};
-      final body = jsonEncode({
-        'nombres': _nombresController.text.trim(),
-        'apellidos': _apellidosController.text.trim(),
-        'tipoDocumento': _tipoDocumentoController.text.trim(),
-        'numeroDocumento': _noDocumentoController.text.trim(),
-        'correoElectronico': _emailController.text.trim(),
-        'telefonoCelular': _telefonoController.text.trimRight(),
-        'rol': '',
+      // Cancelamos el temporizador y mostramos la siguiente página
+      setState(() {
+        _timer.cancel();
+        Provider.of<AppState>(context, listen: false)
+            .setUsuarioAutenticado(widget.usuario);
       });
-      final response = await http.post(
-        Uri.parse(url),
-        headers: headers,
-        body: body,
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ),
       );
-
-      // Verificar si la respuesta fue exitosa
-      if (response.statusCode == 201) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-            'El usuario fue registrado exitosamente',
-          ),
-        ));
-        // Obtener la lista de usuarios
-        List<UsuarioModel> usuarios = await getUsuarios();
-        // Buscar al usuario con el número de documento proporcionado
-        final usuarioEncontrado = usuarios
-            .where((usuario) =>
-                usuario.numeroDocumento == _noDocumentoController.text)
-            .firstOrNull;
-        if (usuarioEncontrado != null) {
-          setState(() {
-            // Setear el usuario autenticado en el estado global
-            Provider.of<AppState>(context, listen: false)
-                .setUsuarioAutenticado(usuarioEncontrado);
-            _timer.cancel();
-          });
-        }
-
-        // Navegar a la página de inicio
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomePage(),
-          ),
-        );
-        // Mostrar un diálogo indicando un error de verificación
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-            'Error al registrar el usuario: ${response.statusCode}.',
-          ),
-        ));
-      }
-      // Comprobar si los datos ya están en la base de datos
     } else {
-      // Mostrar un diálogo indicando un error de verificación
+      // Muestra un diálogo indicando un error de verificación
       verificacionError(context);
     }
   }
 
-  /// Llama al método [clear] de cada controlador en la lista `_controllers`
+  /// Llama al método [clear] de cada controlador en la lista [_controllers]
   /// para limpiar los campos de texto.
   void clearControllers() {
     // Recorrer la lista de controles de texto y llamar al método [clear]
@@ -372,51 +185,30 @@ class _VerificationScreenRegisterState
     }
   }
 
-  /// Obtiene el código de verificación concatenando el texto de cada controlador de texto en la lista [_controllers].
-  ///
-  /// Devuelve la cadena resultante.
-  String getVerificationCode() {
-    // Recorrer la lista de controladores de texto y obtener el texto de cada uno,
-    // luego concatenarlos en una sola cadena.
-    return _controllers.map((controller) => controller.text).join();
-  }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, responsive) {
-        // Verificar si la pantalla es del tamaño móvil.
+        // verificar si la oantalla es del tamaño movil.
         if (responsive.maxWidth <= 970) {
-          // Retornar el Scaffold para pantallas móviles.
           return SafeArea(
             child: Scaffold(
               resizeToAvoidBottomInset: true,
               body: Stack(
                 children: [
                   Container(
-                    // Configuración del fondo de pantalla.
                     decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/img/login.webp'), // Ruta de la imagen de fondo
-                        fit: BoxFit.fill, // Ajuste de la imagen al contenedor
-                      ),
-                    ),
-                    width:
-                        MediaQuery.of(context).size.width, // Ancho de la pantalla
-                    height:
-                        MediaQuery.of(context).size.height, // Alto de la pantalla
+                        image: DecorationImage(image: AssetImage(
+                            //imagen ? '../images/imagen4.jpg' : '../images/imagen5.jpg'
+                            'assets/img/login.webp'), fit: BoxFit.cover)),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
                     child: Container(
-                      // Contenedor principal
                       margin: const EdgeInsets.only(
                           left: 23, right: 23, top: 100, bottom: 50),
                       decoration: BoxDecoration(
-                        // Decoración del contenedor
-                        color: const Color.fromARGB(
-                            122, 0, 0, 0), // Color de fondo con opacidad
-                        borderRadius:
-                            BorderRadius.circular(15), // Bordes redondeados
-                      ),
+                          color: const Color.fromARGB(122, 0, 0, 0),
+                          borderRadius: BorderRadius.circular(15)),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 20,
@@ -431,27 +223,27 @@ class _VerificationScreenRegisterState
                                   child: Text(
                                     'Verificación',
                                     style: TextStyle(
-                                      fontSize: 30,
-                                      fontFamily: 'Calibri-Bold',
-                                      color: Colors.white,
-                                    ),
+                                        fontSize: 30,
+                                        fontFamily: 'Calibri-Bold',
+                                        color: Colors.white),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(25),
                                   child: Text.rich(
-                                    // Texto de verificación con correo electrónico
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                    ),
                                     TextSpan(
                                       text:
                                           'Se envío un correo de verificación a ',
                                       children: [
                                         WidgetSpan(
                                           child: SizedBox(
-                                            width:
-                                                150, // Ancho máximo del texto del correo
+                                            width: 150, // ancho máximo del texto
                                             child: Text(
-                                              _emailController
-                                                  .text, // Correo electrónico dinámico
+                                              widget.usuario.correoElectronico,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
                                                 color: Colors.white,
@@ -466,10 +258,6 @@ class _VerificationScreenRegisterState
                                               ', este código tiene una validez de 5 minutos. Transcurrido este tiempo, se enviará un nuevo código.',
                                         ),
                                       ],
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
                                     ),
                                   ),
                                 ),
@@ -498,10 +286,9 @@ class _VerificationScreenRegisterState
                                                   focusNode: _focusNodes[index],
                                                   textAlign: TextAlign.center,
                                                   style: const TextStyle(
-                                                    fontSize: 35,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
-                                                  ),
+                                                      fontSize: 35,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
                                                   decoration: InputDecoration(
                                                     contentPadding:
                                                         const EdgeInsets
@@ -535,7 +322,7 @@ class _VerificationScreenRegisterState
                                                   ],
                                                   onChanged: (value) {
                                                     if (value.length == 1) {
-                                                      // Avanzar al siguiente campo cuando se ingresa un valor
+                                                      // Si se ingresa un valor, pasar al siguiente campo
                                                       _focusNodes[index]
                                                           .unfocus();
                                                       if (index < 5) {
@@ -544,7 +331,7 @@ class _VerificationScreenRegisterState
                                                       }
                                                     } else if (value.isEmpty &&
                                                         index > 0) {
-                                                      // Retroceder al campo anterior cuando se borra un valor
+                                                      // Si se borra un valor, regresar al campo anterior
                                                       _focusNodes[index]
                                                           .unfocus();
                                                       _focusNodes[index - 1]
@@ -565,7 +352,7 @@ class _VerificationScreenRegisterState
                                       const EdgeInsets.symmetric(vertical: 20),
                                   child: InkWell(
                                     onTap: () {
-                                      // Función de verificación
+                                      // Función de Verificación
                                       confirmCode();
                                     },
                                     child: Container(
@@ -636,30 +423,24 @@ class _VerificationScreenRegisterState
             ),
           );
         } else {
-          // Retornar el Scaffold para pantallas más grandes
+          // Vista web
           return SafeArea(
             child: Scaffold(
               body: Stack(
                 children: [
                   Container(
-                    // Configuración del fondo de pantalla.
                     decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/img/login.webp'), // Ruta de la imagen de fondo
-                        fit: BoxFit.fill, // Ajuste de la imagen al contenedor
-                      ),
-                    ),
-                    width:
-                        MediaQuery.of(context).size.width, // Ancho de la pantalla
-                    height:
-                        MediaQuery.of(context).size.height, // Alto de la pantalla
+                        image: DecorationImage(image: AssetImage(
+                            //imagen ? '../images/imagen4.jpg' : '../images/imagen5.jpg'
+                            'assets/img/login.webp'), fit: BoxFit.cover)),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 23.0, vertical: 30.0),
                       child: Row(
                         children: [
-                          // Columna izquierda, información principal
+                          // Columna izquierda, información
                           Expanded(
                             flex: 4,
                             child: SizedBox(
@@ -669,16 +450,19 @@ class _VerificationScreenRegisterState
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'CBA Mosquera', // Título principal
+                                    'CBA Mosquera',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 100,
                                       fontFamily: 'Calibri-Bold',
                                       shadows: [
                                         Shadow(
-                                          color: Colors.black.withOpacity(0.5),
-                                          offset: const Offset(2, 2),
-                                          blurRadius: 3,
+                                          color: Colors.black.withOpacity(
+                                              0.5), // Color y opacidad de la sombra
+                                          offset: const Offset(2,
+                                              2), // Desplazamiento de la sombra (horizontal, vertical)
+                                          blurRadius:
+                                              3, // Radio de desenfoque de la sombra
                                         ),
                                       ],
                                     ),
@@ -686,37 +470,36 @@ class _VerificationScreenRegisterState
                                   Padding(
                                     padding: const EdgeInsets.only(right: 40),
                                     child: Text(
-                                      'El camino hacia el éxito empieza aquí.', // Subtítulo
+                                      'El camino hacia el éxito empieza aquí.',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 19,
                                         fontFamily: 'Calibri',
                                         shadows: [
                                           Shadow(
-                                            color: Colors.black.withOpacity(0.5),
-                                            offset: const Offset(2, 2),
-                                            blurRadius: 3,
+                                            color: Colors.black.withOpacity(
+                                                0.5), // Color y opacidad de la sombra
+                                            offset: const Offset(2,
+                                                2), // Desplazamiento de la sombra (horizontal, vertical)
+                                            blurRadius:
+                                                3, // Radio de desenfoque de la sombra
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
                             ),
                           ),
                           const SizedBox(width: 40),
-                          // Columna derecha con el formulario de verificación
+                          // Columna derecha con formulario.
                           Expanded(
                             flex: 3,
                             child: Container(
                               decoration: BoxDecoration(
-                                // Decoración del contenedor
-                                color: const Color.fromARGB(
-                                    122, 0, 0, 0), // Color de fondo con opacidad
-                                borderRadius: BorderRadius.circular(
-                                    15), // Bordes redondeados
-                              ),
+                                  color: const Color.fromARGB(122, 0, 0, 0),
+                                  borderRadius: BorderRadius.circular(15)),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 20,
@@ -731,16 +514,18 @@ class _VerificationScreenRegisterState
                                           child: Text(
                                             'Verificación',
                                             style: TextStyle(
-                                              fontSize: 35,
-                                              fontFamily: 'Calibri-Bold',
-                                              color: Colors.white,
-                                            ),
+                                                fontSize: 35,
+                                                fontFamily: 'Calibri-Bold',
+                                                color: Colors.white),
                                           ),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(25),
                                           child: Text.rich(
-                                            // Texto de verificación con correo electrónico
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                            ),
                                             TextSpan(
                                               text:
                                                   'Se envío un correo de verificación a ',
@@ -748,15 +533,15 @@ class _VerificationScreenRegisterState
                                                 WidgetSpan(
                                                   child: SizedBox(
                                                     width:
-                                                        150, // Ancho máximo del texto del correo
+                                                        150, // ancho máximo del texto
                                                     child: Text(
-                                                      _emailController
-                                                          .text, // Correo electrónico dinámico
+                                                      widget.usuario
+                                                          .correoElectronico,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       style: const TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 22,
+                                                        fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
@@ -765,13 +550,9 @@ class _VerificationScreenRegisterState
                                                 ),
                                                 const TextSpan(
                                                   text:
-                                                      ', este código tiene una validez de 5 minutos. Transcurrido este tiempo, se enviará un nuevo código.',
+                                                      ', Este código tiene una validez de 5 minutos. Transcurrido este tiempo, se enviará un nuevo código.',
                                                 ),
                                               ],
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18,
-                                              ),
                                             ),
                                           ),
                                         ),
@@ -806,11 +587,11 @@ class _VerificationScreenRegisterState
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: const TextStyle(
-                                                            fontSize: 35,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.black,
-                                                          ),
+                                                              fontSize: 35,
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                              color:
+                                                                  Colors.black),
                                                           decoration:
                                                               InputDecoration(
                                                             contentPadding:
@@ -853,7 +634,7 @@ class _VerificationScreenRegisterState
                                                           onChanged: (value) {
                                                             if (value.length ==
                                                                 1) {
-                                                              // Avanzar al siguiente campo cuando se ingresa un valor
+                                                              // Si se ingresa un valor, pasar al siguiente campo
                                                               _focusNodes[index]
                                                                   .unfocus();
                                                               if (index < 5) {
@@ -864,7 +645,7 @@ class _VerificationScreenRegisterState
                                                             } else if (value
                                                                     .isEmpty &&
                                                                 index > 0) {
-                                                              // Retroceder al campo anterior cuando se borra un valor
+                                                              // Si se borra un valor, regresar al campo anterior
                                                               _focusNodes[index]
                                                                   .unfocus();
                                                               _focusNodes[
@@ -886,7 +667,7 @@ class _VerificationScreenRegisterState
                                               vertical: 20),
                                           child: InkWell(
                                             onTap: () {
-                                              // Función de verificación
+                                              // Función de Verificación
                                               confirmCode();
                                             },
                                             child: Container(
@@ -966,7 +747,19 @@ class _VerificationScreenRegisterState
     );
   }
 
-  /// Método que muestra un diálogo con un mensaje de error cuando el código de verificación no coincide.
+  /// Obtiene el código de verificación concatenando el texto de cada controlador de texto en la lista [_controllers].
+  ///
+  /// Devuelve la cadena resultante.
+  ///
+  /// Esta función recorre cada controlador en la lista [_controllers] y obtiene el texto de cada uno.
+  /// Luego, concatena todos los textos en una sola cadena.
+  String getVerificationCode() {
+    // Recorrer la lista de controladores de texto y obtener el texto de cada uno,
+    // luego concatenarlos en una sola cadena.
+    return _controllers.map((controller) => controller.text).join();
+  }
+
+  /// Muestra un diálogo con un mensaje de error cuando el código de verificación no coincide.
   ///
   /// Este método muestra un diálogo con el título "Error de verificación" y el mensaje "¡El código no coincide!"
   /// en el centro. También muestra una imagen del logo de la aplicación, recortada en forma circular.
@@ -977,6 +770,7 @@ class _VerificationScreenRegisterState
       context: context,
       builder: (context) {
         return AlertDialog(
+          // Título del diálogo
           title: const Center(
               child: Text(
             "Error de verificación",
@@ -986,13 +780,12 @@ class _VerificationScreenRegisterState
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Text(
-                "¡El código no coincide!",
-                textAlign: TextAlign.center,
-              ),
+              // Texto de descripción
+              const Text("¡El código no coincide!"),
               const SizedBox(
                 height: 10,
               ),
+              // Muestra una imagen circular del logo de la aplicación
               ClipOval(
                 child: Container(
                   width: 100, // Ajusta el tamaño según sea necesario
@@ -1063,8 +856,7 @@ class _VerificationScreenRegisterState
             children: <Widget>[
               // Texto informativo para el usuario
               const Text(
-                "¡Se enviará un código nuevo!",
-                textAlign: TextAlign.center,
+                "¡Te enviaremos un código nuevo!",
               ),
               const SizedBox(
                 height: 10,
@@ -1114,31 +906,25 @@ class _VerificationScreenRegisterState
   ///
   /// [context] es el contexto de la aplicación donde se mostrará el diálogo.
   void showAlertAndNavigate(BuildContext context) {
-    // Muestra un diálogo con el contenido personalizado.
+    // Muestra un diálogo con el título "Emails Enviados" y el contenido personalizado.
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          // Título del diálogo
           title: const Center(
               child: Text(
             "Correos Enviados",
             textAlign: TextAlign.center,
-          )),
+          )), // Título del diálogo
           alignment: Alignment.center,
-          // Contenido del diálogo
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              // Texto informativo para el usuario
               const Text(
-                "¡Se han enviado 3 correos! Redirigiendo...",
-                textAlign: TextAlign.center,
-              ),
+                  "¡Se han enviado 3 correos! Redirigiendo..."), // Texto informativo para el usuario
               const SizedBox(
                 height: 10,
               ),
-              // Contenedor circular con la imagen del logo de la aplicación
               ClipOval(
                 child: Container(
                   width: 100, // Ajusta el tamaño según sea necesario
@@ -1161,7 +947,7 @@ class _VerificationScreenRegisterState
 
     // Cierra el diálogo después de 5 segundos y redirige a la página de inicio
     Future.delayed(const Duration(seconds: 5), () {
-      Navigator.pop(context); // Cierra el diálogo
+      Navigator.pop(context); // Cerrar el diálogo
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

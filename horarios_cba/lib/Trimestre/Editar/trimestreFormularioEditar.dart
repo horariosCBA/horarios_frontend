@@ -101,54 +101,601 @@ class _TrimestreFormularioEditarState extends State<TrimestreFormularioEditar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, responsive) {
-          // Verifica si el ancho de la pantalla es menor o igual 970
-          if (responsive.maxWidth <= 970) {
-            return Column(
-              children: [
-                Expanded(
-                    child: Container(
-                  child: Stack(children: [
-                    Positioned(
-                      left: 10,
-                      top: 10,
-                      child: // Botón de retroceso
-                          GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: primaryColor,
-                          ),
-                          child: Center(
-                            child: Transform.translate(
-                              offset: const Offset(
-                                  -2, 0), // adjust the offset as needed
-                              child: const Icon(
-                                Icons.arrow_back_ios_new,
-                                color: background1,
-                                size: 22,
+    return SafeArea(
+      child: Scaffold(
+        body: LayoutBuilder(
+          builder: (context, responsive) {
+            // Verifica si el ancho de la pantalla es menor o igual 970
+            if (responsive.maxWidth <= 970) {
+              return Column(
+                children: [
+                  Expanded(
+                      child: Container(
+                    child: Stack(children: [
+                      Positioned(
+                        left: 10,
+                        top: 10,
+                        child: // Botón de retroceso
+                            GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: primaryColor,
+                            ),
+                            child: Center(
+                              child: Transform.translate(
+                                offset: const Offset(
+                                    -2, 0), // adjust the offset as needed
+                                child: const Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: background1,
+                                  size: 22,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
+                    ]),
+                  )),
+                  Expanded(
+                    flex: 8,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 35, vertical: 50),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: primaryColor.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  topRight: Radius.circular(5))),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  flex: 6,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          "Editar Trimestre",
+                                          style: TextStyle(
+                                              fontFamily: 'Calibri-Bold',
+                                              fontSize: 40,
+                                              color: Colors.black),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        const SizedBox(height: 30),
+                                        Form(
+                                            child: Column(
+                                          children: [
+                                            Tooltip(
+                                              message: "Se requiere este campo.",
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 25.0),
+                                                child:
+                                                    DropdownButtonHideUnderline(
+                                                  child: DropdownButton2<String>(
+                                                    isExpanded: true,
+                                                    hint: const Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            "Seleccione Ficha",
+                                                            style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                              color: Colors.black,
+                                                            ),
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    items: fichasTrimestre
+                                                        .map((item) =>
+                                                            DropdownMenuItem<
+                                                                String>(
+                                                              value: item.valor
+                                                                  .toString(),
+                                                              child: Padding(
+                                                                padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        4.0), // Espaciado opcional
+                                                                child: Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Expanded(
+                                                                      child: Text(
+                                                                        item.titulo,
+                                                                        overflow:
+                                                                            TextOverflow
+                                                                                .ellipsis,
+                                                                        style:
+                                                                            const TextStyle(
+                                                                          fontSize:
+                                                                              14,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          color: Colors
+                                                                              .black,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      child: Text(
+                                                                        item.subtitulo,
+                                                                        overflow:
+                                                                            TextOverflow
+                                                                                .ellipsis,
+                                                                        style:
+                                                                            const TextStyle(
+                                                                          fontSize:
+                                                                              11,
+                                                                          color: Colors
+                                                                              .black54,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ))
+                                                        .toList(),
+                                                    // Valor seleccionado actualmente en el menú desplegable
+                                                    value: _fichaSeleccionada,
+                                                    // Manejar el cambio de selección
+                                                    onChanged: (String? value) {
+                                                      // Actualizar el estado con la nueva selección
+                                                      setState(() {
+                                                        _fichaSeleccionada =
+                                                            value;
+                                                        _fichaController.text =
+                                                            _fichaSeleccionada!;
+                                                      });
+      
+                                                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
+                                                      if (_fichaSeleccionada ==
+                                                              null ||
+                                                          _fichaSeleccionada!
+                                                              .isEmpty) {
+                                                        return;
+                                                      }
+                                                    },
+                                                    buttonStyleData:
+                                                        ButtonStyleData(
+                                                      height: 50,
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 14,
+                                                              right: 14),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                14),
+                                                        border: Border.all(
+                                                          color: Colors.black26,
+                                                        ),
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    iconStyleData:
+                                                        const IconStyleData(
+                                                      icon: Icon(
+                                                        Icons
+                                                            .arrow_forward_ios_outlined,
+                                                      ),
+                                                      iconSize: 14,
+                                                      iconEnabledColor:
+                                                          Colors.black,
+                                                      iconDisabledColor:
+                                                          Colors.grey,
+                                                    ),
+                                                    dropdownStyleData:
+                                                        DropdownStyleData(
+                                                      maxHeight: 200,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                14),
+                                                        color: Colors.white,
+                                                      ),
+                                                      scrollbarTheme:
+                                                          ScrollbarThemeData(
+                                                        radius:
+                                                            const Radius.circular(
+                                                                40),
+                                                        thickness:
+                                                            WidgetStateProperty
+                                                                .all<double>(6),
+                                                        thumbVisibility:
+                                                            WidgetStateProperty
+                                                                .all<bool>(true),
+                                                      ),
+                                                    ),
+                                                    menuItemStyleData:
+                                                        const MenuItemStyleData(
+                                                      height: 60,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 25.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Tooltip(
+                                              message: "Se requiere este campo.",
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 25.0),
+                                                child:
+                                                    DropdownButtonHideUnderline(
+                                                  child: DropdownButton2<String>(
+                                                    isExpanded: true,
+                                                    hint: const Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            "Seleccione número de trimestre",
+                                                            style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                              color: Colors.black,
+                                                            ),
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    items: numerosTrimestre
+                                                        .map((item) =>
+                                                            DropdownMenuItem<
+                                                                String>(
+                                                              value: item.valor
+                                                                  .toString(),
+                                                              child: Text(
+                                                                item.titulo,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                            ))
+                                                        .toList(),
+                                                    // Valor seleccionado actualmente en el menú desplegable
+                                                    value: _numeroSeleccionado,
+                                                    // Manejar el cambio de selección
+                                                    onChanged: (String? value) {
+                                                      // Actualizar el estado con la nueva selección
+                                                      setState(() {
+                                                        _numeroSeleccionado =
+                                                            value;
+                                                        _numeroController.text =
+                                                            _numeroSeleccionado!;
+                                                      });
+      
+                                                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
+                                                      if (_numeroSeleccionado ==
+                                                              null ||
+                                                          _numeroSeleccionado!
+                                                              .isEmpty) {
+                                                        return;
+                                                      }
+                                                    },
+                                                    buttonStyleData:
+                                                        ButtonStyleData(
+                                                      height: 50,
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 14,
+                                                              right: 14),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                14),
+                                                        border: Border.all(
+                                                          color: Colors.black26,
+                                                        ),
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    iconStyleData:
+                                                        const IconStyleData(
+                                                      icon: Icon(
+                                                        Icons
+                                                            .arrow_forward_ios_outlined,
+                                                      ),
+                                                      iconSize: 14,
+                                                      iconEnabledColor:
+                                                          Colors.black,
+                                                      iconDisabledColor:
+                                                          Colors.grey,
+                                                    ),
+                                                    dropdownStyleData:
+                                                        DropdownStyleData(
+                                                      maxHeight: 200,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                14),
+                                                        color: Colors.white,
+                                                      ),
+                                                      scrollbarTheme:
+                                                          ScrollbarThemeData(
+                                                        radius:
+                                                            const Radius.circular(
+                                                                40),
+                                                        thickness:
+                                                            WidgetStateProperty
+                                                                .all<double>(6),
+                                                        thumbVisibility:
+                                                            WidgetStateProperty
+                                                                .all<bool>(true),
+                                                      ),
+                                                    ),
+                                                    menuItemStyleData:
+                                                        const MenuItemStyleData(
+                                                      height: 40,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 25.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Tooltip(
+                                              message: "Se requiere este campo.",
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 25.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    _selectDateFechaInicio(
+                                                        context);
+                                                  },
+                                                  child: Container(
+                                                    height: 50,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 14, right: 14),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              14),
+                                                      border: Border.all(
+                                                        color: Colors.black26,
+                                                      ),
+                                                      color: Colors.white,
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 25,
+                                                              right: 10),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          const Expanded(
+                                                            child: Text(
+                                                              "Seleccione fecha de inicio",
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    Colors.black,
+                                                              ),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                          ),
+                                                          Container(),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              "La fecha seleccionada es: ${formatFecha(_fechaInicioController.text)}",
+                                              style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Tooltip(
+                                              message: "Se requiere este campo.",
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 25.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    _selectDateFechaFin(context);
+                                                  },
+                                                  child: Container(
+                                                    height: 50,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 14, right: 14),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              14),
+                                                      border: Border.all(
+                                                        color: Colors.black26,
+                                                      ),
+                                                      color: Colors.white,
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 25,
+                                                              right: 10),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          const Expanded(
+                                                            child: Text(
+                                                              "Seleccione fecha de finalización",
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    Colors.black,
+                                                              ),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                          ),
+                                                          Container(),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              "La fecha seleccionada es: ${formatFecha(_fechaFinController.text)}",
+                                              style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Center(
+                                              child: Image.asset(
+                                                "assets/img/logo.png",
+                                                width: 100,
+                                                height: 100,
+                                                color: primaryColor,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 20),
+                                          ],
+                                        ))
+                                      ],
+                                    ),
+                                  ))
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  ]),
-                )),
-                Expanded(
-                  flex: 8,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 35, vertical: 50),
+                  ),
+                ],
+              );
+            } else {
+              // Vista por defecto
+              return Column(
+                children: [
+                  Expanded(
                       child: Container(
+                    child: Stack(children: [
+                      Positioned(
+                        left: 10,
+                        top: 10,
+                        child: // Botón de retroceso
+                            GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: primaryColor,
+                            ),
+                            child: Center(
+                              child: Transform.translate(
+                                offset: const Offset(
+                                    -2, 0), // adjust the offset as needed
+                                child: const Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: background1,
+                                  size: 22,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  )),
+                  Expanded(
+                    flex: 8,
+                    child: Center(
+                      child: Container(
+                        width: 950,
+                        height: 550,
                         decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
@@ -156,7 +703,8 @@ class _TrimestreFormularioEditarState extends State<TrimestreFormularioEditar> {
                                 color: primaryColor.withOpacity(0.5),
                                 spreadRadius: 5,
                                 blurRadius: 7,
-                                offset: const Offset(0, 3),
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
                               ),
                             ],
                             borderRadius: const BorderRadius.only(
@@ -164,8 +712,26 @@ class _TrimestreFormularioEditarState extends State<TrimestreFormularioEditar> {
                                 topRight: Radius.circular(5))),
                         child: Row(
                           children: [
+                            // Vista previa de la imagen seleccionada
                             Expanded(
-                                flex: 6,
+                              flex: 3,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(5),
+                                  ),
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/img/fondoFormularioTrimestre.webp'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                                flex: 3,
                                 child: SingleChildScrollView(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -180,115 +746,322 @@ class _TrimestreFormularioEditarState extends State<TrimestreFormularioEditar> {
                                       ),
                                       const SizedBox(height: 30),
                                       Form(
-                                          child: Column(
-                                        children: [
-                                          Tooltip(
-                                            message: "Se requiere este campo.",
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25.0),
-                                              child:
-                                                  DropdownButtonHideUnderline(
-                                                child: DropdownButton2<String>(
-                                                  isExpanded: true,
-                                                  hint: const Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "Seleccione Ficha",
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.black,
-                                                          ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  items: fichasTrimestre
-                                                      .map((item) =>
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                            value: item.valor
-                                                                .toString(),
-                                                            child: Padding(
-                                                              padding: const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical:
-                                                                      4.0), // Espaciado opcional
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Expanded(
-                                                                    child: Text(
-                                                                      item.titulo,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style:
-                                                                          const TextStyle(
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        color: Colors
-                                                                            .black,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child: Text(
-                                                                      item.subtitulo,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style:
-                                                                          const TextStyle(
-                                                                        fontSize:
-                                                                            11,
-                                                                        color: Colors
-                                                                            .black54,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                        child: Column(
+                                          children: [
+                                            Tooltip(
+                                              message: "Se requiere este campo.",
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 25.0),
+                                                child:
+                                                    DropdownButtonHideUnderline(
+                                                  child: DropdownButton2<String>(
+                                                    isExpanded: true,
+                                                    hint: const Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            "Seleccione Ficha",
+                                                            style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                              color: Colors.black,
                                                             ),
-                                                          ))
-                                                      .toList(),
-                                                  // Valor seleccionado actualmente en el menú desplegable
-                                                  value: _fichaSeleccionada,
-                                                  // Manejar el cambio de selección
-                                                  onChanged: (String? value) {
-                                                    // Actualizar el estado con la nueva selección
-                                                    setState(() {
-                                                      _fichaSeleccionada =
-                                                          value;
-                                                      _fichaController.text =
-                                                          _fichaSeleccionada!;
-                                                    });
-
-                                                    // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
-                                                    if (_fichaSeleccionada ==
-                                                            null ||
-                                                        _fichaSeleccionada!
-                                                            .isEmpty) {
-                                                      return;
-                                                    }
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    items: fichasTrimestre
+                                                        .map((item) =>
+                                                            DropdownMenuItem<
+                                                                String>(
+                                                              value: item.valor
+                                                                  .toString(),
+                                                              child: Padding(
+                                                                padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        4.0), // Espaciado opcional
+                                                                child: Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Expanded(
+                                                                      child: Text(
+                                                                        item.titulo,
+                                                                        overflow:
+                                                                            TextOverflow
+                                                                                .ellipsis,
+                                                                        style:
+                                                                            const TextStyle(
+                                                                          fontSize:
+                                                                              14,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          color: Colors
+                                                                              .black,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      child: Text(
+                                                                        item.subtitulo,
+                                                                        overflow:
+                                                                            TextOverflow
+                                                                                .ellipsis,
+                                                                        style:
+                                                                            const TextStyle(
+                                                                          fontSize:
+                                                                              11,
+                                                                          color: Colors
+                                                                              .black54,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ))
+                                                        .toList(),
+                                                    // Valor seleccionado actualmente en el menú desplegable
+                                                    value: _fichaSeleccionada,
+                                                    // Manejar el cambio de selección
+                                                    onChanged: (String? value) {
+                                                      // Actualizar el estado con la nueva selección
+                                                      setState(() {
+                                                        _fichaSeleccionada =
+                                                            value;
+                                                        _fichaController.text =
+                                                            _fichaSeleccionada!;
+                                                      });
+      
+                                                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
+                                                      if (_fichaSeleccionada ==
+                                                              null ||
+                                                          _fichaSeleccionada!
+                                                              .isEmpty) {
+                                                        return;
+                                                      }
+                                                    },
+                                                    buttonStyleData:
+                                                        ButtonStyleData(
+                                                      height: 50,
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 14,
+                                                              right: 14),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                14),
+                                                        border: Border.all(
+                                                          color: Colors.black26,
+                                                        ),
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    iconStyleData:
+                                                        const IconStyleData(
+                                                      icon: Icon(
+                                                        Icons
+                                                            .arrow_forward_ios_outlined,
+                                                      ),
+                                                      iconSize: 14,
+                                                      iconEnabledColor:
+                                                          Colors.black,
+                                                      iconDisabledColor:
+                                                          Colors.grey,
+                                                    ),
+                                                    dropdownStyleData:
+                                                        DropdownStyleData(
+                                                      maxHeight: 200,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                14),
+                                                        color: Colors.white,
+                                                      ),
+                                                      scrollbarTheme:
+                                                          ScrollbarThemeData(
+                                                        radius:
+                                                            const Radius.circular(
+                                                                40),
+                                                        thickness:
+                                                            WidgetStateProperty
+                                                                .all<double>(6),
+                                                        thumbVisibility:
+                                                            WidgetStateProperty
+                                                                .all<bool>(true),
+                                                      ),
+                                                    ),
+                                                    menuItemStyleData:
+                                                        const MenuItemStyleData(
+                                                      height: 60,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 25.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Tooltip(
+                                              message: "Se requiere este campo.",
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 25.0),
+                                                child:
+                                                    DropdownButtonHideUnderline(
+                                                  child: DropdownButton2<String>(
+                                                    isExpanded: true,
+                                                    hint: const Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            "Seleccione número de trimestre",
+                                                            style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                              color: Colors.black,
+                                                            ),
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    items: numerosTrimestre
+                                                        .map((item) =>
+                                                            DropdownMenuItem<
+                                                                String>(
+                                                              value: item.valor
+                                                                  .toString(),
+                                                              child: Text(
+                                                                item.titulo,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                            ))
+                                                        .toList(),
+                                                    // Valor seleccionado actualmente en el menú desplegable
+                                                    value: _numeroSeleccionado,
+                                                    // Manejar el cambio de selección
+                                                    onChanged: (String? value) {
+                                                      // Actualizar el estado con la nueva selección
+                                                      setState(() {
+                                                        _numeroSeleccionado =
+                                                            value;
+                                                        _numeroController.text =
+                                                            _numeroSeleccionado!;
+                                                      });
+      
+                                                      // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
+                                                      if (_numeroSeleccionado ==
+                                                              null ||
+                                                          _numeroSeleccionado!
+                                                              .isEmpty) {
+                                                        return;
+                                                      }
+                                                    },
+                                                    buttonStyleData:
+                                                        ButtonStyleData(
+                                                      height: 50,
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 14,
+                                                              right: 14),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                14),
+                                                        border: Border.all(
+                                                          color: Colors.black26,
+                                                        ),
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    iconStyleData:
+                                                        const IconStyleData(
+                                                      icon: Icon(
+                                                        Icons
+                                                            .arrow_forward_ios_outlined,
+                                                      ),
+                                                      iconSize: 14,
+                                                      iconEnabledColor:
+                                                          Colors.black,
+                                                      iconDisabledColor:
+                                                          Colors.grey,
+                                                    ),
+                                                    dropdownStyleData:
+                                                        DropdownStyleData(
+                                                      maxHeight: 200,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                14),
+                                                        color: Colors.white,
+                                                      ),
+                                                      scrollbarTheme:
+                                                          ScrollbarThemeData(
+                                                        radius:
+                                                            const Radius.circular(
+                                                                40),
+                                                        thickness:
+                                                            WidgetStateProperty
+                                                                .all<double>(6),
+                                                        thumbVisibility:
+                                                            WidgetStateProperty
+                                                                .all<bool>(true),
+                                                      ),
+                                                    ),
+                                                    menuItemStyleData:
+                                                        const MenuItemStyleData(
+                                                      height: 40,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 25.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 20),
+                                            Tooltip(
+                                              message: "Se requiere este campo.",
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 25.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    _selectDateFechaInicio(
+                                                        context);
                                                   },
-                                                  buttonStyleData:
-                                                      ButtonStyleData(
+                                                  child: Container(
                                                     height: 50,
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            left: 14,
-                                                            right: 14),
+                                                            left: 14, right: 14),
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -298,132 +1071,70 @@ class _TrimestreFormularioEditarState extends State<TrimestreFormularioEditar> {
                                                       ),
                                                       color: Colors.white,
                                                     ),
-                                                  ),
-                                                  iconStyleData:
-                                                      const IconStyleData(
-                                                    icon: Icon(
-                                                      Icons
-                                                          .arrow_forward_ios_outlined,
-                                                    ),
-                                                    iconSize: 14,
-                                                    iconEnabledColor:
-                                                        Colors.black,
-                                                    iconDisabledColor:
-                                                        Colors.grey,
-                                                  ),
-                                                  dropdownStyleData:
-                                                      DropdownStyleData(
-                                                    maxHeight: 200,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              14),
-                                                      color: Colors.white,
-                                                    ),
-                                                    scrollbarTheme:
-                                                        ScrollbarThemeData(
-                                                      radius:
-                                                          const Radius.circular(
-                                                              40),
-                                                      thickness:
-                                                          WidgetStateProperty
-                                                              .all<double>(6),
-                                                      thumbVisibility:
-                                                          WidgetStateProperty
-                                                              .all<bool>(true),
-                                                    ),
-                                                  ),
-                                                  menuItemStyleData:
-                                                      const MenuItemStyleData(
-                                                    height: 60,
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 25.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          Tooltip(
-                                            message: "Se requiere este campo.",
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25.0),
-                                              child:
-                                                  DropdownButtonHideUnderline(
-                                                child: DropdownButton2<String>(
-                                                  isExpanded: true,
-                                                  hint: const Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "Seleccione número de trimestre",
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.black,
-                                                          ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  items: numerosTrimestre
-                                                      .map((item) =>
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                            value: item.valor
-                                                                .toString(),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 25,
+                                                              right: 10),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          const Expanded(
                                                             child: Text(
-                                                              item.titulo,
-                                                              style:
-                                                                  const TextStyle(
+                                                              "Seleccione fecha de inicio",
+                                                              style: TextStyle(
                                                                 fontSize: 14,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                color: Colors
-                                                                    .black,
+                                                                color:
+                                                                    Colors.black,
                                                               ),
                                                               overflow:
                                                                   TextOverflow
                                                                       .ellipsis,
                                                             ),
-                                                          ))
-                                                      .toList(),
-                                                  // Valor seleccionado actualmente en el menú desplegable
-                                                  value: _numeroSeleccionado,
-                                                  // Manejar el cambio de selección
-                                                  onChanged: (String? value) {
-                                                    // Actualizar el estado con la nueva selección
-                                                    setState(() {
-                                                      _numeroSeleccionado =
-                                                          value;
-                                                      _numeroController.text =
-                                                          _numeroSeleccionado!;
-                                                    });
-
-                                                    // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
-                                                    if (_numeroSeleccionado ==
-                                                            null ||
-                                                        _numeroSeleccionado!
-                                                            .isEmpty) {
-                                                      return;
-                                                    }
+                                                          ),
+                                                          Container(),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              "La fecha seleccionada es: ${formatFecha(_fechaInicioController.text)}",
+                                              style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Tooltip(
+                                              message: "Se requiere este campo.",
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 25.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    _selectDateFechaFin(context);
                                                   },
-                                                  buttonStyleData:
-                                                      ButtonStyleData(
+                                                  child: Container(
                                                     height: 50,
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            left: 14,
-                                                            right: 14),
+                                                            left: 14, right: 14),
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -433,213 +1144,58 @@ class _TrimestreFormularioEditarState extends State<TrimestreFormularioEditar> {
                                                       ),
                                                       color: Colors.white,
                                                     ),
-                                                  ),
-                                                  iconStyleData:
-                                                      const IconStyleData(
-                                                    icon: Icon(
-                                                      Icons
-                                                          .arrow_forward_ios_outlined,
-                                                    ),
-                                                    iconSize: 14,
-                                                    iconEnabledColor:
-                                                        Colors.black,
-                                                    iconDisabledColor:
-                                                        Colors.grey,
-                                                  ),
-                                                  dropdownStyleData:
-                                                      DropdownStyleData(
-                                                    maxHeight: 200,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              14),
-                                                      color: Colors.white,
-                                                    ),
-                                                    scrollbarTheme:
-                                                        ScrollbarThemeData(
-                                                      radius:
-                                                          const Radius.circular(
-                                                              40),
-                                                      thickness:
-                                                          WidgetStateProperty
-                                                              .all<double>(6),
-                                                      thumbVisibility:
-                                                          WidgetStateProperty
-                                                              .all<bool>(true),
-                                                    ),
-                                                  ),
-                                                  menuItemStyleData:
-                                                      const MenuItemStyleData(
-                                                    height: 40,
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 25.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          Tooltip(
-                                            message: "Se requiere este campo.",
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25.0),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  _selectDateFechaInicio(
-                                                      context);
-                                                },
-                                                child: Container(
-                                                  height: 50,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 14, right: 14),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14),
-                                                    border: Border.all(
-                                                      color: Colors.black26,
-                                                    ),
-                                                    color: Colors.white,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 25,
-                                                            right: 10),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        const Expanded(
-                                                          child: Text(
-                                                            "Seleccione fecha de inicio",
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 25,
+                                                              right: 10),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          const Expanded(
+                                                            child: Text(
+                                                              "Seleccione fecha de finalización",
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    Colors.black,
+                                                              ),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                             ),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
                                                           ),
-                                                        ),
-                                                        Container(),
-                                                      ],
+                                                          Container(),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            "La fecha seleccionada es: ${formatFecha(_fechaInicioController.text)}",
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
+                                            const SizedBox(
+                                              height: 10,
                                             ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          Tooltip(
-                                            message: "Se requiere este campo.",
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25.0),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  _selectDateFechaFin(context);
-                                                },
-                                                child: Container(
-                                                  height: 50,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 14, right: 14),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14),
-                                                    border: Border.all(
-                                                      color: Colors.black26,
-                                                    ),
-                                                    color: Colors.white,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 25,
-                                                            right: 10),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        const Expanded(
-                                                          child: Text(
-                                                            "Seleccione fecha de finalización",
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                          ),
-                                                        ),
-                                                        Container(),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
+                                            Text(
+                                              "La fecha seleccionada es: ${formatFecha(_fechaFinController.text)}",
+                                              style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
                                               ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            "La fecha seleccionada es: ${formatFecha(_fechaFinController.text)}",
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
+                                            const SizedBox(
+                                              height: 20,
                                             ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          Center(
-                                            child: Image.asset(
-                                              "assets/img/logo.png",
-                                              width: 100,
-                                              height: 100,
-                                              color: primaryColor,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                        ],
-                                      ))
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ))
@@ -648,587 +1204,33 @@ class _TrimestreFormularioEditarState extends State<TrimestreFormularioEditar> {
                       ),
                     ),
                   ),
-                ),
-              ],
-            );
-          } else {
-            // Vista por defecto
-            return Column(
-              children: [
-                Expanded(
-                    child: Container(
-                  child: Stack(children: [
-                    Positioned(
-                      left: 10,
-                      top: 10,
-                      child: // Botón de retroceso
-                          GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: primaryColor,
-                          ),
-                          child: Center(
-                            child: Transform.translate(
-                              offset: const Offset(
-                                  -2, 0), // adjust the offset as needed
-                              child: const Icon(
-                                Icons.arrow_back_ios_new,
-                                color: background1,
-                                size: 22,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ]),
-                )),
-                Expanded(
-                  flex: 8,
-                  child: Center(
-                    child: Container(
-                      width: 950,
-                      height: 550,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: primaryColor.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5))),
-                      child: Row(
-                        children: [
-                          // Vista previa de la imagen seleccionada
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height,
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(5),
-                                ),
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/img/fondoFormularioTrimestre.webp'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                              flex: 3,
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Editar Trimestre",
-                                      style: TextStyle(
-                                          fontFamily: 'Calibri-Bold',
-                                          fontSize: 40,
-                                          color: Colors.black),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(height: 30),
-                                    Form(
-                                      child: Column(
-                                        children: [
-                                          Tooltip(
-                                            message: "Se requiere este campo.",
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25.0),
-                                              child:
-                                                  DropdownButtonHideUnderline(
-                                                child: DropdownButton2<String>(
-                                                  isExpanded: true,
-                                                  hint: const Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "Seleccione Ficha",
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.black,
-                                                          ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  items: fichasTrimestre
-                                                      .map((item) =>
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                            value: item.valor
-                                                                .toString(),
-                                                            child: Padding(
-                                                              padding: const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical:
-                                                                      4.0), // Espaciado opcional
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Expanded(
-                                                                    child: Text(
-                                                                      item.titulo,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style:
-                                                                          const TextStyle(
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        color: Colors
-                                                                            .black,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child: Text(
-                                                                      item.subtitulo,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style:
-                                                                          const TextStyle(
-                                                                        fontSize:
-                                                                            11,
-                                                                        color: Colors
-                                                                            .black54,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ))
-                                                      .toList(),
-                                                  // Valor seleccionado actualmente en el menú desplegable
-                                                  value: _fichaSeleccionada,
-                                                  // Manejar el cambio de selección
-                                                  onChanged: (String? value) {
-                                                    // Actualizar el estado con la nueva selección
-                                                    setState(() {
-                                                      _fichaSeleccionada =
-                                                          value;
-                                                      _fichaController.text =
-                                                          _fichaSeleccionada!;
-                                                    });
-
-                                                    // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
-                                                    if (_fichaSeleccionada ==
-                                                            null ||
-                                                        _fichaSeleccionada!
-                                                            .isEmpty) {
-                                                      return;
-                                                    }
-                                                  },
-                                                  buttonStyleData:
-                                                      ButtonStyleData(
-                                                    height: 50,
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 14,
-                                                            right: 14),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              14),
-                                                      border: Border.all(
-                                                        color: Colors.black26,
-                                                      ),
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  iconStyleData:
-                                                      const IconStyleData(
-                                                    icon: Icon(
-                                                      Icons
-                                                          .arrow_forward_ios_outlined,
-                                                    ),
-                                                    iconSize: 14,
-                                                    iconEnabledColor:
-                                                        Colors.black,
-                                                    iconDisabledColor:
-                                                        Colors.grey,
-                                                  ),
-                                                  dropdownStyleData:
-                                                      DropdownStyleData(
-                                                    maxHeight: 200,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              14),
-                                                      color: Colors.white,
-                                                    ),
-                                                    scrollbarTheme:
-                                                        ScrollbarThemeData(
-                                                      radius:
-                                                          const Radius.circular(
-                                                              40),
-                                                      thickness:
-                                                          WidgetStateProperty
-                                                              .all<double>(6),
-                                                      thumbVisibility:
-                                                          WidgetStateProperty
-                                                              .all<bool>(true),
-                                                    ),
-                                                  ),
-                                                  menuItemStyleData:
-                                                      const MenuItemStyleData(
-                                                    height: 60,
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 25.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          Tooltip(
-                                            message: "Se requiere este campo.",
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25.0),
-                                              child:
-                                                  DropdownButtonHideUnderline(
-                                                child: DropdownButton2<String>(
-                                                  isExpanded: true,
-                                                  hint: const Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "Seleccione número de trimestre",
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.black,
-                                                          ),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  items: numerosTrimestre
-                                                      .map((item) =>
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                            value: item.valor
-                                                                .toString(),
-                                                            child: Text(
-                                                              item.titulo,
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                            ),
-                                                          ))
-                                                      .toList(),
-                                                  // Valor seleccionado actualmente en el menú desplegable
-                                                  value: _numeroSeleccionado,
-                                                  // Manejar el cambio de selección
-                                                  onChanged: (String? value) {
-                                                    // Actualizar el estado con la nueva selección
-                                                    setState(() {
-                                                      _numeroSeleccionado =
-                                                          value;
-                                                      _numeroController.text =
-                                                          _numeroSeleccionado!;
-                                                    });
-
-                                                    // Realizar acciones adicionales según sea necesario cuando se selecciona un elemento
-                                                    if (_numeroSeleccionado ==
-                                                            null ||
-                                                        _numeroSeleccionado!
-                                                            .isEmpty) {
-                                                      return;
-                                                    }
-                                                  },
-                                                  buttonStyleData:
-                                                      ButtonStyleData(
-                                                    height: 50,
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 14,
-                                                            right: 14),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              14),
-                                                      border: Border.all(
-                                                        color: Colors.black26,
-                                                      ),
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  iconStyleData:
-                                                      const IconStyleData(
-                                                    icon: Icon(
-                                                      Icons
-                                                          .arrow_forward_ios_outlined,
-                                                    ),
-                                                    iconSize: 14,
-                                                    iconEnabledColor:
-                                                        Colors.black,
-                                                    iconDisabledColor:
-                                                        Colors.grey,
-                                                  ),
-                                                  dropdownStyleData:
-                                                      DropdownStyleData(
-                                                    maxHeight: 200,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              14),
-                                                      color: Colors.white,
-                                                    ),
-                                                    scrollbarTheme:
-                                                        ScrollbarThemeData(
-                                                      radius:
-                                                          const Radius.circular(
-                                                              40),
-                                                      thickness:
-                                                          WidgetStateProperty
-                                                              .all<double>(6),
-                                                      thumbVisibility:
-                                                          WidgetStateProperty
-                                                              .all<bool>(true),
-                                                    ),
-                                                  ),
-                                                  menuItemStyleData:
-                                                      const MenuItemStyleData(
-                                                    height: 40,
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 25.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Tooltip(
-                                            message: "Se requiere este campo.",
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25.0),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  _selectDateFechaInicio(
-                                                      context);
-                                                },
-                                                child: Container(
-                                                  height: 50,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 14, right: 14),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14),
-                                                    border: Border.all(
-                                                      color: Colors.black26,
-                                                    ),
-                                                    color: Colors.white,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 25,
-                                                            right: 10),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        const Expanded(
-                                                          child: Text(
-                                                            "Seleccione fecha de inicio",
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                          ),
-                                                        ),
-                                                        Container(),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            "La fecha seleccionada es: ${formatFecha(_fechaInicioController.text)}",
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          Tooltip(
-                                            message: "Se requiere este campo.",
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25.0),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  _selectDateFechaFin(context);
-                                                },
-                                                child: Container(
-                                                  height: 50,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 14, right: 14),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14),
-                                                    border: Border.all(
-                                                      color: Colors.black26,
-                                                    ),
-                                                    color: Colors.white,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 25,
-                                                            right: 10),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        const Expanded(
-                                                          child: Text(
-                                                            "Seleccione fecha de finalización",
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                          ),
-                                                        ),
-                                                        Container(),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            "La fecha seleccionada es: ${formatFecha(_fechaFinController.text)}",
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ))
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }
-        },
-      ),
-      // Botón para guardar la categoría
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          if (_fichaController.text.isNotEmpty &&
-              _numeroController.text.isNotEmpty &&
-              _fechaInicioController.text.isNotEmpty &&
-              _fechaFinController.text.isNotEmpty) {
-          } else {
-            modalCamposRequeridos();
-          }
-        },
-        label: const Text(
-          "Guardar",
-          style: TextStyle(
-              color: Colors.white, fontSize: 17, fontFamily: 'Calibri-Bold'),
+                ],
+              );
+            }
+          },
         ),
-        icon: const Icon(
-          Icons.save,
-          color: Colors.white,
+        // Botón para guardar la categoría
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            if (_fichaController.text.isNotEmpty &&
+                _numeroController.text.isNotEmpty &&
+                _fechaInicioController.text.isNotEmpty &&
+                _fechaFinController.text.isNotEmpty) {
+            } else {
+              modalCamposRequeridos();
+            }
+          },
+          label: const Text(
+            "Guardar",
+            style: TextStyle(
+                color: Colors.white, fontSize: 17, fontFamily: 'Calibri-Bold'),
+          ),
+          icon: const Icon(
+            Icons.save,
+            color: Colors.white,
+          ),
+          backgroundColor: primaryColor,
         ),
-        backgroundColor: primaryColor,
       ),
     );
   }

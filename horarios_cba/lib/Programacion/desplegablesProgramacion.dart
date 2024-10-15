@@ -3,13 +3,11 @@
 class ProgramaProgramacion {
   final String titulo;
   final String tipo;
-  final String modalidad;
   final int valor;
 
   ProgramaProgramacion(
       {required this.titulo,
       required this.tipo,
-      required this.modalidad,
       required this.valor});
 }
 
@@ -17,17 +15,14 @@ List<ProgramaProgramacion> programasProgramacion = [
   ProgramaProgramacion(
       titulo: "Análisis y desarrollo de software",
       tipo: "Tecnico",
-      modalidad: "Mixta",
       valor: 1),
   ProgramaProgramacion(
       titulo: "Programación orientada a objetos",
       tipo: "Tecnico",
-      modalidad: "Mixta",
       valor: 2),
   ProgramaProgramacion(
       titulo: "Mantenimiento de equipos de cómputo",
       tipo: "Tecnico",
-      modalidad: "Mixta",
       valor: 3),
 ];
 

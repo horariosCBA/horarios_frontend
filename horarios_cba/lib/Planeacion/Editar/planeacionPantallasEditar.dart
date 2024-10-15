@@ -129,7 +129,7 @@ class _PantallaUnoPlaneacionState extends State<PantallaUnoPlaneacion> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        "${item.tipo} - Modalidad ${item.modalidad}",
+                                        item.tipo,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                           fontSize: 11,
@@ -605,7 +605,7 @@ class _PantallaUnoPlaneacionState extends State<PantallaUnoPlaneacion> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        "${item.tipo} - Modalidad ${item.modalidad}",
+                                        item.tipo,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                           fontSize: 11,

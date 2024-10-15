@@ -150,360 +150,362 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     // Consumer por si se necesita acceder al estado
     return Consumer<AppState>(builder: (context, appState, _) {
-      return Scaffold(
-        body: Stack(
-          children: [
-            // Fondo con imágenes que cambian
-            AnimatedSwitcher(
-              duration: const Duration(seconds: 1),
-              child: Image.asset(
-                imageUrls[_currentIndex], // URL de la imagen actual
-                key: ValueKey<String>(
-                    imageUrls[_currentIndex]), // Key única para la animación
-                fit: BoxFit.cover,
+      return SafeArea(
+        child: Scaffold(
+          body: Stack(
+            children: [
+              // Fondo con imágenes que cambian
+              AnimatedSwitcher(
+                duration: const Duration(seconds: 1),
+                child: Image.asset(
+                  imageUrls[_currentIndex], // URL de la imagen actual
+                  key: ValueKey<String>(
+                      imageUrls[_currentIndex]), // Key única para la animación
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
+              ),
+        
+              // Capa verde semitransparente
+              Container(
+                color: primaryColor.withOpacity(
+                    0.5), // Ajusta el nivel de opacidad según sea necesario
                 width: double.infinity,
                 height: double.infinity,
               ),
-            ),
-
-            // Capa verde semitransparente
-            Container(
-              color: primaryColor.withOpacity(
-                  0.5), // Ajusta el nivel de opacidad según sea necesario
-              width: double.infinity,
-              height: double.infinity,
-            ),
-
-            // Logo y texto
-            // Verificación si la variable secundaria es false para mostrar el logo y titulo inicial
-            if (secundaria == false)
-              // Si el dispositivo es escritorio
-              Responsive.isDesktop(context)
-                  ? Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 30.0, left: 30.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
+        
+              // Logo y texto
+              // Verificación si la variable secundaria es false para mostrar el logo y titulo inicial
+              if (secundaria == false)
+                // Si el dispositivo es escritorio
+                Responsive.isDesktop(context)
+                    ? Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 30.0, left: 30.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // Logo
+                              Container(
+                                width: MediaQuery.of(context).size.width *
+                                    0.2, // 20% del ancho de la pantalla
+                                height: MediaQuery.of(context).size.width *
+                                    0.2, // 20% del ancho de la pantalla
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: primaryColor.withOpacity(0.5),
+                                ),
+                                // Coloca aquí tu imagen de logo
+                                child: Image.asset('assets/img/logo.png'),
+                              ),
+        
+                              const SizedBox(width: 20),
+        
+                              // Texto
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Centro de Biotecnología Agropecuaria',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.06,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Calibri-Bold",
+                                        shadows: [
+                                          Shadow(
+                                            color: Colors.black.withOpacity(
+                                                0.5), // Color y opacidad de la sombra
+                                            offset: const Offset(2,
+                                                2), // Desplazamiento de la sombra (horizontal, vertical)
+                                            blurRadius:
+                                                3, // Radio de desenfoque de la sombra
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5),
+                                    Text(
+                                      'SENA Mosquera',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                            0.06, // 6% del ancho de la pantalla
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: "Calibri-Bold",
+                                        shadows: [
+                                          Shadow(
+                                            color: Colors.black.withOpacity(
+                                                0.5), // Color y opacidad de la sombra
+                                            offset: const Offset(2,
+                                                2), // Desplazamiento de la sombra (horizontal, vertical)
+                                            blurRadius:
+                                                3, // Radio de desenfoque de la sombra
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    // Si el dispositivo es movil o tablet
+                    : Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 30.0, left: 30.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              // Títulos
+                              Text(
+                                'Centro de Biotecnología Agropecuaria',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: MediaQuery.of(context).size.width *
+                                      0.06, // 6% del ancho de la pantalla
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Calibri-Bold",
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.black.withOpacity(
+                                          0.5), // Color y opacidad de la sombra
+                                      offset: const Offset(2,
+                                          2), // Desplazamiento de la sombra (horizontal, vertical)
+                                      blurRadius:
+                                          3, // Radio de desenfoque de la sombra
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                'SENA Mosquera',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: MediaQuery.of(context).size.width *
+                                      0.06, // 6% del ancho de la pantalla
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Calibri-Bold",
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.black.withOpacity(
+                                          0.5), // Color y opacidad de la sombra
+                                      offset: const Offset(2,
+                                          2), // Desplazamiento de la sombra (horizontal, vertical)
+                                      blurRadius:
+                                          3, // Radio de desenfoque de la sombra
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+        
+                              // Logo
+                              Container(
+                                width: MediaQuery.of(context).size.width *
+                                    0.2, // 20% del ancho de la pantalla
+                                height: MediaQuery.of(context).size.width *
+                                    0.2, // 20% del ancho de la pantalla
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: primaryColor.withOpacity(0.5),
+                                ),
+                                // Coloca aquí tu imagen de logo
+                                child: Image.asset('assets/img/logo.png'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+        
+              // Contenido
+              // Si la variable secundaria es verdadera, se muestra el contenido del homepage
+              if (secundaria == true)
+                Positioned(
+                  top: 130,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 30.0, left: 30.0),
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            // Logo
-                            Container(
-                              width: MediaQuery.of(context).size.width *
-                                  0.2, // 20% del ancho de la pantalla
-                              height: MediaQuery.of(context).size.width *
-                                  0.2, // 20% del ancho de la pantalla
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: primaryColor.withOpacity(0.5),
-                              ),
-                              // Coloca aquí tu imagen de logo
-                              child: Image.asset('assets/img/logo.png'),
+                            // Sección de objetivos
+                            const ObjetivoSection(),
+                            const SizedBox(
+                              height: defaultPadding,
                             ),
-
-                            const SizedBox(width: 20),
-
-                            // Texto
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Centro de Biotecnología Agropecuaria',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.06,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "Calibri-Bold",
-                                      shadows: [
-                                        Shadow(
-                                          color: Colors.black.withOpacity(
-                                              0.5), // Color y opacidad de la sombra
-                                          offset: const Offset(2,
-                                              2), // Desplazamiento de la sombra (horizontal, vertical)
-                                          blurRadius:
-                                              3, // Radio de desenfoque de la sombra
-                                        ),
-                                      ],
+                            // Sección de conceptos
+                            ConceptoSection(),
+                            const SizedBox(
+                              height: defaultPadding,
+                            ),
+                            // Sección de coordinadores
+                            const CoordinadorSection(),
+                            const SizedBox(
+                              height: defaultPadding,
+                            ),
+                            // Sección de contacto
+                            const Contactosection(),
+                            const SizedBox(
+                              height: defaultPadding,
+                            ),
+                            // Texto de derechos de autor
+                            Center(
+                              child: Text(
+                                '©SENA 2024',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontFamily: 'Calibri-Bold',
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.black.withOpacity(0.5),
+                                      offset: const Offset(2, 2),
+                                      blurRadius: 3,
                                     ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    'SENA Mosquera',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: MediaQuery.of(context)
-                                              .size
-                                              .width *
-                                          0.06, // 6% del ancho de la pantalla
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "Calibri-Bold",
-                                      shadows: [
-                                        Shadow(
-                                          color: Colors.black.withOpacity(
-                                              0.5), // Color y opacidad de la sombra
-                                          offset: const Offset(2,
-                                              2), // Desplazamiento de la sombra (horizontal, vertical)
-                                          blurRadius:
-                                              3, // Radio de desenfoque de la sombra
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
+                            ),
+                            const SizedBox(
+                              height: defaultPadding,
                             ),
                           ],
                         ),
-                      ),
-                    )
-                  // Si el dispositivo es movil o tablet
-                  : Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 30.0, left: 30.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            // Títulos
-                            Text(
-                              'Centro de Biotecnología Agropecuaria',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: MediaQuery.of(context).size.width *
-                                    0.06, // 6% del ancho de la pantalla
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Calibri-Bold",
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black.withOpacity(
-                                        0.5), // Color y opacidad de la sombra
-                                    offset: const Offset(2,
-                                        2), // Desplazamiento de la sombra (horizontal, vertical)
-                                    blurRadius:
-                                        3, // Radio de desenfoque de la sombra
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              'SENA Mosquera',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: MediaQuery.of(context).size.width *
-                                    0.06, // 6% del ancho de la pantalla
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Calibri-Bold",
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black.withOpacity(
-                                        0.5), // Color y opacidad de la sombra
-                                    offset: const Offset(2,
-                                        2), // Desplazamiento de la sombra (horizontal, vertical)
-                                    blurRadius:
-                                        3, // Radio de desenfoque de la sombra
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-
-                            // Logo
-                            Container(
-                              width: MediaQuery.of(context).size.width *
-                                  0.2, // 20% del ancho de la pantalla
-                              height: MediaQuery.of(context).size.width *
-                                  0.2, // 20% del ancho de la pantalla
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: primaryColor.withOpacity(0.5),
-                              ),
-                              // Coloca aquí tu imagen de logo
-                              child: Image.asset('assets/img/logo.png'),
-                            ),
-                          ],
-                        ),
-                      ),
+                      ],
                     ),
-
-            // Contenido
-            // Si la variable secundaria es verdadera, se muestra el contenido del homepage
-            if (secundaria == true)
-              Positioned(
-                top: 130,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 30.0, left: 30.0),
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
+                  ),
+                ),
+        
+              // Iconos en la parte superior derecha
+              // Posiciónamiento del contenido en la parte superior derecha
+              // de la pantalla.
+              const Positioned(
+                top: 40,
+                right: 20,
+                child: Row(
+                  children: [
+                    ChatBoton(),
+                    SizedBox(width: 20), // Espacio entre botones.
+                    ProfileCard(), // Tarjeta de perfil.
+                  ],
+                ),
+              ),
+        
+              // Si la variable secundaria es true muestra este logo
+              if (secundaria == true)
+                Positioned(
+                  top: 40,
+                  left: 20,
+                  child: Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          // Sección de objetivos
-                          const ObjetivoSection(),
-                          const SizedBox(
-                            height: defaultPadding,
+                      GestureDetector(
+                        onTap: () {
+                          // Cambia la variable secundaria a false
+                          setState(() {
+                            secundaria = false;
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(3),
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: primaryColor.withOpacity(0.5),
                           ),
-                          // Sección de conceptos
-                          const ConceptoSection(),
-                          const SizedBox(
-                            height: defaultPadding,
-                          ),
-                          // Sección de coordinadores
-                          const CoordinadorSection(),
-                          const SizedBox(
-                            height: defaultPadding,
-                          ),
-                          // Sección de contacto
-                          const Contactosection(),
-                          const SizedBox(
-                            height: defaultPadding,
-                          ),
-                          // Texto de derechos de autor
-                          Center(
-                            child: Text(
-                              '©SENA 2024',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontFamily: 'Calibri-Bold',
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black.withOpacity(0.5),
-                                    offset: const Offset(2, 2),
-                                    blurRadius: 3,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: defaultPadding,
-                          ),
-                        ],
+                          // Coloca aquí tu imagen de logo
+                          child: Image.asset('assets/img/logo.png'),
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
-
-            // Iconos en la parte superior derecha
-            // Posiciónamiento del contenido en la parte superior derecha
-            // de la pantalla.
-            const Positioned(
-              top: 40,
-              right: 20,
-              child: Row(
-                children: [
-                  ChatBoton(),
-                  SizedBox(width: 20), // Espacio entre botones.
-                  ProfileCard(), // Tarjeta de perfil.
-                ],
-              ),
-            ),
-
-            // Si la variable secundaria es true muestra este logo
-            if (secundaria == true)
-              Positioned(
-                top: 40,
-                left: 20,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        // Cambia la variable secundaria a false
-                        setState(() {
-                          secundaria = false;
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(3),
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: primaryColor.withOpacity(0.5),
-                        ),
-                        // Coloca aquí tu imagen de logo
-                        child: Image.asset('assets/img/logo.png'),
+        
+              // Icono de subir
+              // Si la variable secundaria es false muestra este icono en la parte inferior.
+              // Sirve para cambiar el valor de la variable secundaria y cambiar la vista del home.
+              if (secundaria == false)
+                Positioned(
+                  bottom: 30,
+                  left: 0,
+                  right: 0,
+                  child: SlideTransition(
+                    position: _offsetAnimation,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
-
-            // Icono de subir
-            // Si la variable secundaria es false muestra este icono en la parte inferior.
-            // Sirve para cambiar el valor de la variable secundaria y cambiar la vista del home.
-            if (secundaria == false)
-              Positioned(
-                bottom: 30,
-                left: 0,
-                right: 0,
-                child: SlideTransition(
-                  position: _offsetAnimation,
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_upward,
-                          color: Colors.green, size: 30),
-                      onPressed: () {
-                        // Aquí puedes añadir la lógica para ir hacia arriba
-                        // Cambia la varible secundaria a true
-                        setState(() {
-                          secundaria = true;
-                        });
-                      },
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_upward,
+                            color: Colors.green, size: 30),
+                        onPressed: () {
+                          // Aquí puedes añadir la lógica para ir hacia arriba
+                          // Cambia la varible secundaria a true
+                          setState(() {
+                            secundaria = true;
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ),
-              ),
-
-            // Botón de chatbot
-            Positioned(
-                bottom: 10,
-                right: 10,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ChatBot()),
-                    );
-                  },
-                  child: const Icon(Icons.support_agent),
-                )),
-          ],
+        
+              // Botón de chatbot
+              Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ChatBot()),
+                      );
+                    },
+                    child: const Icon(Icons.support_agent),
+                  )),
+            ],
+          ),
         ),
       );
     });

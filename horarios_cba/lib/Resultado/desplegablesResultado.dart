@@ -3,32 +3,19 @@
 class ProgramaResultado {
   final String titulo;
   final String tipo;
-  final String modalidad;
   final int valor;
 
   ProgramaResultado(
-      {required this.titulo,
-      required this.tipo,
-      required this.modalidad,
-      required this.valor});
+      {required this.titulo, required this.tipo, required this.valor});
 }
 
 List<ProgramaResultado> programasResultado = [
   ProgramaResultado(
-      titulo: "Análisis y desarrollo de software",
-      tipo: "Tecnico",
-      modalidad: "Mixta",
-      valor: 1),
+      titulo: "Análisis y desarrollo de software", tipo: "Tecnico", valor: 1),
   ProgramaResultado(
-      titulo: "Programación orientada a objetos",
-      tipo: "Tecnico",
-      modalidad: "Mixta",
-      valor: 2),
+      titulo: "Programación orientada a objetos", tipo: "Tecnico", valor: 2),
   ProgramaResultado(
-      titulo: "Mantenimiento de equipos de cómputo",
-      tipo: "Tecnico",
-      modalidad: "Mixta",
-      valor: 3),
+      titulo: "Mantenimiento de equipos de cómputo", tipo: "Tecnico", valor: 3),
 ];
 
 class CompetenciaResultado {
@@ -70,4 +57,3 @@ List<NumeroResultado> numerosResultado = [
   NumeroResultado(titulo: "Rap. 14", valor: "Rap. 14"),
   NumeroResultado(titulo: "Rap. 15", valor: "Rap. 15"),
 ];
-

@@ -374,64 +374,67 @@ class _BuscadorScreenChatState extends State<BuscadorScreenChat> {
     List<Tab> tabs = getTabs();
     List<Widget> tabViews = getTabViews();
 
-    // Controlador de pestañas
-    return DefaultTabController(
-      length: tabs.length,
-      child: Scaffold(
-        // Encabezado de la interfaz de usuario
-        appBar: AppBar(
-          // Botón de retroceder
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.grey,
+    
+    return SafeArea(
+      // Controlador de pestañas
+      child: DefaultTabController(
+        length: tabs.length,
+        child: Scaffold(
+          // Encabezado de la interfaz de usuario
+          appBar: AppBar(
+            // Botón de retroceder
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.grey,
+              ),
+            ),
+            backgroundColor: background1,
+            elevation: 0,
+            title: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(3),
+                  width: 40,
+                  height: 40,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: primaryColor,
+                  ),
+                  child: Image.asset('assets/img/logo.png'),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.01,
+                ),
+                const Text(
+                  'CBA Mosquera',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            centerTitle: false,
+            // Encabezado de la barra de pestañas obtenidas de la función [getTabs]
+            bottom: TabBar(
+              indicatorColor: primaryColor,
+              indicatorWeight: 4,
+              labelColor: primaryColor,
+              unselectedLabelColor: Colors.grey,
+              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              tabs: tabs, // Pestañas
+              dividerColor: Colors.transparent,
             ),
           ),
-          backgroundColor: background1,
-          elevation: 0,
-          title: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(3),
-                width: 40,
-                height: 40,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: primaryColor,
-                ),
-                child: Image.asset('assets/img/logo.png'),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.01,
-              ),
-              const Text(
-                'CBA Mosquera',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+          // Cuerpo de las vistas de la barra de pestañas obtenidas de la función [getTabViews]
+          body: TabBarView(
+            children: tabViews, // Vistas de las pestañas
           ),
-          centerTitle: false,
-          // Encabezado de la barra de pestañas obtenidas de la función [getTabs]
-          bottom: TabBar(
-            indicatorColor: primaryColor,
-            indicatorWeight: 4,
-            labelColor: primaryColor,
-            unselectedLabelColor: Colors.grey,
-            labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            tabs: tabs, // Pestañas
-            dividerColor: Colors.transparent,
-          ),
-        ),
-        // Cuerpo de las vistas de la barra de pestañas obtenidas de la función [getTabViews]
-        body: TabBarView(
-          children: tabViews, // Vistas de las pestañas
         ),
       ),
     );
